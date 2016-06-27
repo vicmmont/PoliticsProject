@@ -10,7 +10,7 @@
         var dataFactory = {};
 
         dataFactory.getAllVotesForYear = function(year) {
-            return $http.get("https://congress.api.sunlightfoundation.com/votes?apikey=[API_KEY]&voted_at__gte=2016-01-01T04:00:00Z&fields=&order=voted_at__desc&per_page=50&page=1");
+            return $http.get("https://congress.api.sunlightfoundation.com/votes?apikey=api_key&voted_at__gte=2016-01-01T04:00:00Z&fields=&order=voted_at__desc&per_page=50&page=1");
         }
 
         dataFactory.getNMostRecentVotesForYear = function(count, year) {

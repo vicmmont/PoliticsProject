@@ -9,10 +9,10 @@
         $scope.message = "No message";
 
         function init() {
-            VoteService.getAllVotesForYear(2016)
-            .then(function(response) {
-                $scope.message = response.data.results;
-            });
+            // VoteService.getAllVotesForYear(2016)
+            // .then(function(response) {
+            //     $scope.message = response.data.results;
+            // });
         }
 
         init();

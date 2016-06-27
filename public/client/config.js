@@ -16,24 +16,24 @@
                 controller: "BillDetailController"
             })
             .when("/bills", {
-                templateUrl: "./client/views/bills/bills.html"
+                templateUrl: "./client/views/bills/bills.html",
                 controller: "BillsController"
             })
             .when("/legislatorDetail", {
-                templateUrl: "./client/views/legislatorDetail/legislatorDetail.html"
-                controller: "legislatorDetailController"
+                templateUrl: "./client/views/legislatorDetail/legislatorDetail.html",
+                controller: "LegislatorDetailController"
             })
-            .when("/legislator", {
-                templateUrl: "./client/views/legislator/legislator.html"
-                controller: "legislatorController"
+            .when("/legislators", {
+                templateUrl: "./client/views/legislators/legislators.html",
+                controller: "LegislatorsController"
             })
             .when("/voteDetail", {
-                templateUrl: "./client/views/voteDetail/voteDetail.html"
+                templateUrl: "./client/views/voteDetail/voteDetail.html",
                 controller: "VoteDetailController"
             })
             .when("/votes", {
-                templateUrl: "./client/views/votes/votes.html"
-                controller: "VotesControllers"
+                templateUrl: "./client/views/votes/votes.html",
+                controller: "VotesController"
             })            
             .otherwise({
                 redirectTo: "/home"
