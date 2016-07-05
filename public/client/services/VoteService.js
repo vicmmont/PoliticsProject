@@ -7,28 +7,25 @@
 
     function VoteService($http) {
         var currentVoteId;
-        var dataFactory = {};
 
-        dataFactory.getAllVotesForYear = function(year) {
-            return $http.get("https://congress.api.sunlightfoundation.com/votes?apikey=api_key&voted_at__gte=2016-01-01T04:00:00Z&fields=&order=voted_at__desc&per_page=50&page=1");
+        this.getAllVotesForYear = function(year) {
+            return $http.get("/vote");
         }
 
-        dataFactory.getNMostRecentVotesForYear = function(count, year) {
+        this.getNMostRecentVotesForYear = function(count, year) {
             
         }
 
-        dataFactory.getVoteById = function(id) {
+        this.getVoteById = function(id) {
             
         }
 
-        dataFactory.setCurrentVoteId = function(id) {
+        this.setCurrentVoteId = function(id) {
             currentVoteId = id; 
         }
 
-        dataFactory.getCurrentVoteId = function() {
+        this.getCurrentVoteId = function() {
             return currentVoteId;
         }
-
-        return dataFactory;
     }
 })();

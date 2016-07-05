@@ -3,6 +3,44 @@
 <head>
 </head>
 <body>
-	<h1>Legislators Page!!</h1>
+	
+	<div class="container">
+		<h1 class="text-center">Legislators Page!!</h1>
+		<div class="row">
+			<div class="form-group col-xs-6">
+				<label>Filter By:</label>
+				<select class="form-control" ng-model="model.filterBy" ng-change="model.filterLegislators(model.filterBy)">
+					<option value="" selected>(None)</option>
+					<option value="party-R">Party (Republican)</option>
+					<option value="party-D">Party (Democrat)</option>
+					<option value="party-O">Party (Other)</option>
+					<option value="title-Sen">Chamber (Senate)</option>
+					<option value="title-Rep">Chamber (House)</option>
+				</select>
+			</div>
+
+			<div class="form-group col-xs-6">
+				<label>Sort By:</label>
+				<select class="form-control" ng-model="model.sortBy" ng-change="model.sortLegislators(model.sortBy)">
+					<option value="" selected>(None)</option>
+					<option value="+state_name">State (Ascending)</option>
+					<option value="-state_name">State (Descending)</option>
+					<option value="+last_name">Last Name (Ascending)</option>
+					<option value="-last_name">Last Name (Descending)</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="thumbnail col-xs-6 col-md-2" ng-repeat="legislator in model.displayedLegislators">
+				<img ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg" class="img-responsive" alt="Legislator Image">
+				<div class="caption">
+					<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>
+					<h4>State: {{legislator.state_name}}</h4>
+					<p></p>
+				</div>
+			</div>
+		</div>
+	</div>	
 </body>
 </html>

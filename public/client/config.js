@@ -9,31 +9,38 @@
         $routeProvider
             .when("/home", {
                 templateUrl: "./client/views/overview/overview.html",
-                controller: "OverviewController"
+                controller: "OverviewController",
+                controllerAs: "model"
             })
             .when("/billDetail", {
                 templateUrl: "./client/views/billDetail/billDetail.html",
-                controller: "BillDetailController"
+                controller: "BillDetailController",
+                controllerAs: "model"
             })
             .when("/bills", {
                 templateUrl: "./client/views/bills/bills.html",
-                controller: "BillsController"
+                controller: "BillsController",
+                controllerAs: "model"
             })
             .when("/legislatorDetail", {
                 templateUrl: "./client/views/legislatorDetail/legislatorDetail.html",
-                controller: "LegislatorDetailController"
+                controller: "LegislatorDetailController",
+                controllerAs: "model"
             })
             .when("/legislators", {
                 templateUrl: "./client/views/legislators/legislators.html",
-                controller: "LegislatorsController"
+                controller: "LegislatorsController",
+                controllerAs: "model"
             })
             .when("/voteDetail", {
                 templateUrl: "./client/views/voteDetail/voteDetail.html",
-                controller: "VoteDetailController"
+                controller: "VoteDetailController",
+                controllerAs: "model"
             })
             .when("/votes", {
                 templateUrl: "./client/views/votes/votes.html",
-                controller: "VotesController"
+                controller: "VotesController",
+                controllerAs: "model"
             })            
             .otherwise({
                 redirectTo: "/home"
