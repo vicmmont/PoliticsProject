@@ -6,29 +6,29 @@
 	
 	<div class="container">
 		<h1 class="text-center">Legislators Page!!</h1>
-		<div class="row">
-			<div class="form-group col-xs-6">
-				<label>Filter By:</label>
-				<select class="form-control" ng-model="model.filterBy" ng-change="model.filterLegislators(model.filterBy)">
-					<option value="" selected>(None)</option>
-					<option value="party-R">Party (Republican)</option>
-					<option value="party-D">Party (Democrat)</option>
-					<option value="party-O">Party (Other)</option>
-					<option value="title-Sen">Chamber (Senate)</option>
-					<option value="title-Rep">Chamber (House)</option>
-				</select>
-			</div>
+		<div>
+			<form class="form-inline">
+				<div class="form-group">
+					<h5>Party</h5>
+					<label ng-repeat="checkBox in model.partyCheckboxes">
+						<input type="checkbox" ng-model="checkBox.modelBinding" ng-change="model.updateFilteredParties(checkBox.value, checkBox.modelBinding)">
+						{{checkBox.displayValue}}
+					</label>
 
-			<div class="form-group col-xs-6">
-				<label>Sort By:</label>
-				<select class="form-control" ng-model="model.sortBy" ng-change="model.sortLegislators(model.sortBy)">
-					<option value="" selected>(None)</option>
-					<option value="+state_name">State (Ascending)</option>
-					<option value="-state_name">State (Descending)</option>
-					<option value="+last_name">Last Name (Ascending)</option>
-					<option value="-last_name">Last Name (Descending)</option>
-				</select>
-			</div>
+					<h5>Chamber of Congress</h5>
+					<label ng-repeat="checkBox in model.chamberCheckboxes">
+						<input type="checkbox" ng-model="checkBox.modelBinding" ng-change="model.updateFilteredChambers(checkBox.value, checkBox.modelBinding)">
+						{{checkBox.displayValue}}
+					</label>
+
+					<h5>State</h5>
+					<label ng-repeat="checkBox in model.stateCheckboxes">
+						<input type="checkbox" ng-model="checkBox.modelBinding" ng-change="model.updateFilteredStates(checkBox.value, checkBox.modelBinding)">
+						{{checkBox.displayValue}}
+					</label>
+					<button class="btn-block" ng-click="model.filterLegislators()">Filter</button>
+				</div>
+			</form>
 		</div>
 
 		<div class="row">
