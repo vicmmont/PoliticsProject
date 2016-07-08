@@ -13,7 +13,7 @@
         }
 
         this.getLegislatorById = function(id) {
-            
+            return $http.get("/legislator/" + id);
         }
 
         this.setCurrentLegislatorId = function(id) {

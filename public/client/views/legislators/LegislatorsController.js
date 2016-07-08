@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("LegislatorsController", legislatorsController);
 
-    function legislatorsController(LegislatorService, $filter) {
+    function legislatorsController(LegislatorService, $filter, $location) {
         var vm = this;
         vm.allLegislators = [];
         vm.displayedLegislators = [];
@@ -155,7 +155,7 @@
                 vm.displayedLegislators = vm.allLegislators;
         	}, function(error) {
         		console.log(error);
-        	})
+        	});
         }
 
         init();
@@ -184,7 +184,6 @@
         }
 
         vm.filterLegislators = function(){
-            console.log("filtering legislators");
             var filterArrays = [vm.filteredParties, vm.filteredChambers, vm.filteredStates];
             var filterArrayOptions = [vm.partyCheckboxes, vm.chamberCheckboxes, vm.stateCheckboxes];
             var filterProperties = ["party", "chamber", "state_name"];
@@ -193,20 +192,21 @@
             for (var index = 0; index < filterArrays.length;  index++) {
                 var currentFilterArray = filterArrays[index];
                 if (currentFilterArray.length === 0 || currentFilterArray.length === filterArrayOptions[index].length) {
-                    console.log("did not filter on this iteration");
                     continue;
                 }
 
                 intermediateLegislatorsArray = $filter('filter')(intermediateLegislatorsArray, function(value, ind, array) {
                     var valueOfInterest = value[filterProperties[index]];
-                    console.log("property is: " + filterProperties[index]);
-                    console.log("value of interest is: " + valueOfInterest);
                     return currentFilterArray.indexOf(valueOfInterest) != -1;
                 });
             }
 
             vm.displayedLegislators = intermediateLegislatorsArray;
-            console.log("final number of legislators is:" + intermediateLegislatorsArray.length);
+        }
+
+        vm.onLegislatorClick = function(legislatorId) {
+            console.log("Legislator id is" + legislatorId);
+            $location.url("/legislator/" + legislatorId);
         }
     }
 })();

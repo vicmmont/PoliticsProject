@@ -26,13 +26,14 @@
 						<input type="checkbox" ng-model="checkBox.modelBinding" ng-change="model.updateFilteredStates(checkBox.value, checkBox.modelBinding)">
 						{{checkBox.displayValue}}
 					</label>
+					<h3>Sort By</h3>
 					<button class="btn-block" ng-click="model.filterLegislators()">Filter</button>
 				</div>
 			</form>
 		</div>
 
 		<div class="row">
-			<div class="thumbnail col-xs-6 col-md-2" ng-repeat="legislator in model.displayedLegislators">
+			<div class="thumbnail col-xs-6 col-md-2" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
 				<img ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg" class="img-responsive" alt="Legislator Image">
 				<div class="caption">
 					<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>

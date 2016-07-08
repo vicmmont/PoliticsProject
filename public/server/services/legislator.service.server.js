@@ -14,12 +14,10 @@ module.exports = function(app) {
 	var page = 2;
 
 	/* ---------- Routes ---------- */
-	app.get("/legislator", getLegislators);
-	function newGetLegislators(req, res) {
+	app.get("/legislator", getCurrentLegislators);
+	app.get("/legislator/:id", getLegislatorById);
 
-	}
-
-	function getLegislators(req, res) {
+	function getCurrentLegislators(req, res) {
 		if (legislators != null) {
 			res.send({results: legislators});
 			return;
@@ -31,6 +29,19 @@ module.exports = function(app) {
 
 		http(requestUrl)
 			.then(getLegislatorsProcess)
+			.catch(handleError);
+	}
+
+	function getLegislatorById(req, res) {
+		var id = req.params.id;
+		var requestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]&fields=bioguide_id,first_name,nickname,middle_name,last_name,name_suffix,party,chamber,gender,state_name,district,state_rank,title,birthday,term_start,term_end,phone,fax,office,website,contact_form,twitter_id,facebook_id";
+		requestUrl = requestUrl.replace("[api_key]", api_key);
+		requestUrl = requestUrl + "&bioguide_id=" + id;
+		http(requestUrl)
+			.then(function(response){
+				console.log("Response is" + response);
+				res.send(response);
+			})
 			.catch(handleError);
 	}
 

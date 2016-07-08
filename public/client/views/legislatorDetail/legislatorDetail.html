@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<img ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" class="img-responsive center-block">
+				<br>
+				<button class="btn-block btn-primary">Contact</button>
+			</div>
+			<div class="col-sm-8">
+				<h1>{{model.currentLegislator.first_name}} {{model.currentLegislator.last_name}} ({{model.currentLegislator.party}})</h1>
+				<p><strong>Term:</strong> {{model.currentLegislator.term_start}} - {{model.currentLegislator.term_end}}</p>
+				<p><strong>Phone:</strong> {{model.currentLegislator.phone}}</p>
+				<p><strong>Birthday: </strong> {{model.currentLegislator.birthday}} (Age: {{model.currentLegislator.age}})</p>
+				<p><strong>Office:</strong> {{model.currentLegislator.office}}</p>
+				<a class="btn btn-social-icon btn-facebook" ng-show="model.currentLegislator.facebook_id" href="https://facebook.com/{{model.currentLegislator.facebook_id}}" target="_blank">
+					<span class="fa fa-facebook-square fa-3x"></span>
+				</a>
+				<a class="btn btn-social-icon btn-twitter" ng-show="model.currentLegislator.twitter_id" href="https://twitter.com/{{model.currentLegislator.twitter_id}}" target="_blank">
+					<span class="fa fa-twitter fa-3x"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

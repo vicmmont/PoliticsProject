@@ -22,7 +22,7 @@
                 controller: "BillsController",
                 controllerAs: "model"
             })
-            .when("/legislatorDetail", {
+            .when("/legislator/:legislatorId", {
                 templateUrl: "./client/views/legislatorDetail/legislatorDetail.html",
                 controller: "LegislatorDetailController",
                 controllerAs: "model"
