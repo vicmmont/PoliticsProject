@@ -1,7 +1,7 @@
 var http = require("request-promise");
 
 module.exports = function(app) {
-	var requestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]&fields=bioguide_id,first_name,nickname,middle_name,last_name,name_suffix,party,chamber,gender,state_name,district,state_rank,title,birthday,term_start,term_end,phone,fax,office,website,contact_form,twitter_id&order=last_name__asc&page=1&per_page=50";
+	var requestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]&fields=bioguide_id,first_name,last_name,party,chamber,gender,state_name,district,title&order=last_name__asc&page=1&per_page=50";
 	var newRequestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]";
 	var api_key = "";
 	var legislators = null;
@@ -34,7 +34,7 @@ module.exports = function(app) {
 
 	function getLegislatorById(req, res) {
 		var id = req.params.id;
-		var requestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]&fields=bioguide_id,first_name,nickname,middle_name,last_name,name_suffix,party,chamber,gender,state_name,district,state_rank,title,birthday,term_start,term_end,phone,fax,office,website,contact_form,twitter_id,facebook_id";
+		var requestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]&fields=bioguide_id,first_name,middle_name,last_name,name_suffix,party,state_name,district,state_rank,title,birthday,term_start,term_end,phone,fax,office,website,contact_form,twitter_id,facebook_id";
 		requestUrl = requestUrl.replace("[api_key]", api_key);
 		requestUrl = requestUrl + "&bioguide_id=" + id;
 		http(requestUrl)

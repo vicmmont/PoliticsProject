@@ -7,22 +7,77 @@
 		<br>
 		<div class="row">
 			<div class="col-sm-4">
-				<img ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" class="img-responsive center-block">
+				<img class="img-responsive center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
 				<br>
-				<button class="btn-block btn-primary">Contact</button>
+				<a class="btn btn-block btn-primary" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
 			</div>
 			<div class="col-sm-8">
-				<h1>{{model.currentLegislator.first_name}} {{model.currentLegislator.last_name}} ({{model.currentLegislator.party}})</h1>
-				<p><strong>Term:</strong> {{model.currentLegislator.term_start}} - {{model.currentLegislator.term_end}}</p>
-				<p><strong>Phone:</strong> {{model.currentLegislator.phone}}</p>
-				<p><strong>Birthday: </strong> {{model.currentLegislator.birthday}} (Age: {{model.currentLegislator.age}})</p>
-				<p><strong>Office:</strong> {{model.currentLegislator.office}}</p>
-				<a class="btn btn-social-icon btn-facebook" ng-show="model.currentLegislator.facebook_id" href="https://facebook.com/{{model.currentLegislator.facebook_id}}" target="_blank">
-					<span class="fa fa-facebook-square fa-3x"></span>
-				</a>
-				<a class="btn btn-social-icon btn-twitter" ng-show="model.currentLegislator.twitter_id" href="https://twitter.com/{{model.currentLegislator.twitter_id}}" target="_blank">
-					<span class="fa fa-twitter fa-3x"></span>
-				</a>
+				<h1>{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
+				<h3 ng-show="model.currentLegislator.district" style="margin-top:0">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
+				<h3 ng-show="model.currentLegislator.state_rank" style="margin-top:0">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
+				
+				<!-- Information in table format -->
+				<table class="table">
+					<tr>
+						<td>
+							<strong>Term:</strong>	
+						</td>
+						<td>
+							{{model.currentLegislator.term_start | date : "longDate"}} - {{model.currentLegislator.term_end | date : "longDate"}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong>Birthday: </strong>	
+						</td>
+						<td>
+							{{model.currentLegislator.birthday | date : "longDate"}} (Age: {{model.age}})
+						</td>
+					</tr>
+					<tr ng-show="model.currentLegislator.phone">
+						<td>
+							<strong>Phone:</strong>
+						</td>
+						<td>
+							{{model.currentLegislator.phone}}
+						</td>
+					</tr>
+					<tr>
+					<tr ng-show="model.currentLegislator.fax">
+						<td>
+							<strong>Fax:</strong>
+						</td>
+						<td>
+							{{model.currentLegislator.fax}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong>Office:</strong>
+						</td>
+						<td>
+							{{model.currentLegislator.office}}
+						</td>
+					</tr>
+					<tr ng-show="model.currentLegislator.website">
+						<td>
+							<strong>Website:</strong>
+						</td>
+						<td>
+							<a ng-href="{{model.currentLegislator.website}}" target="_blank">{{model.currentLegislator.website}}</a>
+						</td>
+					</tr>
+				</table>
+
+				<!-- Social Media Icons -->
+				<div class="text-center">
+					<a class="btn btn-social-icon btn-facebook" ng-show="model.currentLegislator.facebook_id" href="https://facebook.com/{{model.currentLegislator.facebook_id}}" target="_blank">
+						<span class="fa fa-facebook-square fa-3x"></span>
+					</a>
+					<a class="btn btn-social-icon btn-twitter" ng-show="model.currentLegislator.twitter_id" href="https://twitter.com/{{model.currentLegislator.twitter_id}}" target="_blank">
+						<span class="fa fa-twitter fa-3x"></span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

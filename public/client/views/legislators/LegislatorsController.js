@@ -9,167 +9,92 @@
         var vm = this;
         vm.allLegislators = [];
         vm.displayedLegislators = [];
-
+        vm.displayedLegislatorsCount = 0;
         vm.filteredParties = [];
         vm.filteredChambers = [];
         vm.filteredStates = [];
 
         vm.partyCheckboxes = [
-            { modelBinding: "model.democrat",    value: "D", displayValue: "Democrat" },
-            { modelBinding: "model.republican",  value: "R", displayValue: "Republican" },
-            { modelBinding: "model.independent", value: "I", displayValue: "Independent" }
+            { isChecked: false, value: "D", displayValue: "Democrat" },
+            { isChecked: false, value: "R", displayValue: "Republican" },
+            { isChecked: false, value: "I", displayValue: "Independent" }
         ];
 
         vm.chamberCheckboxes = [
-            { modelBinding: "model.senate", value: "senate", displayValue: "Senate"},
-            { modelBinding: "model.house",  value: "house",  displayValue: "House of Representatives"}
+            { isChecked: false, value: "senate", displayValue: "Senate"},
+            { isChecked: false, value: "house",  displayValue: "House of Representatives"}
         ];
 
         vm.stateCheckboxes = [
-            { modelBinding: "model.alabama",            value: "Alabama",               displayValue: "Alabama" },
-            { modelBinding: "model.alaska",             value: "Alaska",                displayValue: "Alaska" },
-            { modelBinding: "model.americanSamoa",      value: "American Samoa",        displayValue: "American Samoa" },
-            { modelBinding: "model.arizona",            value: "Arizona",               displayValue: "Arizona" },
-            { modelBinding: "model.arkansas",           value: "Arkansas",              displayValue: "Arkansas" },
-            { modelBinding: "model.california",         value: "California",            displayValue: "California" },
-            { modelBinding: "model.colorado",           value: "Colorado",              displayValue: "Colorado" },
-            { modelBinding: "model.connecticut",        value: "Connecticut",           displayValue: "Connecticut" },
-            { modelBinding: "model.districtOfColumbia", value: "District of Columbia",  displayValue: "District of Columbia" },
-            { modelBinding: "model.delaware",           value: "Delaware",              displayValue: "Delaware" },
-            { modelBinding: "model.florida",            value: "Florida",               displayValue: "Florida" },
-            { modelBinding: "model.georgia",            value: "Georgia",               displayValue: "Georgia" },
-            { modelBinding: "model.guam",               value: "Guam",                  displayValue: "Guam" },
-            { modelBinding: "model.hawaii",             value: "hawaii",                displayValue: "Hawaii" },
-            { modelBinding: "model.idaho",              value: "Idaho",                 displayValue: "Idaho" },
-            { modelBinding: "model.illinois",           value: "Illinois",              displayValue: "Illinois" },
-            { modelBinding: "model.indiana",            value: "Indiana",               displayValue: "Indiana" },
-            { modelBinding: "model.iowa",               value: "Iowa",                  displayValue: "Iowa" },
-            { modelBinding: "model.kansas",             value: "Kansas",                displayValue: "Kansas" },
-            { modelBinding: "model.kentucky",           value: "Kentucky",              displayValue: "Kentucky" },
-            { modelBinding: "model.louisiana",          value: "Louisiana",             displayValue: "Louisiana" },
-            { modelBinding: "model.maine",              value: "Maine",                 displayValue: "Maine" },
-            { modelBinding: "model.maryland",           value: "Maryland",              displayValue: "Maryland" },
-            { modelBinding: "model.massachusetts",      value: "Massachusetts",         displayValue: "Massachusetts" },
-            { modelBinding: "model.michigan",           value: "Michigan",              displayValue: "Michigan" },
-            { modelBinding: "model.minnesota",          value: "Minnesota",             displayValue: "Minnesota" },
-            { modelBinding: "model.mississippi",        value: "Mississippi",           displayValue: "Mississippi" },
-            { modelBinding: "model.missouri",           value: "Missouri",              displayValue: "Missouri" },
-            { modelBinding: "model.montana",            value: "Montana",               displayValue: "Montana" },
-            { modelBinding: "model.nebraska",           value: "Nebraska",              displayValue: "Nebraska" },
-            { modelBinding: "model.nevada",             value: "Nevada",                displayValue: "Nevada" },
-            { modelBinding: "model.newHampshire",       value: "New Hampshire",         displayValue: "New Hampshire" },
-            { modelBinding: "model.newJersey",          value: "New Jersey",            displayValue: "New Jersey" },
-            { modelBinding: "model.newMexico",          value: "New Mexico",            displayValue: "New Mexico" },
-            { modelBinding: "model.newYork",            value: "New York",              displayValue: "New York" },
-            { modelBinding: "model.northCarolina",      value: "North Carolina",        displayValue: "North Carolina" },
-            { modelBinding: "model.northDakota",        value: "North Dakota",          displayValue: "North Dakota" },
-            { modelBinding: "model.ohio",               value: "Ohio",                  displayValue: "Ohio" },
-            { modelBinding: "model.oklahoma",           value: "Oklahoma",              displayValue: "Oklahoma" },
-            { modelBinding: "model.oregon",             value: "Oregon",                displayValue: "Oregon" },
-            { modelBinding: "model.pennsylvania",       value: "Pennsylvania",          displayValue: "Pennsylvania" },
-            { modelBinding: "model.puertoRico",         value: "Puerto Rico",           displayValue: "Puerto Rico" },
-            { modelBinding: "model.rhodeIsland",        value: "Rhode Island",          displayValue: "Rhode Island" },
-            { modelBinding: "model.southCarolina",      value: "South Carolina",        displayValue: "South Carolina" },
-            { modelBinding: "model.southDakota",        value: "South Dakota",          displayValue: "South Dakota" },
-            { modelBinding: "model.tennessee",          value: "Tennessee",             displayValue: "Tennessee" },
-            { modelBinding: "model.texas",              value: "Texas",                 displayValue: "Texas" },
-            { modelBinding: "model.utah",               value: "Utah",                  displayValue: "Utah" },
-            { modelBinding: "model.usVirginIslands",    value: "US Virgin Islands",     displayValue: "US Virgin Islands" },
-            { modelBinding: "model.vermont",            value: "Vermont",               displayValue: "Vermont" },
-            { modelBinding: "model.virginia",           value: "Virginia",              displayValue: "Virginia" },
-            { modelBinding: "model.washington",         value: "Washington",            displayValue: "Washington" },
-            { modelBinding: "model.westVirginia",       value: "West Virginia",         displayValue: "West Virginia" },
-            { modelBinding: "model.wisconsin",          value: "Wisconsin",             displayValue: "Wisconsin" },
-            { modelBinding: "model.wyoming",            value: "Wyoming",               displayValue: "Wyoming" }
+            { isChecked: false,  value: "Alabama",               displayValue: "Alabama" },
+            { isChecked: false,  value: "Alaska",                displayValue: "Alaska" },
+            { isChecked: false,  value: "American Samoa",        displayValue: "American Samoa" },
+            { isChecked: false,  value: "Arizona",               displayValue: "Arizona" },
+            { isChecked: false,  value: "Arkansas",              displayValue: "Arkansas" },
+            { isChecked: false,  value: "California",            displayValue: "California" },
+            { isChecked: false,  value: "Colorado",              displayValue: "Colorado" },
+            { isChecked: false,  value: "Connecticut",           displayValue: "Connecticut" },
+            { isChecked: false,  value: "District of Columbia",  displayValue: "District of Columbia" },
+            { isChecked: false,  value: "Delaware",              displayValue: "Delaware" },
+            { isChecked: false,  value: "Florida",               displayValue: "Florida" },
+            { isChecked: false,  value: "Georgia",               displayValue: "Georgia" },
+            { isChecked: false,  value: "Guam",                  displayValue: "Guam" },
+            { isChecked: false,  value: "hawaii",                displayValue: "Hawaii" },
+            { isChecked: false,  value: "Idaho",                 displayValue: "Idaho" },
+            { isChecked: false,  value: "Illinois",              displayValue: "Illinois" },
+            { isChecked: false,  value: "Indiana",               displayValue: "Indiana" },
+            { isChecked: false,  value: "Iowa",                  displayValue: "Iowa" },
+            { isChecked: false,  value: "Kansas",                displayValue: "Kansas" },
+            { isChecked: false,  value: "Kentucky",              displayValue: "Kentucky" },
+            { isChecked: false,  value: "Louisiana",             displayValue: "Louisiana" },
+            { isChecked: false,  value: "Maine",                 displayValue: "Maine" },
+            { isChecked: false,  value: "Maryland",              displayValue: "Maryland" },
+            { isChecked: false,  value: "Massachusetts",         displayValue: "Massachusetts" },
+            { isChecked: false,  value: "Michigan",              displayValue: "Michigan" },
+            { isChecked: false,  value: "Minnesota",             displayValue: "Minnesota" },
+            { isChecked: false,  value: "Mississippi",           displayValue: "Mississippi" },
+            { isChecked: false,  value: "Missouri",              displayValue: "Missouri" },
+            { isChecked: false,  value: "Montana",               displayValue: "Montana" },
+            { isChecked: false,  value: "Nebraska",              displayValue: "Nebraska" },
+            { isChecked: false,  value: "Nevada",                displayValue: "Nevada" },
+            { isChecked: false,  value: "New Hampshire",         displayValue: "New Hampshire" },
+            { isChecked: false,  value: "New Jersey",            displayValue: "New Jersey" },
+            { isChecked: false,  value: "New Mexico",            displayValue: "New Mexico" },
+            { isChecked: false,  value: "New York",              displayValue: "New York" },
+            { isChecked: false,  value: "North Carolina",        displayValue: "North Carolina" },
+            { isChecked: false,  value: "North Dakota",          displayValue: "North Dakota" },
+            { isChecked: false,  value: "Ohio",                  displayValue: "Ohio" },
+            { isChecked: false,  value: "Oklahoma",              displayValue: "Oklahoma" },
+            { isChecked: false,  value: "Oregon",                displayValue: "Oregon" },
+            { isChecked: false,  value: "Pennsylvania",          displayValue: "Pennsylvania" },
+            { isChecked: false,  value: "Puerto Rico",           displayValue: "Puerto Rico" },
+            { isChecked: false,  value: "Rhode Island",          displayValue: "Rhode Island" },
+            { isChecked: false,  value: "South Carolina",        displayValue: "South Carolina" },
+            { isChecked: false,  value: "South Dakota",          displayValue: "South Dakota" },
+            { isChecked: false,  value: "Tennessee",             displayValue: "Tennessee" },
+            { isChecked: false,  value: "Texas",                 displayValue: "Texas" },
+            { isChecked: false,  value: "Utah",                  displayValue: "Utah" },
+            { isChecked: false,  value: "US Virgin Islands",     displayValue: "US Virgin Islands" },
+            { isChecked: false,  value: "Vermont",               displayValue: "Vermont" },
+            { isChecked: false,  value: "Virginia",              displayValue: "Virginia" },
+            { isChecked: false,  value: "Washington",            displayValue: "Washington" },
+            { isChecked: false,  value: "West Virginia",         displayValue: "West Virginia" },
+            { isChecked: false,  value: "Wisconsin",             displayValue: "Wisconsin" },
+            { isChecked: false,  value: "Wyoming",               displayValue: "Wyoming" }
         ];
-
-        /* Filter Variables */
-        //Party
-        vm.democrat = false;
-        vm.depublican = false;
-        vm.independent = false;
-        //Chamber
-        vm.senate = false;
-        vm.house = false;
-        //States
-        vm.alabama = false;
-        vm.alaska  = false;
-        vm.americanSamoa = false;
-        vm.arizona = false;
-        vm.arkansas = false;
-        vm.california = false;
-        vm.colorado = false;
-        vm.connecticut = false;
-        vm.districtOfColumbia = false;
-        vm.delaware = false;
-        vm.florida = false;
-        vm.georgia = false;
-        vm.guam = false;
-        vm.hawaii = false;
-        vm.idaho = false;
-        vm.illinois = false;
-        vm.indiana = false;
-        vm.iowa = false;
-        vm.kansas = false;
-        vm.kentucky = false;
-        vm.louisiana = false;
-        vm.maine = false;
-        vm.maryland = false;
-        vm.massachusetts = false;
-        vm.michigan = false;
-        vm.minnesota = false;
-        vm.mississippi = false;
-        vm.missouri = false;
-        vm.montana = false;
-        vm.nebraska = false;
-        vm.nevada = false;
-        vm.newHampshire = false;
-        vm.newJersey = false;
-        vm.newMexico = false;
-        vm.newYork = false;
-        vm.northCarolina = false;
-        vm.northDakota = false;
-        vm.ohio = false;
-        vm.oklahoma = false;
-        vm.oregon = false;
-        vm.pennsylvania = false;
-        vm.puertoRico = false;
-        vm.rhodeIsland = false;
-        vm.southCarolina = false;
-        vm.southDakota = false;
-        vm.tennessee = false;
-        vm.texas = false;
-        vm.utah = false;
-        vm.usVirginIslands = false;
-        vm.vermont = false;
-        vm.virginia = false;
-        vm.washington = false;
-        vm.westVirginia = false;
-        vm.wisconsin = false;
-        vm.wyoming = false;
 
         function init() {
         	LegislatorService.getAllCurrentLegislators()
         	.then(function(response) {
         		vm.allLegislators = response.data.results;
                 vm.displayedLegislators = vm.allLegislators;
+                vm.displayedLegislatorsCount = vm.allLegislators.length;
         	}, function(error) {
         		console.log(error);
         	});
         }
 
         init();
-
-        function updateFilterArray(value, arrayOfValues, isIn) {
-            if (isIn) {
-                arrayOfValues.push(value);
-            } else {
-                var index = arrayOfValues.indexOf(value);
-                if (index >= 0) {
-                    arrayOfValues.splice(index, 1);
-                }
-            }
-        }
 
         vm.updateFilteredParties = function(party, isIn) {
             updateFilterArray(party, vm.filteredParties, isIn);
@@ -183,7 +108,7 @@
             updateFilterArray(state, vm.filteredStates, isIn);
         }
 
-        vm.filterLegislators = function(){
+        vm.filterLegislators = function() {
             var filterArrays = [vm.filteredParties, vm.filteredChambers, vm.filteredStates];
             var filterArrayOptions = [vm.partyCheckboxes, vm.chamberCheckboxes, vm.stateCheckboxes];
             var filterProperties = ["party", "chamber", "state_name"];
@@ -202,11 +127,42 @@
             }
 
             vm.displayedLegislators = intermediateLegislatorsArray;
+            vm.displayedLegislatorsCount = intermediateLegislatorsArray.length;
+        }
+
+        vm.clearPartyFilters = function() {
+            uncheckCheckboxes(vm.partyCheckboxes);
+            vm.filteredParties = [];
+        }
+
+        vm.clearAllFilters = function() {
+            vm.clearPartyFilters();
+            vm.clearChamberFilters();
+            vm.clearStateFilters();
         }
 
         vm.onLegislatorClick = function(legislatorId) {
             console.log("Legislator id is" + legislatorId);
             $location.url("/legislator/" + legislatorId);
         }
+
+        /* Helper methods */
+        function updateFilterArray(value, arrayOfValues, isIn) {
+            if (isIn) {
+                arrayOfValues.push(value);
+            } else {
+                var index = arrayOfValues.indexOf(value);
+                if (index >= 0) {
+                    arrayOfValues.splice(index, 1);
+                }
+            }
+        }
+
+        function uncheckCheckboxes(checkboxesArray) {
+            for (var index = 0; index < checkboxesArray.length; index++) {
+                checkboxesArray[index].isChecked = false;
+            }
+        }
+
     }
 })();
