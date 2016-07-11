@@ -10,9 +10,19 @@
 				<img class="img-responsive center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
 				<br>
 				<a class="btn btn-block btn-primary" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
+				
+				<!-- Social Media Icons -->
+				<div class="text-center">
+					<a class="btn btn-social-icon btn-facebook" ng-show="model.currentLegislator.facebook_id" href="https://facebook.com/{{model.currentLegislator.facebook_id}}" target="_blank">
+						<span class="fa fa-facebook-square fa-3x"></span>
+					</a>
+					<a class="btn btn-social-icon btn-twitter" ng-show="model.currentLegislator.twitter_id" href="https://twitter.com/{{model.currentLegislator.twitter_id}}" target="_blank">
+						<span class="fa fa-twitter fa-3x"></span>
+					</a>
+				</div>
 			</div>
 			<div class="col-sm-8">
-				<h1>{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
+				<h1 style="margin-top:0;">{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
 				<h3 ng-show="model.currentLegislator.district" style="margin-top:0">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
 				<h3 ng-show="model.currentLegislator.state_rank" style="margin-top:0">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
 				
@@ -68,16 +78,6 @@
 						</td>
 					</tr>
 				</table>
-
-				<!-- Social Media Icons -->
-				<div class="text-center">
-					<a class="btn btn-social-icon btn-facebook" ng-show="model.currentLegislator.facebook_id" href="https://facebook.com/{{model.currentLegislator.facebook_id}}" target="_blank">
-						<span class="fa fa-facebook-square fa-3x"></span>
-					</a>
-					<a class="btn btn-social-icon btn-twitter" ng-show="model.currentLegislator.twitter_id" href="https://twitter.com/{{model.currentLegislator.twitter_id}}" target="_blank">
-						<span class="fa fa-twitter fa-3x"></span>
-					</a>
-				</div>
 			</div>
 		</div>
 	</div>

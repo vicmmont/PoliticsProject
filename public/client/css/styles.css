@@ -7,3 +7,6 @@ html {
 	font-size: 16px;
 }
 
+.thumbnail:hover {
+	background-color: #19C7E7;
+}

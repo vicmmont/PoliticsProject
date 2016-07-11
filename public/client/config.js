@@ -12,14 +12,14 @@
                 controller: "OverviewController",
                 controllerAs: "model"
             })
-            .when("/billDetail", {
-                templateUrl: "./client/views/billDetail/billDetail.html",
-                controller: "BillDetailController",
-                controllerAs: "model"
-            })
             .when("/bills", {
                 templateUrl: "./client/views/bills/bills.html",
                 controller: "BillsController",
+                controllerAs: "model"
+            })
+            .when("/bill/:billId", {
+                templateUrl: "./client/views/billDetail/billDetail.html",
+                controller: "BillDetailController",
                 controllerAs: "model"
             })
             .when("/legislator/:legislatorId", {

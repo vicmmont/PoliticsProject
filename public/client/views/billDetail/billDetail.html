@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<div class="container">
+		<h1 class="text-center" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
+		<h1 class="text-center" ng-show="model.currentBill.short_title">{{model.currentBill.short_title}}</h1>
+		<h2 class="text-center">Introduced on: {{model.currentBill.introduced_on | date : "longDate"}}</h2>
+		<h2 class="text-center">Introduced in the <span ng-show="model.currentBill.chamber === 'house'">House of Representatives</span> <span ng-show="model.currentBill.chamber === 'senate'">Senate</span> </h2>
+		
+		<button class="btn-lg btn-primary btn-block" type="button" data-toggle="collapse" data-target="#summary_short" aria-expanded="false" aria-controls="summary_short" ng-show="model.currentBill.summary_short">
+		  Short Summary <span class="caret"></span>
+		</button>
+		<div class="collapse well" id="summary_short" ng-show-"model.currentBill.summary">
+			<p>{{model.currentBill.summary_short}}</p>	
+		</div>
+		<br>
+		<button class="btn-lg btn-primary btn-block" type="button" data-toggle="collapse" data-target="#summary" aria-expanded="false" aria-controls="summary" ng-show-"model.currentBill.summary">
+		  Full Summary <span class="caret"></span>
+		</button>
+		<div class="collapse well" id="summary" ng-show-"model.currentBill.summary">
+			<p>{{model.currentBill.summary}}</p>	
+		</div>
+	</div>
+</body>
+</html>

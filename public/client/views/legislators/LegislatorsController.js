@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("LegislatorsController", legislatorsController);
 
-    function legislatorsController(LegislatorService, $filter, $location) {
+    function legislatorsController(LegislatorService, $filter, $location, $window) {
         var vm = this;
         vm.allLegislators = [];
         vm.displayedLegislators = [];
@@ -13,6 +13,7 @@
         vm.filteredParties = [];
         vm.filteredChambers = [];
         vm.filteredStates = [];
+        vm.sortBy;
 
         vm.partyCheckboxes = [
             { isChecked: false, value: "D", displayValue: "Democrat" },
@@ -89,6 +90,7 @@
         		vm.allLegislators = response.data.results;
                 vm.displayedLegislators = vm.allLegislators;
                 vm.displayedLegislatorsCount = vm.allLegislators.length;
+                vm.sortBy = "last_name";
         	}, function(error) {
         		console.log(error);
         	});
@@ -127,6 +129,7 @@
             }
 
             vm.displayedLegislators = intermediateLegislatorsArray;
+            vm.sortLegislators(vm.sortBy);
             vm.displayedLegislatorsCount = intermediateLegislatorsArray.length;
         }
 
@@ -142,8 +145,12 @@
         }
 
         vm.onLegislatorClick = function(legislatorId) {
-            console.log("Legislator id is" + legislatorId);
             $location.url("/legislator/" + legislatorId);
+        }
+
+        vm.sortLegislators = function(sortingCriteria) {
+            vm.displayedLegislators = $filter('orderBy')(vm.displayedLegislators, sortingCriteria);
+            $window.scrollTo(0,0);
         }
 
         /* Helper methods */
