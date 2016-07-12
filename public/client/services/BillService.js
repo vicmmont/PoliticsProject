@@ -6,7 +6,7 @@
 
     function billService($http) {
 
-        this.getAllBillsForYear = function(year) {
+        this.getBillsForCurrentSession = function(year) {
             return $http.get("/bill");
         }
 

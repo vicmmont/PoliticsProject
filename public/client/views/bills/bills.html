@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
-		<h1 class="text-center">Bills Page!</h1>
-		<br>
-		<div class="row">
-
-		<div class="form-group col-md-2">
-			<select class="form-control" id="filterBy">
-				<option selected>Filter By</option>
-				<option>Pulga</option>
-				<option>Bionica</option>
-				<option>ya</option>
-			</select>
+	<h1 class="text-center">Bills for Current Legislative Session</h1>
+	<div class="row">
+		<div class="small-6 large-3 columns thumbnail" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
+			<p class="text-right">
+				{{bill.bill_type | uppercase}} {{bill.number}}
+			</p>
+			<p ng-show="bill.short_title">
+				<strong>{{bill.short_title}}</strong>
+			</p>
+			<p ng-show="!bill.short_title">
+				<strong>{{bill.official_title}}</strong>
+			</p>
+			<p>
+				Last action at: {{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
+			</p>
 		</div>
-
-			<div class="col-md-4">
-			</div>
-			<div class="col-md-4">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-3 thumbnail" ng-repeat="bill in bills">
-				<div class="caption">
-					<h5 class="text-right">{{bill.bill_id}}</h5>
-					<h4>{{bill.official_title}}</h4>
-					<p>Sponsor: {{bill.sponsor.first_name}} {{bill.sponsor.last_name}} ({{bill.sponsor.party}})</p>
-				</div>
-			</div>
-		</div>
-	</div>	
+	</div>
 </body>
 </html>

@@ -5,20 +5,23 @@
         .module("MyPoliticsApp")
         .controller("BillsController", billsController);
 
-    function billsController($scope, BillService) {
-        $scope.message = "No message";
-        $scope.bills = [];
+    function billsController(BillService, $location) {
+        var vm = this;
+        vm.bills = [];
 
         function init() {
-        	BillService.getAllBillsForYear(2016)
+        	BillService.getBillsForCurrentSession()
         	.then(function(response) {
-        		$scope.message = "Successful retrieval of information";
-        		$scope.bills = response.data.results;
+        		vm.bills = response.data.results;
 			}, function(error) {
-				$scope.message = error;
+				console.log(error);
 			});
         }
 
         init();
+
+        vm.onBillClick = function(id) {
+            $location.url("/bill/" + id);
+        }
     }
 })();
