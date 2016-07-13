@@ -16,8 +16,8 @@
             return $http.get("/legislator/" + id);
         }
 
-        this.setCurrentLegislatorId = function(id) {
-            currentLegislatorId = id;
+        this.getLegislatorBills = function(id) {
+            return $http.get("/legislator/" + id + "/bill");
         }
 
         this.getCurrentLegislatorId = function() {

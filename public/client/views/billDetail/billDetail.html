@@ -57,6 +57,29 @@
 		<p>
 			<span ng-repeat="property in model.urls"><a ng-href="{{model.currentBill.urls[property]}}" target="_blank">{{property}}</a>&nbsp; &nbsp; &nbsp; &nbsp;</span>			
 		</p>
+		<br>
+
+		<h2>Actions Taken:</h2>
+		<table class="table table-striped">
+			<tr>
+				<th>Action</th>
+				<th>Type</th>
+				<th>Date</th>
+			</tr>
+			<tr ng-repeat="action in model.currentBill.actions">
+				<td>
+					<a ng-href="/vote/{{action.roll_id}}" ng-show="action.roll_id != undefined">{{action.text}}</a>
+					<span ng-show="action.roll_id === undefined">
+						{{action.text}}
+					</span>
+				</td>
+				<td>
+					{{action.type.substring(0,1) | uppercase}}{{action.type.substring(1)}} 
+					<span ng-show="action.result != undefined">(<strong>{{action.result}}</strong>)</span>
+				</td>
+				<td>{{action.acted_at | date : "longDate"}}</td>
+			</tr>
+		</table>
 
 	</div>
 </body>

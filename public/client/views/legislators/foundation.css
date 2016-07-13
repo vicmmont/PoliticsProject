@@ -5,9 +5,42 @@
  * Licensed under MIT Open Source
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/**
+   * 1. Set default font family to sans-serif.
+   * 2. Prevent iOS and IE text size adjust after device orientation change,
+   *    without disabling user zoom.
+   */
+html {
+  font-family: sans-serif;f
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
 
 /* HTML5 display definitions
      ========================================================================== */
+/**
+   * 1. Correct `inline-block` display not defined in IE 8/9.
+   * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+   */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+   * Prevent modern browsers from displaying `audio` without controls.
+   * Remove excess height in iOS 5 devices.
+   */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
 /**
    * Address `[hidden]` styling not present in IE 8/9/10.
    * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
@@ -43,6 +76,14 @@ mark {
 small {
   font-size: 80%; }
 
+/* Embedded content
+     ========================================================================== */
+/**
+   * Correct overflow not hidden in IE 9/10/11.
+   */
+svg:not(:root) {
+  overflow: hidden; }
+
 /* Grouping content
      ========================================================================== */
 /**
@@ -50,6 +91,13 @@ small {
    */
 figure {
   margin: 1em 40px; }
+
+/**
+   * Address differences between Firefox and other browsers.
+   */
+hr {
+  box-sizing: content-box;
+  height: 0; }
 
 /**
    * Contain overflow in all browsers.
@@ -67,96 +115,41 @@ samp {
   font-family: monospace, monospace;
   font-size: 1em; }
 
+/* Tables
+     ========================================================================== */
+.foundation-mq {
+  font-family: "small=0em&medium=40em&large=64em&xlarge=75em&xxlarge=90em"; }
+
+html {
+  font-size: 100%;
+  box-sizing: border-box; }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; }
+
+textarea {
+  height: auto;
+  min-height: 50px;
+  border-radius: 3px; }
+
+#map_canvas img,
+#map_canvas embed,
+#map_canvas object,
+.map_canvas img,
+.map_canvas embed,
+.map_canvas object,
+.mqa-display img,
+.mqa-display embed,
+.mqa-display object {
+  max-width: none !important; }
+
 .is-visible {
   display: block !important; }
 
 .is-hidden {
   display: none !important; }
-
-.hide {
-  display: none !important; }
-
-.invisible {
-  visibility: hidden; }
-
-@media screen and (max-width: 39.9375em) {
-  .hide-for-small-only {
-    display: none !important; } }
-
-@media screen and (max-width: 0em), screen and (min-width: 40em) {
-  .show-for-small-only {
-    display: none !important; } }
-
-@media screen and (min-width: 40em) {
-  .hide-for-medium {
-    display: none !important; } }
-
-@media screen and (max-width: 39.9375em) {
-  .show-for-medium {
-    display: none !important; } }
-
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {
-  .hide-for-medium-only {
-    display: none !important; } }
-
-@media screen and (max-width: 39.9375em), screen and (min-width: 64em) {
-  .show-for-medium-only {
-    display: none !important; } }
-
-@media screen and (min-width: 64em) {
-  .hide-for-large {
-    display: none !important; } }
-
-@media screen and (max-width: 63.9375em) {
-  .show-for-large {
-    display: none !important; } }
-
-@media screen and (min-width: 64em) and (max-width: 74.9375em) {
-  .hide-for-large-only {
-    display: none !important; } }
-
-@media screen and (max-width: 63.9375em), screen and (min-width: 75em) {
-  .show-for-large-only {
-    display: none !important; } }
-
-.show-for-sr,
-.show-on-focus {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0); }
-
-.show-on-focus:active, .show-on-focus:focus {
-  position: static !important;
-  height: auto;
-  width: auto;
-  overflow: visible;
-  clip: auto; }
-
-.show-for-landscape,
-.hide-for-portrait {
-  display: block !important; }
-  @media screen and (orientation: landscape) {
-    .show-for-landscape,
-    .hide-for-portrait {
-      display: block !important; } }
-  @media screen and (orientation: portrait) {
-    .show-for-landscape,
-    .hide-for-portrait {
-      display: none !important; } }
-
-.hide-for-landscape,
-.show-for-portrait {
-  display: none !important; }
-  @media screen and (orientation: landscape) {
-    .hide-for-landscape,
-    .show-for-portrait {
-      display: none !important; } }
-  @media screen and (orientation: portrait) {
-    .hide-for-landscape,
-    .show-for-portrait {
-      display: block !important; } }
 
 .row {
   margin-left: auto;

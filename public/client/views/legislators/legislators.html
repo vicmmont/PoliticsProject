@@ -1,68 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/grid.min.css" rel="stylesheet">
+	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-<div class="ui grid" id="top-of-page">
-	<div class="sixteen wide column" style="padding-bottom:0;">
+<div class="row">
+	<div class="large-12 columns" style="padding-bottom:0;">
 		<h1 class="text-center">Current Legislators</h1>
 	</div>
-	
-	<div class="four wide column">
-		<div class="ui grid">
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;">
+
+	<div class="large-3 show-for-large columns">
+		<div class="row">
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
 				<button class="btn btn-block btn-primary" ng-click="model.filterLegislators()">Filter</button>
 			</div>
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;">
-				<u><h4>Party</h4></u>
-			</div>	
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.partyCheckboxes">
-				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredParties(checkBox.value, checkBox.isChecked)">
-				<span>
-					{{checkBox.displayValue}}
-				</span>
+			<br><br>
+			<button class="btn btn-default large-12 columns" type="button" data-toggle="collapse" data-target="#partyCheckboxes" aria-expanded="false" aria-controls="partyCheckboxes">
+			Party <span class="caret"></span>
+			</button>
+			<div class="collapse" id="partyCheckboxes">
+				<div class="row">
+					<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.partyCheckboxes">
+						<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredParties(checkBox.value, checkBox.isChecked)">
+						<span>
+							{{checkBox.displayValue}}
+						</span>
+					</div>
+				</div>
 			</div>
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;">
+
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
 				<u><h4>Chamber of Congress</h4></u>
 			</div>
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.chamberCheckboxes">
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.chamberCheckboxes">
 				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredChambers(checkBox.value, checkBox.isChecked)">
 				<span>
 					{{checkBox.displayValue}}
 				</span>
 			</div>
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;">
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
 				<u><h4>State</h4></u>
 			</div>
 			
-			<div class="sixteen wide column" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.stateCheckboxes">
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.stateCheckboxes">
 				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredStates(checkBox.value, checkBox.isChecked)">
 				<span>
 					{{checkBox.displayValue}}
 				</span>
 			</div>
 
-			<div class="sixteen wide column" style="padding-bottom:0;">
+			<div class="large-12 columns" style="padding-bottom:0;">
 				<button class="btn btn-block btn-primary" ng-click="model.filterLegislators()" href="#top-of-pagef">Filter</button>
 			</div>
 		</div>
 
 	</div>
 
-	<div class="twelve wide column">
-		<div class="ui grid">
-			<div class="sixteen wide column" style="padding-top:0">
+	<div class="small-12 large-9 columns">
+		<div class="row">
+			<div class="small-12 columns" style="padding-top:0">
 				<span><strong>Count:</strong> {{model.displayedLegislatorsCount}}</span>
 				<form class="form-inline pull-right">
-					<label>Sort By: &nbsp;</label>
+					<label>Sort By: </label>
 					<select class="pull-right" ng-model="model.sortBy" ng-change="model.sortLegislators(model.sortBy)">
       					<option value="last_name" select="selected">Last Name (ascending)</option>
       					<option value="-last_name">Last Name (descending)</option>
     				</select>
 				</form>
 			</div>
-			<div class="thumbnail four wide column" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+			<div class="small-12 columns hide-for-large">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+				Launch demo modal
+				</button>
+
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+								</div>
+								<div class="modal-body">
+								...
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save changes</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="thumbnail small-6 medium-3 columns" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
 				<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
 				<div class="caption">
 					<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>
@@ -72,6 +104,6 @@
 			</div>
 		</div>
 	</div>
-</div>	
+</div>
 </body>
 </html>

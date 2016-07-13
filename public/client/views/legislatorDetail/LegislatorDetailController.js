@@ -11,6 +11,7 @@
         vm.currentLegislator = null;
         vm.repDistrictOrdinalSuffix = null;
         vm.age = null;
+        vm.legislatorBills = null;
 
         function init() {
             LegislatorService
@@ -19,9 +20,16 @@
                     vm.currentLegislator = response.data.results[0];
                     setDistrictOrdinalSuffix(vm.currentLegislator.district);
                     setLegislatorAge(vm.currentLegislator.birthday);
+
+                    return LegislatorService.getLegislatorBills(vm.currentLegislator.bioguide_id);
                 }, function(error){
                     console.log("Error retrieving single legislator");
                     return;
+                })
+                .then(function(response) {
+                    vm.legislatorBills = response.data.results;
+                }, function(error) {
+                    console.log(error);
                 });
         }
 

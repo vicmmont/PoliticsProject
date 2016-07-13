@@ -20,7 +20,7 @@ module.exports = function(app) {
 	}
 
 	function getBillsForCurrentSession(req, res) {
-		var requestUrl = "https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&fields=bill_id,bill_type,number,chamber,introduced_on,last_action_at,short_title,official_title,summary,summary_short,urls,actions,sponsor,cosponsors&order=last_action_at__desc";
+		var requestUrl = "https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&fields=bill_id,bill_type,number,last_action_at,short_title,official_title&order=last_action_at__desc";
 
 		http(requestUrl)
 			.then(function(response) {

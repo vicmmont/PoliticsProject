@@ -6,7 +6,7 @@
 	<div class="container">
 		<br>
 		<div class="row">
-			<div class="col-sm-12 col-md-4">
+			<div class="col-xs-12 col-md-4">
 				<div class="col-xs-12">
 					<img class="img-responsive center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
 					<br>
@@ -24,7 +24,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-sm-12 col-md-8">
+			<div class="col-xs-12 col-md-8">
 				<h1 style="margin-top:0;">{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
 				<h3 ng-show="model.currentLegislator.district" style="margin-top:0">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
 				<h3 ng-show="model.currentLegislator.state_rank" style="margin-top:0">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
@@ -82,7 +82,13 @@
 					</tr>
 				</table>
 			</div>
-		</div>
+			<div class="col-xs-12">
+				<p ng-repeat="bill in model.legislatorBills">
+					{{bill.bill_id}}
+				</p>
+			</div>
+
+		</div> <!-- End of row-->
 	</div>
 </body>
 </html>

@@ -32,7 +32,7 @@
                 controller: "LegislatorsController",
                 controllerAs: "model"
             })
-            .when("/voteDetail", {
+            .when("/vote/:voteId", {
                 templateUrl: "./client/views/voteDetail/voteDetail.html",
                 controller: "VoteDetailController",
                 controllerAs: "model"

@@ -8,24 +8,12 @@
     function VoteService($http) {
         var currentVoteId;
 
-        this.getAllVotesForYear = function(year) {
+        this.getVoteForCurrentSession = function(year) {
             return $http.get("/vote");
         }
 
-        this.getNMostRecentVotesForYear = function(count, year) {
-            
-        }
-
         this.getVoteById = function(id) {
-            
-        }
-
-        this.setCurrentVoteId = function(id) {
-            currentVoteId = id; 
-        }
-
-        this.getCurrentVoteId = function() {
-            return currentVoteId;
+            return $http.get("/vote/" + id);   
         }
     }
 })();
