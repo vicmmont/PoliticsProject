@@ -10,8 +10,8 @@
             return $http.get("/bill");
         }
 
-        this.getNMostRecentBillsForYear = function(count, year) {
-            
+        this.getBillsByLegislatorId = function(id, billType, pageSize, pageNumber) {
+            return $http.get("/legislator/" + id + "/bill" + "?billType=" + billType + "&pageSize=" + pageSize + "&pageNumber=" + pageNumber);
         }
 
         this.getBillById = function(id) {

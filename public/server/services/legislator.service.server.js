@@ -7,7 +7,7 @@ module.exports = function(app) {
 	/* ---------- Routes ---------- */
 	app.get("/legislator", getCurrentLegislators);
 	app.get("/legislator/:id", getLegislatorById);
-	app.get("/legislator/:id/bill", getLegislatorBills);
+	//app.get("/legislator/:id/bill", getLegislatorBills);
 
 	function getCurrentLegislators(req, res) {
 		var requestUrl = "https://congress.api.sunlightfoundation.com/legislators?apikey=[api_key]&fields=bioguide_id,first_name,last_name,party,chamber,gender,state_name,district,title&order=last_name__asc&per_page=all";

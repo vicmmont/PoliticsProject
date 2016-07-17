@@ -6,7 +6,7 @@
 <body>
 	<h1 class="text-center">Bills for Current Legislative Session</h1>
 	<div class="row">
-		<div class="small-6 large-3 columns thumbnail" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
+		<div class="small-6 medium-3 large-2 columns thumbnail" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
 			<p class="text-right">
 				{{bill.bill_type | uppercase}} {{bill.number}}
 			</p>
@@ -17,9 +17,18 @@
 				<strong>{{bill.official_title}}</strong>
 			</p>
 			<p>
-				Last action at: {{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
+				{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
 			</p>
 		</div>
 	</div>
+	<div class="row">
+		<div class="small-12 columns show-for-small-only">
+			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
+		</div>
+		<div class="medium-4 medium-offset-4 columns hide-for-small-only">
+			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
+		</div>
+	</div>
+	<br>
 </body>
 </html>

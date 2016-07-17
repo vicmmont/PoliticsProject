@@ -8,6 +8,8 @@
     function billsController(BillService, $location) {
         var vm = this;
         vm.bills = [];
+        vm.totalBillCount = 0;
+        vm.currentPage = 0;
 
         function init() {
         	BillService.getBillsForCurrentSession()

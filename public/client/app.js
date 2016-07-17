@@ -2,5 +2,5 @@
 
 (function(){
     angular
-        .module('MyPoliticsApp', ['ngRoute']);
+        .module('MyPoliticsApp', ['ngRoute', 'ng-fusioncharts']);
 })();
