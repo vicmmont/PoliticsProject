@@ -73,6 +73,10 @@
             }
         }
 
+        vm.onBillClick = function(billId) {
+            $location.url("/bill/" + billId);
+        }
+
         function setDistrictOrdinalSuffix(districtNumber) {
             if (districtNumber == null || districtNumber === 0) {
                 return;

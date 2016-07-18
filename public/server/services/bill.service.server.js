@@ -33,7 +33,7 @@ module.exports = function(app) {
 	}
 
 	function getSponsoredBillsForLegislator(req, res) {
-		var requestUrl = 'https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&fields=bill_id,bill_type,number,chamber,congress,last_action_at,short_title,official_title&order=last_action_at__desc&last_action_at__gte="2015-01-03T00:00:00Z"&[billType]=[legislatorId]&per_page=[pageSize]&page=[pageNumber]';
+		var requestUrl = 'https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&fields=bill_id,bill_type,number,last_action_at,short_title,official_title&order=last_action_at__desc&last_action_at__gte="2015-01-03T00:00:00Z"&[billType]=[legislatorId]&per_page=[pageSize]&page=[pageNumber]';
 		var legislatorId = req.params.id;
 		var billType = req.query.billType;
 		

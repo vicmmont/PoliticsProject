@@ -98,7 +98,7 @@
 		</div>
 
 		<div class="row">
-			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'sponsoredBills'" ng-repeat="sponsoredBill in model.information.sponsoredBills.data">
+			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'sponsoredBills'" ng-repeat="sponsoredBill in model.information.sponsoredBills.data" ng-click="model.onBillClick(sponsoredBill.bill_id)">
 				<p class="text-right">
 					{{sponsoredBill.bill_type | uppercase}} {{sponsoredBill.number}}
 				</p>
@@ -113,7 +113,7 @@
 				</p>	
 			</div>
 
-			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'cosponsoredBills'" ng-repeat="cosponsoredBill in model.information.cosponsoredBills.data">
+			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'cosponsoredBills'" ng-repeat="cosponsoredBill in model.information.cosponsoredBills.data" ng-click="model.onBillClick(cosponsoredBill.bill_id)">
 				<p class="text-right">
 					{{cosponsoredBill.bill_type | uppercase}} {{cosponsoredBill.number}}
 				</p>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -31,18 +32,30 @@
 		</table>
 
 		<div class="row">
-			<div class="col-sm-6">
-				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.myDataSource}}"></fusioncharts>
+			<div class="small-6 columns thumbnail">
+				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.democratDataSource}}"></fusioncharts>
 			</div>
-			<div class="col-sm-6">
-				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.myDataSource2}}"></fusioncharts>
+			<div class="small-6 columns thumbnail">
+				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.republicanDataSource}}"></fusioncharts>
 			</div>
-			<div class="col-sm-6">
-				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.myDataSource3}}"></fusioncharts>
+			<div class="small-12 columns thumbnail">
+				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.totalDataSource}}"></fusioncharts>
 			</div>
 		</div>
-
 		
+		<table class="table table-striped">
+			<tr>
+				<th>State</th>
+				<th>Legislator</th>
+				<th>Vote</th>
+			</tr>
+			<tr ng-repeat="voter in model.voters">
+				<td>{{voter.state_name}}</td>
+				<td><a ng-click="model.onLegislatorClick(voter.bioguide_id)">{{voter.last_name}}, {{voter.first_name}}</a></td>
+				<td>{{voter.vote}}</td>
+			</tr>
+		</table>
+
 	</div>
 	
 </body>
