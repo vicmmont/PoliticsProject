@@ -6,8 +6,14 @@
 
     function billService($http) {
 
-        this.getBillsForCurrentSession = function(year) {
-            return $http.get("/bill");
+        this.getBillsForCurrentSession = function(pageSize, pageNumber, query) {
+            var route = "/bill?pageSize=" + pageSize + "&pageNumber=" + pageNumber;
+
+            if (query === undefined || query === null || query.trim() === "") {
+                return $http.get(route);    
+            }
+
+            return $http.get(route + "&query=" + query);
         }
 
         this.getBillsByLegislatorId = function(id, billType, pageSize, pageNumber) {

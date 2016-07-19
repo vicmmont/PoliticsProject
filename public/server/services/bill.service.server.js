@@ -21,7 +21,19 @@ module.exports = function(app) {
 	}
 
 	function getBillsForCurrentSession(req, res) {
-		var requestUrl = "https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&fields=bill_id,bill_type,number,last_action_at,short_title,official_title&order=last_action_at__desc&per_page=48&page=1";
+		var query = req.query.query;
+		var pageSize = req.query.pageSize;
+		var pageNumber = req.query.pageNumber;
+		
+		var requestUrl = 'https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&fields=bill_id,bill_type,number,last_action_at,short_title,official_title&order=last_action_at__desc&last_action_at__gte="2015-01-03T00:00:00Z"&per_page=[pageSize]&page=[pageNumber]';
+		
+		if (query != undefined && query.trim() != "") {
+			var index = requestUrl.indexOf("?");
+			requestUrl = requestUrl.substring(0, index) + "/search?query=" + query + "&" + requestUrl.substring(index + 1);
+		}
+
+		requestUrl = requestUrl.replace("[pageSize]", pageSize);
+		requestUrl = requestUrl.replace("[pageNumber]", pageNumber);
 
 		http(requestUrl)
 			.then(function(response) {

@@ -5,6 +5,22 @@
 </head>
 <body>
 	<h1 class="text-center">Bills for Current Legislative Session</h1>
+
+	<div class="row">
+		<div class="small-12 medium-6 medium-offset-6 large-4 large-offset-4 columns">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search for..." ng-model="model.searchTerm" ng-keypress="model.onKeyPress($event)">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button" ng-click="model.onSearch()">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div><!-- /input-group -->
+		</div>
+	</div><!-- /.row -->
+
+	<h4 class="text-center">{{model.totalBillCount | number}}{{model.displayMessage}}</h4>
+
 	<div class="row">
 		<div class="small-6 medium-3 large-2 columns thumbnail" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
 			<p class="text-right">
@@ -22,10 +38,10 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="small-12 columns show-for-small-only">
+		<div class="small-12 columns show-for-small-only" ng-show="model.bills.length < model.totalBillCount">
 			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
 		</div>
-		<div class="medium-4 medium-offset-4 columns hide-for-small-only">
+		<div class="medium-4 medium-offset-4 columns hide-for-small-only" ng-show="model.bills.length < model.totalBillCount">
 			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
 		</div>
 	</div>
