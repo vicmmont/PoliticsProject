@@ -5,9 +5,8 @@
         .module("MyPoliticsApp")
         .controller("LegislatorsController", legislatorsController);
 
-    function legislatorsController(LegislatorService, $filter, $location, $window) {
+    function legislatorsController(LegislatorService, $filter, $location, $routeParams, $window) {
         var vm = this;
-        vm.allLegislators = [];
         vm.displayedLegislators = [];
         vm.displayedLegislatorsCount = 0;
         vm.filteredParties = [];
@@ -85,78 +84,106 @@
         ];
 
         function init() {
-        	LegislatorService.getAllCurrentLegislators()
-        	.then(function(response) {
-        		vm.allLegislators = response.data.results;
-                vm.displayedLegislators = vm.allLegislators;
-                vm.displayedLegislatorsCount = vm.allLegislators.length;
-                vm.sortBy = "last_name";
-        	}, function(error) {
-        		console.log(error);
-        	});
+            vm.filteredParties = ($routeParams["parties"] === undefined) ? [] : $routeParams["parties"].split(",");
+            vm.filteredChambers = ($routeParams["chambers"] === undefined) ? [] : $routeParams["chambers"].split(",");
+            vm.filteredStates = ($routeParams["states"] === undefined) ? [] : $routeParams["states"].split(",");
+            updateCheckBoxes();
+            
+            vm.sortBy = ($routeParams["order"] === undefined) ? "last_name__asc" : validateOrderBy($routeParams["order"]);
+
+            LegislatorService.getCurrentLegislators(packageUrlParameters())
+                .then(function(response) {
+               	    vm.displayedLegislators = response.data.results;
+                    vm.displayedLegislatorsCount = vm.displayedLegislators.length;
+                    $window.scrollTo(0,0);
+                }, function(error) {
+               	    console.log(error);
+                });
         }
 
         init();
 
         vm.updateFilteredParties = function(party, isIn) {
             updateFilterArray(party, vm.filteredParties, isIn);
+            $location.url(formRoute());
         }
 
         vm.updateFilteredChambers = function(chamber, isIn) {
             updateFilterArray(chamber, vm.filteredChambers, isIn);
+            $location.url(formRoute());
         }
 
         vm.updateFilteredStates = function(state, isIn) {
             updateFilterArray(state, vm.filteredStates, isIn);
-        }
-
-        vm.filterLegislators = function() {
-            var filterArrays = [vm.filteredParties, vm.filteredChambers, vm.filteredStates];
-            var filterArrayOptions = [vm.partyCheckboxes, vm.chamberCheckboxes, vm.stateCheckboxes];
-            var filterProperties = ["party", "chamber", "state_name"];
-            var intermediateLegislatorsArray = vm.allLegislators;
-
-            for (var index = 0; index < filterArrays.length;  index++) {
-                var currentFilterArray = filterArrays[index];
-                if (currentFilterArray.length === 0 || currentFilterArray.length === filterArrayOptions[index].length) {
-                    continue;
-                }
-
-                intermediateLegislatorsArray = $filter('filter')(intermediateLegislatorsArray, function(value, ind, array) {
-                    var valueOfInterest = value[filterProperties[index]];
-                    return currentFilterArray.indexOf(valueOfInterest) != -1;
-                });
-            }
-
-            vm.displayedLegislators = intermediateLegislatorsArray;
-            vm.sortLegislators(vm.sortBy);
-            vm.displayedLegislatorsCount = intermediateLegislatorsArray.length;
-        }
-
-        vm.clearPartyFilters = function() {
-            uncheckCheckboxes(vm.partyCheckboxes);
-            vm.filteredParties = [];
-        }
-
-        vm.clearAllFilters = function() {
-            vm.clearPartyFilters();
-            vm.clearChamberFilters();
-            vm.clearStateFilters();
+            $location.url(formRoute());
         }
 
         vm.onLegislatorClick = function(legislatorId) {
             $location.url("/legislator/" + legislatorId);
         }
 
-        vm.sortLegislators = function(sortingCriteria) {
-            vm.displayedLegislators = $filter('orderBy')(vm.displayedLegislators, sortingCriteria);
-            $window.scrollTo(0,0);
+        vm.sortLegislators = function() {
+            $location.url(formRoute());
         }
 
         /* Helper methods */
+        function packageUrlParameters() {
+            var filters = [
+                {name: "parties",  values: vm.filteredParties},
+                {name: "chambers", values: vm.filteredChambers},
+                {name: "states",   values: vm.filteredStates}
+            ];
+
+            var urlPackage = {};
+
+            for (var index = 0; index < filters.length; index++) {
+                var currentFilter = filters[index];
+                if (currentFilter.values.length > 0) {
+                    urlPackage[currentFilter.name] = currentFilter.values;
+                }
+            }
+
+            if (vm.sortBy != "last_name__asc") {
+                urlPackage.order = vm.sortBy;
+            }
+
+            return urlPackage;
+        }
+
+        function formRoute() {
+            var separator = "?";
+            var route = "/legislators";
+
+            if (vm.filteredParties.length > 0) {
+                route = route.concat(separator + "parties=").concat(vm.filteredParties.join(","));
+                separator = "&";
+            }
+            if (vm.filteredChambers.length > 0) {
+                route = route.concat(separator + "chambers=").concat(vm.filteredChambers.join(","));
+                separator = "&";
+            }
+            if (vm.filteredStates.length > 0) {
+                route = route.concat(separator + "states=").concat(vm.filteredStates.join(","));
+                separator = "&";
+            }
+            if (vm.sortBy != "last_name__asc") {
+                route = route.concat(separator + "order=" + vm.sortBy);
+            }
+
+            return route;
+        }
+
         function updateFilterArray(value, arrayOfValues, isIn) {
             if (isIn) {
-                arrayOfValues.push(value);
+                var index;
+                for (index = 0; index < arrayOfValues.length; index++) {
+                    if (value <= arrayOfValues[index]) {
+                        console.log(value + "is less than " + arrayOfValues[index]);
+                        break;
+                    }
+                }
+
+                arrayOfValues.splice(index, 0, value);
             } else {
                 var index = arrayOfValues.indexOf(value);
                 if (index >= 0) {
@@ -165,11 +192,30 @@
             }
         }
 
-        function uncheckCheckboxes(checkboxesArray) {
-            for (var index = 0; index < checkboxesArray.length; index++) {
-                checkboxesArray[index].isChecked = false;
+        function validateOrderBy(orderBy) {
+            if (orderBy === "last_name__desc") {
+                return orderBy;
+            } else {
+                return "last_name__asc";
             }
         }
 
+        function updateCheckBoxes() {
+            var checkBoxLists = [vm.partyCheckboxes, vm.chamberCheckboxes, vm.stateCheckboxes];
+            var filters = [vm.filteredParties, vm.filteredChambers, vm.filteredStates];
+
+            for (var listIndex = 0; listIndex < filters.length; listIndex++) {
+                var currentCheckBoxList = checkBoxLists[listIndex];
+                var currentFilter = filters[listIndex];
+
+                for (var checkBoxIndex = 0; checkBoxIndex < currentCheckBoxList.length; checkBoxIndex++) {
+                    var currentCheckBox = currentCheckBoxList[checkBoxIndex];
+                    if (currentFilter.includes(currentCheckBox.value)) {
+                        currentCheckBox.isChecked = true;
+                    }
+                }    
+            }
+            
+        }
     }
 })();

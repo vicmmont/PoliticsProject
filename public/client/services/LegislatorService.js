@@ -8,8 +8,19 @@
     function legislatorService($http) {
         var currentLegislatorId = null;
 
-        this.getAllCurrentLegislators = function() {
-            return $http.get("/legislator");
+        this.getCurrentLegislators = function(filters) {
+            var route = "/legislator";
+            var separator = "?";
+
+            for(var key in filters) {
+                if(filters.hasOwnProperty(key)){
+                  route = route + separator + key + "=" + filters[key];
+                  separator = "&";
+                }
+            }
+
+            console.log("got " + route);
+            return $http.get(route);
         }
 
         this.getLegislatorById = function(id) {

@@ -10,7 +10,7 @@
 		<h2 class="text-center" ng-show="model.currentVote.bill.short_title === undefined">Bill: {{model.currentVote.bill.official_title}}</h2>
 		<h2 class="text-center">Result: {{model.currentVote.result}}</h2>
 
-		<table class="table">
+		<table class="table table-striped">
 			<tr>
 				<td><strong>Chamber:</strong></td>
 				<td>{{model.currentVote.chamber.substring(0,1) | uppercase}}{{model.currentVote.chamber.substring(1)}} 
@@ -42,7 +42,40 @@
 				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.totalDataSource}}"></fusioncharts>
 			</div>
 		</div>
+
+		<h3>Vote Totals</h3>
+		<table class="table table-striped">
+			<tr>
+				<th>Party</th>
+				<th>Yea</th>
+				<th>Nay</th>
+				<th>Not Voting</th>
+				<th>Present</th>
+			</tr>
+			<tr>
+				<td>Democratic</td>
+				<td>{{model.currentVote.breakdown.party.D.Yea}}</td>
+				<td>{{model.currentVote.breakdown.party.D.Nay}}</td>
+				<td>{{model.currentVote.breakdown.party.D["Not Voting"]}}</td>
+				<td>{{model.currentVote.breakdown.party.D.Present}}</td>
+			</tr>
+			<tr>
+				<td>Republican</td>
+				<td>{{model.currentVote.breakdown.party.R.Yea}}</td>
+				<td>{{model.currentVote.breakdown.party.R.Nay}}</td>
+				<td>{{model.currentVote.breakdown.party.R["Not Voting"]}}</td>
+				<td>{{model.currentVote.breakdown.party.R.Present}}</td>
+			</tr>
+			<tr ng-show="model.currentVote.breakdown.party.I">
+				<td>Independent</td>
+				<td>{{model.currentVote.breakdown.party.I.Yea}}</td>
+				<td>{{model.currentVote.breakdown.party.I.Nay}}</td>
+				<td>{{model.currentVote.breakdown.party.I["Not Voting"]}}</td>
+				<td>{{model.currentVote.breakdown.party.I.Present}}</td>
+			</tr>
+		</table>
 		
+		<h3>Vote By Legislator</h3>
 		<table class="table table-striped">
 			<tr>
 				<th>State</th>

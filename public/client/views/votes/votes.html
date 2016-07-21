@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<h1>Votes Page!!!</h1>
+	<h1 class="text-center">Congressional Votes</h1>
+
+	<div class="row">
+		<div class="small-6 medium-3 large-2 columns thumbnail" ng-repeat="vote in model.votes" ng-click="model.onVoteClick(vote.roll_id)">
+			<p>
+				<strong>{{vote.question}}</strong>
+			</p>
+			<p class="text-center">For</p>
+			<p ng-show="vote.bill.short_title">
+				{{vote.bill.short_title}}
+			</p>
+			<p ng-show="!vote.bill.short_title">
+				{{vote.bill.official_title}}
+			</p>
+			<p>
+				{{vote.voted_at | date : "longDate"}} @{{vote.voted_at | date : "shortTime"}}
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 columns show-for-small-only" ng-show="model.votes.length < model.totalVoteCount">
+			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(24)">More Votes</button>
+		</div>
+		<div class="medium-4 medium-offset-4 columns hide-for-small-only" ng-show="model.votes.length < model.totalVoteCount">
+			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(48)">More Votes</button>
+		</div>
+	</div>
 </body>
 </html>

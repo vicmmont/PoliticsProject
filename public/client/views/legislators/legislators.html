@@ -8,25 +8,16 @@
 	<div class="large-12 columns" style="padding-bottom:0;">
 		<h1 class="text-center">Current Legislators</h1>
 	</div>
-
 	<div class="large-3 show-for-large columns">
 		<div class="row">
 			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
-				<button class="btn btn-block btn-primary" ng-click="model.filterLegislators()">Filter</button>
+				<u><h4>Political Party</h4></u>
 			</div>
-			<br><br>
-			<button class="btn btn-default large-12 columns" type="button" data-toggle="collapse" data-target="#partyCheckboxes" aria-expanded="false" aria-controls="partyCheckboxes">
-			Party <span class="caret"></span>
-			</button>
-			<div class="collapse" id="partyCheckboxes">
-				<div class="row">
-					<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.partyCheckboxes">
-						<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredParties(checkBox.value, checkBox.isChecked)">
-						<span>
-							{{checkBox.displayValue}}
-						</span>
-					</div>
-				</div>
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.partyCheckboxes">
+				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredParties(checkBox.value, checkBox.isChecked)">
+				<span>
+					{{checkBox.displayValue}}
+				</span>
 			</div>
 
 			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
@@ -48,10 +39,6 @@
 					{{checkBox.displayValue}}
 				</span>
 			</div>
-
-			<div class="large-12 columns" style="padding-bottom:0;">
-				<button class="btn btn-block btn-primary" ng-click="model.filterLegislators()" href="#top-of-pagef">Filter</button>
-			</div>
 		</div>
 
 	</div>
@@ -62,9 +49,9 @@
 				<span><strong>Count:</strong> {{model.displayedLegislatorsCount}}</span>
 				<form class="form-inline pull-right">
 					<label>Sort By: </label>
-					<select class="pull-right" ng-model="model.sortBy" ng-change="model.sortLegislators(model.sortBy)">
-      					<option value="last_name" select="selected">Last Name (ascending)</option>
-      					<option value="-last_name">Last Name (descending)</option>
+					<select class="pull-right" ng-model="model.sortBy" ng-change="model.sortLegislators()">
+      					<option value="last_name__asc" select="selected">Last Name (ascending)</option>
+      					<option value="last_name__desc">Last Name (descending)</option>
     				</select>
 				</form>
 			</div>

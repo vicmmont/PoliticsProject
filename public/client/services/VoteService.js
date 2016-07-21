@@ -8,8 +8,9 @@
     function VoteService($http) {
         var currentVoteId;
 
-        this.getVoteForCurrentSession = function(year) {
-            return $http.get("/vote");
+        this.getVotesForCurrentSession = function(pageSize, pageNumber) {
+            var route = "/vote" + "?pageSize=" + pageSize + "&pageNumber=" + pageNumber;
+            return $http.get(route);
         }
 
         this.getVoteById = function(id) {
