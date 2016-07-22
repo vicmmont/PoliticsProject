@@ -10,3 +10,12 @@ html {
 .thumbnail:hover {
 	background-color: #19C7E7;
 }
+
+.panel {
+	margin: 0;
+}
+
+.md-dialog-container {
+	height: 100%;
+	z-index: 1031;
+}

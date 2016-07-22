@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("LegislatorsController", legislatorsController);
 
-    function legislatorsController(LegislatorService, $filter, $location, $routeParams, $window) {
+    function legislatorsController(LegislatorService, $filter, $location, $routeParams, $window, $mdDialog) {
         var vm = this;
         vm.displayedLegislators = [];
         vm.displayedLegislatorsCount = 0;
@@ -217,5 +217,33 @@
             }
             
         }
+
+
+        /* Dialog Popup */
+        vm.showAdvanced = function(ev) {
+            $mdDialog.show({
+                controller: "LegislatorsFilterDialogController",
+                templateUrl: './client/views/legislators/legislatorsFilterDialog.html',
+                controllerAs: "model",
+                parent: angular.element(document.body),
+                locals: {
+                    "filters": {
+                        "parties" : vm.partyCheckboxes,
+                        "chambers" : vm.chamberCheckboxes,
+                        "states" : vm.stateCheckboxes
+                    }
+                },
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: true
+            })
+            .then(function(answer) {
+                console.log("Your answer was" + answer);
+            }, function() {
+                console.log("You canceled the dialog");;
+            });
+        }
+
+
     }
 })();
