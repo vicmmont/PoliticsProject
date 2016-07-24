@@ -16,5 +16,9 @@
         this.getVoteById = function(id) {
             return $http.get("/vote/" + id);   
         }
+
+        this.getVotesByLegislatorId = function(legislatorId, informationType, pageSize, pageNumber) {
+            return $http.get("/legislator/" + legislatorId + "/vote?pageSize=" + pageSize + "&pageNumber=" + pageNumber);
+        }
     }
 })();

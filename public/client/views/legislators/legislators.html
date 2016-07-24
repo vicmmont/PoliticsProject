@@ -9,35 +9,20 @@
 		<h1 class="text-center">Current Legislators</h1>
 	</div>
 	<div class="large-3 show-for-large columns">
-		<div class="row">
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
-				<u><h4>Political Party</h4></u>
-			</div>
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.partyCheckboxes">
-				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredParties(checkBox.value, checkBox.isChecked)">
-				<span>
-					{{checkBox.displayValue}}
-				</span>
-			</div>
 
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
-				<u><h4>Chamber of Congress</h4></u>
-			</div>
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.chamberCheckboxes">
-				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredChambers(checkBox.value, checkBox.isChecked)">
-				<span>
-					{{checkBox.displayValue}}
-				</span>
-			</div>
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
-				<u><h4>State</h4></u>
-			</div>
-			
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in model.stateCheckboxes">
-				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.updateFilteredStates(checkBox.value, checkBox.isChecked)">
-				<span>
-					{{checkBox.displayValue}}
-				</span>
+		<div class="row">
+			<div class="large-12 columns" style="padding-top:0;padding-bottom:0" ng-repeat="filterGroup in model.filterGroups">
+				<div class="row">
+					<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
+						<u><h4>{{filterGroup.name}}</h4></u>
+					</div>
+	 				<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in filterGroup.filters">
+						<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.filterLegislators()">
+						<span>
+							{{checkBox.displayValue}}
+						</span>
+					</div>			
+				</div>
 			</div>
 		</div>
 
@@ -46,7 +31,7 @@
 	<div class="small-12 large-9 columns">
 		<div class="row">
 			<div class="small-12 columns" style="padding-top:0">
-				<span><strong>Count:</strong> {{model.displayedLegislatorsCount}}</span>
+				<span><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
 				<form class="form-inline pull-right">
 					<label>Sort By: </label>
 					<select class="pull-right" ng-model="model.sortBy" ng-change="model.sortLegislators()">
@@ -56,11 +41,11 @@
 				</form>
 			</div>
 			<div class="small-12 columns hide-for-large">
-				<!-- Button trigger modal -->
-			    <md-button class="md-primary md-raised" ng-click="model.showAdvanced($event)">
-			      Filter
-			    </md-button>
-
+				<div class="row">
+				<button class="btn btn-lg btn-primary small-6 columns hide-for-large" ng-click="model.showFilterPopup($event)">
+					Filter
+				</button>
+				</div>
 			</div>
 
 			<div class="thumbnail small-6 medium-3 columns" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
@@ -73,6 +58,7 @@
 			</div>
 		</div>
 	</div>
+	
 </div>
 </body>
 </html>

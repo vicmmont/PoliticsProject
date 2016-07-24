@@ -19,7 +19,6 @@
                 }
             }
 
-            console.log("got " + route);
             return $http.get(route);
         }
 

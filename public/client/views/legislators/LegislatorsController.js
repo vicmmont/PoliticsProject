@@ -7,25 +7,18 @@
 
     function legislatorsController(LegislatorService, $filter, $location, $routeParams, $window, $mdDialog) {
         var vm = this;
-        vm.displayedLegislators = [];
-        vm.displayedLegislatorsCount = 0;
-        vm.filteredParties = [];
-        vm.filteredChambers = [];
-        vm.filteredStates = [];
-        vm.sortBy;
-
-        vm.partyCheckboxes = [
+        var partyCheckboxes = [
             { isChecked: false, value: "D", displayValue: "Democrat" },
             { isChecked: false, value: "R", displayValue: "Republican" },
             { isChecked: false, value: "I", displayValue: "Independent" }
         ];
 
-        vm.chamberCheckboxes = [
+        var chamberCheckboxes = [
             { isChecked: false, value: "senate", displayValue: "Senate"},
             { isChecked: false, value: "house",  displayValue: "House of Representatives"}
         ];
 
-        vm.stateCheckboxes = [
+        var stateCheckboxes = [
             { isChecked: false,  value: "Alabama",               displayValue: "Alabama" },
             { isChecked: false,  value: "Alaska",                displayValue: "Alaska" },
             { isChecked: false,  value: "American Samoa",        displayValue: "American Samoa" },
@@ -83,18 +76,31 @@
             { isChecked: false,  value: "Wyoming",               displayValue: "Wyoming" }
         ];
 
+        vm.displayedLegislators = [];
+        vm.filterGroups = [
+            { name : "Party",   urlName : "parties",    filters : partyCheckboxes,   },
+            { name : "Chamber", urlName : "chambers",   filters : chamberCheckboxes, },
+            { name : "State",   urlName : "states",     filters : stateCheckboxes,   }
+        ];
+        vm.sortBy;
+
         function init() {
-            vm.filteredParties = ($routeParams["parties"] === undefined) ? [] : $routeParams["parties"].split(",");
-            vm.filteredChambers = ($routeParams["chambers"] === undefined) ? [] : $routeParams["chambers"].split(",");
-            vm.filteredStates = ($routeParams["states"] === undefined) ? [] : $routeParams["states"].split(",");
-            updateCheckBoxes();
+            var partyFilters = ($routeParams["parties"] === undefined) ? [] : $routeParams["parties"].split(",");
+            var chamberFilters = ($routeParams["chambers"] === undefined) ? [] : $routeParams["chambers"].split(",");
+            var stateFilters = ($routeParams["states"] === undefined) ? [] : $routeParams["states"].split(",");
+            var selectedFilters = {
+                "Party" : partyFilters,
+                "Chamber" : chamberFilters,
+                "State" : stateFilters
+            };
+
+            updateCheckBoxes(selectedFilters);
             
             vm.sortBy = ($routeParams["order"] === undefined) ? "last_name__asc" : validateOrderBy($routeParams["order"]);
 
             LegislatorService.getCurrentLegislators(packageUrlParameters())
                 .then(function(response) {
                	    vm.displayedLegislators = response.data.results;
-                    vm.displayedLegislatorsCount = vm.displayedLegislators.length;
                     $window.scrollTo(0,0);
                 }, function(error) {
                	    console.log(error);
@@ -103,18 +109,7 @@
 
         init();
 
-        vm.updateFilteredParties = function(party, isIn) {
-            updateFilterArray(party, vm.filteredParties, isIn);
-            $location.url(formRoute());
-        }
-
-        vm.updateFilteredChambers = function(chamber, isIn) {
-            updateFilterArray(chamber, vm.filteredChambers, isIn);
-            $location.url(formRoute());
-        }
-
-        vm.updateFilteredStates = function(state, isIn) {
-            updateFilterArray(state, vm.filteredStates, isIn);
+        vm.filterLegislators = function() {
             $location.url(formRoute());
         }
 
@@ -128,18 +123,14 @@
 
         /* Helper methods */
         function packageUrlParameters() {
-            var filters = [
-                {name: "parties",  values: vm.filteredParties},
-                {name: "chambers", values: vm.filteredChambers},
-                {name: "states",   values: vm.filteredStates}
-            ];
-
             var urlPackage = {};
 
-            for (var index = 0; index < filters.length; index++) {
-                var currentFilter = filters[index];
-                if (currentFilter.values.length > 0) {
-                    urlPackage[currentFilter.name] = currentFilter.values;
+            for (var index = 0; index < vm.filterGroups.length; index++) {
+                var currentFilterGroup = vm.filterGroups[index];
+                var currentSelectedFilters = getListofSelectedValues(currentFilterGroup.filters);
+                
+                if (currentSelectedFilters != "") {
+                    urlPackage[currentFilterGroup.urlName] = currentSelectedFilters;
                 }
             }
 
@@ -154,42 +145,21 @@
             var separator = "?";
             var route = "/legislators";
 
-            if (vm.filteredParties.length > 0) {
-                route = route.concat(separator + "parties=").concat(vm.filteredParties.join(","));
-                separator = "&";
+            for (var index = 0; index < vm.filterGroups.length; index++) {
+                var currentFilterGroup = vm.filterGroups[index];
+                var currentSelectedFilters = getListofSelectedValues(currentFilterGroup.filters);
+
+                if (currentSelectedFilters != "") {
+                    route = route + separator + currentFilterGroup.urlName + "=" + currentSelectedFilters;
+                    separator = "&";
+                }
             }
-            if (vm.filteredChambers.length > 0) {
-                route = route.concat(separator + "chambers=").concat(vm.filteredChambers.join(","));
-                separator = "&";
-            }
-            if (vm.filteredStates.length > 0) {
-                route = route.concat(separator + "states=").concat(vm.filteredStates.join(","));
-                separator = "&";
-            }
+
             if (vm.sortBy != "last_name__asc") {
                 route = route.concat(separator + "order=" + vm.sortBy);
             }
 
             return route;
-        }
-
-        function updateFilterArray(value, arrayOfValues, isIn) {
-            if (isIn) {
-                var index;
-                for (index = 0; index < arrayOfValues.length; index++) {
-                    if (value <= arrayOfValues[index]) {
-                        console.log(value + "is less than " + arrayOfValues[index]);
-                        break;
-                    }
-                }
-
-                arrayOfValues.splice(index, 0, value);
-            } else {
-                var index = arrayOfValues.indexOf(value);
-                if (index >= 0) {
-                    arrayOfValues.splice(index, 1);
-                }
-            }
         }
 
         function validateOrderBy(orderBy) {
@@ -200,50 +170,64 @@
             }
         }
 
-        function updateCheckBoxes() {
-            var checkBoxLists = [vm.partyCheckboxes, vm.chamberCheckboxes, vm.stateCheckboxes];
-            var filters = [vm.filteredParties, vm.filteredChambers, vm.filteredStates];
+        function updateCheckBoxes(selectedFilters) {
+            for (var index = 0; index < vm.filterGroups.length; index++) {
+                var currentFilterGroup = vm.filterGroups[index];
+                var name = currentFilterGroup.name;
+                var currentFilters = currentFilterGroup.filters;
+                var currentSelectedFilters = selectedFilters[name];
 
-            for (var listIndex = 0; listIndex < filters.length; listIndex++) {
-                var currentCheckBoxList = checkBoxLists[listIndex];
-                var currentFilter = filters[listIndex];
-
-                for (var checkBoxIndex = 0; checkBoxIndex < currentCheckBoxList.length; checkBoxIndex++) {
-                    var currentCheckBox = currentCheckBoxList[checkBoxIndex];
-                    if (currentFilter.includes(currentCheckBox.value)) {
-                        currentCheckBox.isChecked = true;
+                if (currentSelectedFilters.length === 0) {
+                    continue;
+                } else {
+                    for (var ind = 0; ind < currentFilters.length; ind++) {
+                        var currentIndividualFilter = currentFilters[ind];
+                        if (currentSelectedFilters.includes(currentIndividualFilter.value)) {
+                            currentIndividualFilter.isChecked = true;
+                        }
                     }
-                }    
-            }
-            
+                }
+            }            
         }
 
+        function getListofSelectedValues(availableFilters) {
+            var result = "";
+
+            for (var index = 0; index < availableFilters.length; index++) {
+                var currentFilter = availableFilters[index];
+                if (currentFilter.isChecked) {
+                    if (result === "") {
+                        result = currentFilter.value;
+                    } else {
+                        result = result + "," + currentFilter.value;
+                    }
+                }
+            }
+
+            return result;
+        }
 
         /* Dialog Popup */
-        vm.showAdvanced = function(ev) {
+        vm.showFilterPopup = function(ev) {
             $mdDialog.show({
                 controller: "LegislatorsFilterDialogController",
                 templateUrl: './client/views/legislators/legislatorsFilterDialog.html',
                 controllerAs: "model",
                 parent: angular.element(document.body),
                 locals: {
-                    "filters": {
-                        "parties" : vm.partyCheckboxes,
-                        "chambers" : vm.chamberCheckboxes,
-                        "states" : vm.stateCheckboxes
-                    }
+                    "filterGroups": vm.filterGroups
                 },
                 targetEvent: ev,
                 clickOutsideToClose: false,
                 fullscreen: true
             })
-            .then(function(answer) {
-                console.log("Your answer was" + answer);
+            .then(function(filterGroups) {
+                vm.filterGroups = filterGroups;
+
+                $location.url(formRoute());
             }, function() {
                 console.log("You canceled the dialog");;
             });
         }
-
-
     }
 })();

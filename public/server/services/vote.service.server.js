@@ -4,6 +4,7 @@ module.exports = function(app) {
 	/* ---------- Routes ---------- */
 	app.get("/vote", getVotesForCurrentSession);
 	app.get("/vote/:id", getVoteById);
+	app.get("/legislator/:id/vote", getVotesByLegislatorId);
 
 	function getVoteById(req, res) {
 		var id = req.params.id;
@@ -25,6 +26,24 @@ module.exports = function(app) {
 		var requestUrl = "https://congress.api.sunlightfoundation.com/votes?apikey=8686be50f9e64b04952c72f58f409152&fields=roll_id,voted_at,question,bill&voted_at__gte=2015-01-01T00:00:00Z&order=voted_at__desc";
 		requestUrl = requestUrl.concat("&per_page=" + pageSize);
 		requestUrl = requestUrl.concat("&page=" + pageNumber);
+
+		http(requestUrl)
+			.then(function(response) {
+				res.send(response);
+			})
+			.catch(function(error) {
+				res.status(400).send(error);
+			});
+	}
+
+	function getVotesByLegislatorId(req, res) {
+		var legislatorId = req.params.id;
+		var pageSize = req.query.pageSize;
+		var pageNumber = req.query.pageNumber;
+		var requestUrl = "https://congress.api.sunlightfoundation.com/votes?apikey=8686be50f9e64b04952c72f58f409152&fields=roll_id,voted_at,question,bill&voted_at__gte=2015-01-01T00:00:00Z&voter_ids.[legislatorId]__exists=true&order=voted_at__desc&per_page=[pageSize]&page=[pageNumber]";
+		requestUrl = requestUrl.replace("[legislatorId]", legislatorId);
+		requestUrl = requestUrl.replace("[pageSize]", pageSize);
+		requestUrl = requestUrl.replace("[pageNumber]", pageNumber);
 
 		console.log(requestUrl);
 		http(requestUrl)
