@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("VotesController", votesController);
 
-    function votesController(VoteService, $location) {
+    function votesController(VoteService, $location, $routeParams) {
     	var vm = this;
     	vm.votes = [];
     	vm.pageSize = 48;
@@ -13,7 +13,7 @@
 
         function init() {
         	var pageNumber = 1;
-        	VoteService.getVotesForCurrentSession(vm.pageSize, pageNumber)
+        	VoteService.getVotesForCurrentSession($routeParams, vm.pageSize, pageNumber)
         		.then(function(response) {
         			vm.votes = response.data.results;
         			vm.totalVoteCount = response.data.count;
@@ -44,7 +44,7 @@
             }
 
             pageNumber += 1;
-            VoteService.getVotesForCurrentSession(vm.pageSize, pageNumber)
+            VoteService.getVotesForCurrentSession($routeParams, vm.pageSize, pageNumber)
                 .then(function(response) {
                     vm.votes = vm.votes.concat(response.data.results);
                 }, function(error) {

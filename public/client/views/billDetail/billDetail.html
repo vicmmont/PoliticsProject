@@ -67,7 +67,7 @@
 			</tr>
 			<tr ng-repeat="action in model.currentBill.actions">
 				<td>
-					<a ng-href="/vote/{{action.roll_id}}" ng-show="action.roll_id != undefined">{{action.text}}</a>
+					<a ng-href="#/vote/{{action.roll_id}}" ng-show="action.roll_id != undefined">{{action.text}}</a>
 					<span ng-show="action.roll_id === undefined">
 						{{action.text}}
 					</span>

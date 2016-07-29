@@ -19,3 +19,11 @@ html {
 	height: 100%;
 	z-index: 1031;
 }
+
+a:not(.md-button) {
+	color: #337ab7;
+}
+
+a:not(.md-button).btn-primary {
+	color: white;
+}

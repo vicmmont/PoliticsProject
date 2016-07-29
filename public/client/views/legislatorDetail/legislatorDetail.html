@@ -128,19 +128,19 @@
 				</p>	
 			</div>
 
-			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'votes'" ng-repeat="vote in model.information.votes.data">
+			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'votes'" ng-repeat="currentVote in model.information.votes.data" ng-click="model.onVoteClick(currentVote.roll_id)">
 				<p>
-					<strong>{{vote.question}}</strong>
+					<strong>{{currentVote.question}}</strong>
 				</p>
 				<p class="text-center">For</p>
-				<p ng-show="vote.bill.short_title">
-					{{vote.bill.short_title}}
+				<p ng-show="currentVote.bill.short_title">
+					{{currentVote.bill.short_title}}
 				</p>
-				<p ng-show="!vote.bill.short_title">
-					{{vote.bill.official_title}}
+				<p ng-show="!currentVote.bill.short_title">
+					{{currentVote.bill.official_title}}
 				</p>
 				<p>
-					{{vote.voted_at | date : "longDate"}} @{{vote.voted_at | date : "shortTime"}}
+					{{currentVote.voted_at | date : "longDate"}} @{{currentVote.voted_at | date : "shortTime"}}
 				</p>
 			</div>
 

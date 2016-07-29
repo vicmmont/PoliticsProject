@@ -77,6 +77,10 @@
             $location.url("/bill/" + billId);
         }
 
+        vm.onVoteClick = function(voteId) {
+            $location.url("/vote/" + voteId);
+        }
+
         function setDistrictOrdinalSuffix(districtNumber) {
             if (districtNumber == null || districtNumber === 0) {
                 return;

@@ -6,9 +6,10 @@
 <body>
 	<div class="container">
 		<h1 class="text-center">{{model.currentVote.question}}</h1>
-		<h2 class="text-center" ng-show="model.currentVote.bill.short_title != undefined">Bill: {{model.currentVote.bill.short_title}}</h2>
-		<h2 class="text-center" ng-show="model.currentVote.bill.short_title === undefined">Bill: {{model.currentVote.bill.official_title}}</h2>
+		<h2 class="text-center" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.short_title}}</a></h2>
+		<h2 class="text-center" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.official_title}}</a></h2>
 		<h2 class="text-center">Result: {{model.currentVote.result}}</h2>
+		<h2 class="text-center" ng-show="model.currentVote.nomination != undefined">Nomination: {{model.currentVote.nomination.nominees[0].name}} for {{model.currentVote.nomination.organization}}</h2>
 
 		<table class="table table-striped">
 			<tr>
