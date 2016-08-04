@@ -20,7 +20,6 @@
                 }
             }
 
-            console.log("Making request to the back end " + route);
             return $http.get(route);
         }
 

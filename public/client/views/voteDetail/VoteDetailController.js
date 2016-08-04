@@ -5,11 +5,12 @@
         .module("MyPoliticsApp")
         .controller("VoteDetailController", voteDetailController);
 
-    function voteDetailController(VoteService, $routeParams, $location, $filter) {
+    function voteDetailController(VoteService, $routeParams, $route, $location, $filter) {
         var vm = this;
         vm.currentVoteId = $routeParams["voteId"];
         vm.currentVote = null;
         vm.voters = [];
+        vm.hasError = false;
 
         vm.totalDataSource =  {
             "chart" : {
@@ -119,15 +120,16 @@
         function init() {
             VoteService.getVoteById(vm.currentVoteId)
                 .then(function(response) {
-                    vm.currentVote = response.data.results[0];
-                    if (vm.currentVote === undefined) {
-                        console.log("error!");
+                    if (response.data.results.length === 0) {
+                        vm.hasError = true;
                         return;
                     }
+
+                    vm.currentVote = response.data.results[0];
                     getVoters();
                     setDataSources();
                 }, function(error) {
-                    console.log(error);
+                    vm.hasError = true;
                 });   
         }
 
@@ -135,6 +137,10 @@
 
         vm.onLegislatorClick = function(legislatorId) {
             $location.url("/legislator/" + legislatorId);
+        }
+
+        vm.refreshPage = function() {
+            $route.reload();
         }
 
         function setDataSources() {

@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("BillsController", billsController);
 
-    function billsController(BillService, $location, $routeParams) {
+    function billsController(BillService, $location, $routeParams, $route) {
         var vm = this;
         vm.bills = [];
         vm.searchTerm = null;
@@ -13,6 +13,7 @@
         vm.pageSize = 48;
         vm.totalBillCount = 0;
         vm.searchParameter = null;
+        vm.hasError = false;
 
         function init() {
             vm.searchParameter = $routeParams["q"];
@@ -28,7 +29,7 @@
                     }
                     vm.totalBillCount = response.data.count;
                 }, function(error) {
-                    console.log(error);
+                    vm.hasError = true;
             });
         }
 
@@ -75,6 +76,10 @@
                 }, function(error) {
                     console.log("error!");
             });
+        }
+
+        vm.refreshPage = function() {
+            $route.reload();
         }
     }
 })();

@@ -4,7 +4,11 @@
 	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
+	<!-- Error Message -->
+	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/legislators">Legislators page</a>.</div>
+
+	<!-- Content -->
+	<div class="container" ng-show="!model.hasError">
 		<br>
 		<div class="row">
 			<div class="small-12 medium-4 columns">
@@ -128,25 +132,30 @@
 				</p>	
 			</div>
 
-			<div class="small-6 medium-3 columns thumbnail" ng-show="model.currentSubView === 'votes'" ng-repeat="currentVote in model.information.votes.data" ng-click="model.onVoteClick(currentVote.roll_id)">
-				<p>
-					<strong>{{currentVote.question}}</strong>
-				</p>
-				<p class="text-center">For</p>
-				<p ng-show="currentVote.bill.short_title">
-					{{currentVote.bill.short_title}}
-				</p>
-				<p ng-show="!currentVote.bill.short_title">
-					{{currentVote.bill.official_title}}
-				</p>
-				<p>
-					{{currentVote.voted_at | date : "longDate"}} @{{currentVote.voted_at | date : "shortTime"}}
-				</p>
+			<div ng-show="model.currentSubView === 'votes'">
+				<table class="table table-striped">
+					<tr>
+						<th>Question</th>
+						<th>Bill</th>
+						<th>Vote</th>
+						<th>Result</th>
+					</tr>
+					<tr ng-repeat="currentVote in model.information.votes.data">
+						<td>{{currentVote.question}}</td>
+						<td>{{currentVote.bill.official_title}}</td>
+						<td>{{currentVote.voters[model.currentLegislatorId].vote}}</td>
+						<td>{{currentVote.result}}</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="small-12 columns" ng-show="model.loadingInformation">
+				<img class="center-block" src="./client/images/ring-alt.svg">
 			</div>
 
 			<!-- buttons -->
 			<button class="btn-lg btn-block btn-primary hide-for-small-only" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount" ng-click="model.getMoreSubViewData(32)">Load More</button>
-			<button class="btn-lg btn-block btn-primary show-for-small-only" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount" ng-click="model.getMoreSubViewData(16)">Load More Small</button>
+			<button class="btn-lg btn-block btn-primary show-for-small-only" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount" ng-click="model.getMoreSubViewData(16)">Load More</button>
 		</div>
 
 	</div>

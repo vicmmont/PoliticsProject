@@ -59,12 +59,11 @@ module.exports = function(app) {
 		var legislatorId = req.params.id;
 		var pageSize = req.query.pageSize;
 		var pageNumber = req.query.pageNumber;
-		var requestUrl = "https://congress.api.sunlightfoundation.com/votes?apikey=8686be50f9e64b04952c72f58f409152&fields=roll_id,voted_at,question,bill,nomination&voted_at__gte=2015-01-01T00:00:00Z&voter_ids.[legislatorId]__exists=true&order=voted_at__desc&per_page=[pageSize]&page=[pageNumber]";
+		var requestUrl = "https://congress.api.sunlightfoundation.com/votes?apikey=8686be50f9e64b04952c72f58f409152&fields=roll_id,voted_at,question,bill,nomination,voters,result&voted_at__gte=2015-01-01T00:00:00Z&voter_ids.[legislatorId]__exists=true&order=voted_at__desc&per_page=[pageSize]&page=[pageNumber]";
 		requestUrl = requestUrl.replace("[legislatorId]", legislatorId);
 		requestUrl = requestUrl.replace("[pageSize]", pageSize);
 		requestUrl = requestUrl.replace("[pageNumber]", pageNumber);
 
-		console.log(requestUrl);
 		http(requestUrl)
 			.then(function(response) {
 				res.send(response);

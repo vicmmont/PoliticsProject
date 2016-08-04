@@ -10,17 +10,22 @@
         vm.route = $routeParams;
         vm.sortBy;
         vm.displayedLegislators = [];
+        vm.hasError = false;
+        vm.hasNoResults = false;
 
         function init() {
             vm.sortBy = ($routeParams["order"] === undefined) ? "last_name__asc" : validateOrderBy($routeParams["order"]);
 
             LegislatorService.getCurrentLegislators($routeParams)
                 .then(function(response) {
-                    console.log("making init call");
+                    if (response.data.results.length === 0) {
+                        vm.hasNoResults = true;
+                    }
+
                	    vm.displayedLegislators = response.data.results;
                     $window.scrollTo(0,0);
                 }, function(error) {
-               	    console.log(error);
+               	    vm.hasError = true;
                 });
         }
 
@@ -40,6 +45,24 @@
             $location.search(routeParams);
         }
 
+        vm.refreshPage = function() {
+            $route.reload();
+        }
+
+        /* Dialog Popup */
+        vm.showFilterPopup = function(ev) {
+            var filterGroups = FilterService.getFilterGroups($location.path(), $routeParams);
+
+            FilterService.showFilterPopup(ev, filterGroups)
+                .then(function(newFilterGroups) {
+                    filterGroups = newFilterGroups;
+                    var routeParams = FilterService.extractRouteParameters(filterGroups, $routeParams, $location.path());
+                    $location.search(routeParams);
+                }, function() {
+                    console.log("You canceled the dialog");;
+                });
+        }
+
         /* Helper methods */
         function validateOrderBy(orderBy) {
             if (orderBy === "last_name__desc") {
@@ -49,27 +72,6 @@
             }
         }
 
-        /* Dialog Popup */
-        vm.showFilterPopup = function(ev) {
-            $mdDialog.show({
-                controller: "LegislatorsFilterDialogController",
-                templateUrl: './client/views/legislators/legislatorsFilterDialog.html',
-                controllerAs: "model",
-                parent: angular.element(document.body),
-                locals: {
-                    "filterGroups": vm.filterGroups
-                },
-                targetEvent: ev,
-                clickOutsideToClose: false,
-                fullscreen: true
-            })
-            .then(function(filterGroups) {
-                vm.filterGroups = filterGroups;
 
-                $location.url(formRoute());
-            }, function() {
-                console.log("You canceled the dialog");;
-            });
-        }
     }
 })();

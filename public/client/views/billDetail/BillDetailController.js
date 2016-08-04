@@ -5,16 +5,22 @@
         .module("MyPoliticsApp")
         .controller("BillDetailController", billDetailController);
 
-    function billDetailController(BillService, $routeParams, $location) {
+    function billDetailController(BillService, $routeParams, $route, $location) {
         var vm = this;
         vm.currentBillId = $routeParams["billId"];
         vm.currentBill = null;
         vm.urls;
+        vm.hasError = false;
 
         function init() {
             BillService
                 .getBillById(vm.currentBillId)
                 .then(function(response){
+                    if (response.data.results.length == 0){
+                        vm.hasError = true;
+                        return;
+                    }
+
                     vm.currentBill = response.data.results[0];
                     
                     var urls = vm.currentBill.urls;
@@ -29,8 +35,7 @@
                     }
 
                 }, function(error){
-                    console.log("Error retrieving single bill");
-                    return;
+                    vm.hasError = true;
                 });
         }
 
@@ -38,6 +43,10 @@
 
         vm.onLegislatorClick = function(id) {
             $location.url("/legislator/" + id);
+        }
+
+        vm.refreshPage = function() {
+            $route.reload();
         }
     }
 })();

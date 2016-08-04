@@ -4,7 +4,11 @@
 	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
+	<!-- Error Message -->
+	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/bills">Bills page</a>.</div>
+	
+	<!-- Content -->
+	<div class="container" ng-show="!model.hasError">
 		<h1 class="text-center" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
 		<h1 class="text-center" ng-show="model.currentBill.short_title">{{model.currentBill.short_title}}</h1>
 		<h2 class="text-center">Bill {{model.currentBill.bill_type | uppercase}} {{model.currentBill.number}}</h2>

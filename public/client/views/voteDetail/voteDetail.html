@@ -4,7 +4,11 @@
 	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
+	<!-- Error Message -->
+	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/votes">Votes page</a>.</div>
+
+	<!-- Content -->
+	<div class="container" ng-show="!model.hasError">
 		<h1 class="text-center">{{model.currentVote.question}}</h1>
 		<h2 class="text-center" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.short_title}}</a></h2>
 		<h2 class="text-center" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.official_title}}</a></h2>

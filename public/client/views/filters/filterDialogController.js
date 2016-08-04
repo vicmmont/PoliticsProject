@@ -3,9 +3,9 @@
 (function() {
     angular
     .module('MyPoliticsApp')
-    .controller('LegislatorsFilterDialogController', legislatorsFilterDialogController);
+    .controller('FilterDialogController', filterDialogController);
 
-    function legislatorsFilterDialogController($mdDialog, filterGroups) {
+    function filterDialogController($mdDialog, filterGroups) {
         var vm = this;
         vm.filterGroups = filterGroups;
 

@@ -4,7 +4,7 @@
 		.module("MyPoliticsApp")
 		.service("FilterService", filterService);
 
-	function filterService() {
+	function filterService($mdDialog) {
 		/* Legislators Filters*/
         var partyFilters = [
             { isChecked: false, value: "D", displayValue: "Democrat" },
@@ -195,5 +195,19 @@
             return routeParameters;
         }
         
+        this.showFilterPopup = function(ev, filterGroups) {
+            return $mdDialog.show({
+                        controller: "FilterDialogController",
+                        templateUrl: './client/views/filters/filterDialog.html',
+                        controllerAs: "model",
+                        parent: angular.element(document.body),
+                        locals: {
+                            "filterGroups": filterGroups
+                        },
+                        targetEvent: ev,
+                        clickOutsideToClose: false,
+                        fullscreen: true
+                    });
+        }
 	}
 })();

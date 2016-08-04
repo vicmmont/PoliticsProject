@@ -5,32 +5,38 @@
         .module("MyPoliticsApp")
         .controller("LegislatorDetailController", legislatorDetailController);
 
-    function legislatorDetailController(LegislatorService, BillService, VoteService, $routeParams, $location) {
+    function legislatorDetailController(LegislatorService, BillService, VoteService, $routeParams, $route, $location) {
         var vm = this;
         vm.currentLegislatorId = $routeParams["legislatorId"];
         vm.currentLegislator = null;
         vm.repDistrictOrdinalSuffix = null;
         vm.age = null;
 
-        vm.currentSubView = "sponsoredBills";
+        vm.currentSubView = "votes";
         vm.pageSize = 32;
         vm.information = {};
-        vm.information.sponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId};
-        vm.information.cosponsoredBills = {data: [], totalCount: 0, method: BillService.getBillsByLegislatorId};
-        vm.information.votes = {data: [], totalCount: 0, method: VoteService.getVotesByLegislatorId};
+        vm.information.sponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId };
+        vm.information.cosponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId };
+        vm.information.votes = { data: [], totalCount: 0, method: VoteService.getVotesByLegislatorId };
+        vm.loadingInformation = false;
+        vm.hasError = false;
 
         function init() {
             LegislatorService
                 .getLegislatorById(vm.currentLegislatorId)
                 .then(function(response){
+                    if (response.data.results.length === 0) {
+                        vm.hasError = true;
+                        return;
+                    }
+
                     vm.currentLegislator = response.data.results[0];
                     setDistrictOrdinalSuffix(vm.currentLegislator.district);
                     setLegislatorAge(vm.currentLegislator.birthday);
 
                     vm.getMoreSubViewData(vm.pageSize);
                 }, function(error){
-                    console.log("Error retrieving single legislator");
-                    return;
+                    vm.hasError = true;
                 });
         }
 
@@ -54,8 +60,11 @@
             }
 
             pageNumber += 1;
+
+            vm.loadingInformation = true;
             getDataFunction(vm.currentLegislatorId, vm.currentSubView, vm.pageSize, pageNumber)
                     .then(function(response) {
+                        vm.loadingInformation = false;
                         vm.information[vm.currentSubView].data = vm.information[vm.currentSubView].data.concat(response.data.results);
                         if (vm.information[vm.currentSubView].totalCount === 0) {
                             vm.information[vm.currentSubView].totalCount = response.data.count;
@@ -79,6 +88,10 @@
 
         vm.onVoteClick = function(voteId) {
             $location.url("/vote/" + voteId);
+        }
+
+        vm.refreshPage = function() {
+            $route.reload();
         }
 
         function setDistrictOrdinalSuffix(districtNumber) {

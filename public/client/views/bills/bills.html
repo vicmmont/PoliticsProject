@@ -6,45 +6,52 @@
 <body>
 	<h1 class="text-center">Bills for Current Legislative Session</h1>
 
-	<div class="row">
-		<div class="small-12 medium-6 medium-offset-6 large-4 large-offset-4 columns">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for..." ng-model="model.searchTerm" ng-keypress="model.onKeyPress($event)">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" ng-click="model.onSearch()">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-			</div><!-- /input-group -->
-		</div>
-	</div><!-- /.row -->
+	<!-- Error Message -->
+	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/bills">clearing</a> your search term.</div>
 
-	<h4 class="text-center">{{model.totalBillCount | number}}{{model.displayMessage}}</h4>
+	<!-- Content -->
+	<div class="container-fluid" ng-show="!model.hasError">
+			<div class="row">
+			<div class="small-12 medium-6 medium-offset-6 large-4 large-offset-4 columns">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for..." ng-model="model.searchTerm" ng-keypress="model.onKeyPress($event)">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="model.onSearch()">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+				</div><!-- /input-group -->
+			</div>
+		</div><!-- /.row -->
 
-	<div class="row">
-		<div class="small-6 medium-3 large-2 columns thumbnail" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
-			<p class="text-right">
-				{{bill.bill_type | uppercase}} {{bill.number}}
-			</p>
-			<p ng-show="bill.short_title">
-				<strong>{{bill.short_title}}</strong>
-			</p>
-			<p ng-show="!bill.short_title">
-				<strong>{{bill.official_title}}</strong>
-			</p>
-			<p>
-				{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
-			</p>
+		<h4 class="text-center">{{model.totalBillCount | number}}{{model.displayMessage}}</h4>
+
+		<div class="row">
+			<div class="small-6 medium-3 large-2 columns thumbnail" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
+				<p class="text-right">
+					{{bill.bill_type | uppercase}} {{bill.number}}
+				</p>
+				<p ng-show="bill.short_title">
+					<strong>{{bill.short_title}}</strong>
+				</p>
+				<p ng-show="!bill.short_title">
+					<strong>{{bill.official_title}}</strong>
+				</p>
+				<p>
+					{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
+				</p>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="small-12 columns show-for-small-only" ng-show="model.bills.length < model.totalBillCount">
-			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
+		<div class="row">
+			<div class="small-12 columns show-for-small-only" ng-show="model.bills.length < model.totalBillCount">
+				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
+			</div>
+			<div class="medium-4 medium-offset-4 columns hide-for-small-only" ng-show="model.bills.length < model.totalBillCount">
+				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
+			</div>
 		</div>
-		<div class="medium-4 medium-offset-4 columns hide-for-small-only" ng-show="model.bills.length < model.totalBillCount">
-			<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
-		</div>
-	</div>
-	<br>
+		<br>
+	</div>	
+
 </body>
 </html>
