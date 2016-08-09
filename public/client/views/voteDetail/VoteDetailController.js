@@ -143,6 +143,8 @@
             $route.reload();
         }
 
+        /* Helper Methods */
+
         function setDataSources() {
             vm.totalDataSource.data = populateData(vm.totalDataSource.data, vm.currentVote.breakdown.total);
             vm.democratDataSource.data = populateData(vm.democratDataSource.data, vm.currentVote.breakdown.party.D);

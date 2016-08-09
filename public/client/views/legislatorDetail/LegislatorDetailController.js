@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("LegislatorDetailController", legislatorDetailController);
 
-    function legislatorDetailController(LegislatorService, BillService, VoteService, $routeParams, $route, $location) {
+    function legislatorDetailController(LegislatorService, BillService, VoteService, $location, $route, $routeParams) {
         var vm = this;
         vm.currentLegislatorId = $routeParams["legislatorId"];
         vm.currentLegislator = null;
@@ -18,6 +18,7 @@
         vm.information.sponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId };
         vm.information.cosponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId };
         vm.information.votes = { data: [], totalCount: 0, method: VoteService.getVotesByLegislatorId };
+        
         vm.loadingInformation = false;
         vm.hasError = false;
 
@@ -93,6 +94,8 @@
         vm.refreshPage = function() {
             $route.reload();
         }
+
+        /* Helper Functions */
 
         function setDistrictOrdinalSuffix(districtNumber) {
             if (districtNumber == null || districtNumber === 0) {

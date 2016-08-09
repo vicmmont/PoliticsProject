@@ -3,38 +3,42 @@
 <head>
 </head>
 <body>
-<md-dialog aria-label="Filter Dialog" ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-       	<span class="glyphicon glyphicon-remove" ng-click="model.cancel()"></span>
-        <span flex></span>
-        <md-button ng-click="model.filter()">
-          Filter
-        </md-button>
-      </div>
-    </md-toolbar>
+	
+	<md-dialog aria-label="Filter Dialog" ng-cloak>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	       	<span class="glyphicon glyphicon-remove" ng-click="model.cancel()"></span>
+	        <span flex></span>
+	        <md-button ng-click="model.filter()">
+	          Filter
+	        </md-button>
+	      </div>
+	    </md-toolbar>
 
-	<md-dialog-content>	
+		<md-dialog-content>	
 
-		<div ng-repeat="filterGroup in model.filterGroups">
-			<div class="panel panel-default" data-toggle="collapse" data-target="#{{filterGroup.id}}" aria-expanded="false" aria-controls="">
-				<div class="panel-body">
-					<span class="glyphicon glyphicon-plus"></span> {{filterGroup.name}} 
-					<span class="glyphicon glyphicon-ok pull-right" ng-show="filterGroup.selectedFilterCount > 0"></span>
+			<div ng-repeat="filterGroup in model.filterGroups">
+				<div class="panel panel-default" data-toggle="collapse" data-target="#{{filterGroup.id}}" aria-expanded="false" aria-controls="">
+					<div class="panel-body">
+						<span class="glyphicon glyphicon-plus"></span> 
+						<span class="glyphicon glyphicon-minus"></span> 
+						{{filterGroup.name}} 
+						<span class="glyphicon glyphicon-ok pull-right" ng-show="filterGroup.selectedFilterCount > 0"></span>
+					</div>
+				</div>
+				<div class="collapse" id="{{filterGroup.id}}">
+					<div class="panel panel-default">
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="filter in filterGroup.filters" ng-click="model.onSelectFilter(filterGroup, filter)">
+								{{filter.displayValue}} <span class="glyphicon glyphicon-ok pull-right" ng-show="filter.isChecked"></span>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-			<div class="collapse" id="{{filterGroup.id}}">
-				<div class="panel panel-default">
-					<ul class="list-group">
-						<li class="list-group-item" ng-repeat="filter in filterGroup.filters" ng-click="model.onSelectFilter(filterGroup, filter)">
-							{{filter.displayValue}} <span class="glyphicon glyphicon-ok pull-right" ng-show="filter.isChecked"></span>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
 
-	</md-dialog-content>
-</md-dialog>
+		</md-dialog-content>
+	</md-dialog>
+
 </body>
 </html>

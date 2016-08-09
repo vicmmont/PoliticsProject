@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("BillsController", billsController);
 
-    function billsController(BillService, $location, $routeParams, $route) {
+    function billsController(BillService, $location, $route, $routeParams) {
         var vm = this;
         vm.bills = [];
         vm.searchTerm = null;
@@ -14,19 +14,23 @@
         vm.totalBillCount = 0;
         vm.searchParameter = null;
         vm.hasError = false;
+        vm.hasLoadError = false;
 
         function init() {
             vm.searchParameter = $routeParams["q"];
             var pageNumber = 1;
+
             BillService.getBillsForCurrentSession(vm.pageSize, pageNumber, vm.searchParameter)
                 .then(function(response) {
                     vm.bills = response.data.results;
+
                     if (vm.searchParameter != null && vm.searchParameter.trim() != "") {
                         vm.searchParameter = vm.searchParameter.trim();
                         vm.displayMessage = ' results found for "' + vm.searchParameter + '"'; 
                     } else {
                         vm.displayMessage = " bills found for current session"
                     }
+
                     vm.totalBillCount = response.data.count;
                 }, function(error) {
                     vm.hasError = true;
@@ -39,21 +43,8 @@
             $location.url("/bill/" + id);
         }
 
-        vm.onSearch = function() {
-            if (vm.searchTerm === null || vm.searchTerm.trim() === "") {
-                $location.url("/bills");
-            } else {
-                $location.url("/bills?q=" + vm.searchTerm);
-            }
-        }
-
-        vm.onKeyPress = function(ev) {
-            if (ev.keyCode === 13) {
-                vm.onSearch();
-            }
-        }
-
         vm.getMoreBills = function(dataCount) {
+            vm.hasLoadError = false;
             var pageNumber = 0;
 
             if (dataCount != vm.pageSize) {
@@ -69,13 +60,30 @@
             }
 
             pageNumber += 1;
-            console.log(vm.pageSize + " " + pageNumber);
+
+            vm.loadingInformation = true;
             BillService.getBillsForCurrentSession(vm.pageSize, pageNumber, vm.searchParameter)
                 .then(function(response) {
+                    vm.loadingInformation = false;
                     vm.bills = vm.bills.concat(response.data.results);
                 }, function(error) {
-                    console.log("error!");
+                    vm.loadingInformation = false;
+                    vm.hasLoadError = true;
             });
+        }
+
+        vm.onSearch = function() {
+            if (vm.searchTerm === null || vm.searchTerm.trim() === "") {
+                $location.url("/bills");
+            } else {
+                $location.url("/bills?q=" + vm.searchTerm);
+            }
+        }
+
+        vm.onKeyPress = function(ev) {
+            if (ev.keyCode === 13) {
+                vm.onSearch();
+            }
         }
 
         vm.refreshPage = function() {

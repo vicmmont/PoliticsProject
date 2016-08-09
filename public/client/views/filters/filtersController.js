@@ -9,6 +9,7 @@
 		var vm = this;
 		vm.filterGroups = [];
 		vm.routeParams = $location.search();
+		
 		function init() {
 			vm.filterGroups = FilterService.getFilterGroups($location.path(), $routeParams);
 		}

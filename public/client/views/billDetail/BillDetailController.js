@@ -5,11 +5,11 @@
         .module("MyPoliticsApp")
         .controller("BillDetailController", billDetailController);
 
-    function billDetailController(BillService, $routeParams, $route, $location) {
+    function billDetailController(BillService, $location, $route, $routeParams) {
         var vm = this;
         vm.currentBillId = $routeParams["billId"];
         vm.currentBill = null;
-        vm.urls;
+        vm.urls = [];
         vm.hasError = false;
 
         function init() {

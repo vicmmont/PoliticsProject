@@ -5,7 +5,6 @@
 		.service("FilterService", filterService);
 
 	function filterService($mdDialog) {
-		/* Legislators Filters*/
         var partyFilters = [
             { isChecked: false, value: "D", displayValue: "Democrat" },
             { isChecked: false, value: "R", displayValue: "Republican" },
@@ -77,7 +76,7 @@
             { name : "Chamber", urlName : "chambers",   filters : chamberFilters },
             { name : "State",   urlName : "states",     filters : stateFilters   }
         ];
-        /* Votes Filters */
+        
         var voteTypeFilters = [
             { isChecked: false, value: "amendment", displayValue: "Amendment"},
             { isChecked: false, value: "cloture", displayValue: "Cloture"},
@@ -106,34 +105,6 @@
             "/votes" : []
         };
 
-        function updateFilterGroups (filterGroups, routeParams) {
-            for (var index = 0; index < filterGroups.length; index++) {
-                var currentFilterGroup = filterGroups[index];
-                var urlParam = currentFilterGroup.urlName;
-                var routeParam = routeParams[urlParam];
-
-                var currentFilters = currentFilterGroup.filters;
-                if (routeParam == undefined) {
-                    for (var ind = 0; ind < currentFilters.length; ind++) {
-                        var currentFilter = currentFilters[ind];
-                        currentFilter.isChecked = false;
-                    }
-                    continue;
-                }
-
-                var routeParamValues = routeParam.split(",");
-                
-                for (var ind = 0; ind < currentFilters.length; ind++) {
-                    var currentFilter = currentFilters[ind];
-                    if (routeParamValues.includes(currentFilter.value)) {
-                        currentFilter.isChecked = true;
-                    } else {
-                        currentFilter.isChecked = false;
-                    }
-                }
-            }           
-        }
-
         this.getFilterGroups = function(route, routeParams) {
             var results = filterGroups[route];
             updateFilterGroups(results, routeParams);
@@ -141,6 +112,7 @@
             return results;
         }
 
+        /* Service Methods */
         this.extractRouteParametersUniqueParams = function(filters, routeParams, route) {
         	var newRouteParams = {};
         	var currentFilterGroups = filterGroups[route];
@@ -208,6 +180,36 @@
                         clickOutsideToClose: false,
                         fullscreen: true
                     });
+        }
+
+        /* Helper Methods */
+
+        function updateFilterGroups (filterGroups, routeParams) {
+            for (var index = 0; index < filterGroups.length; index++) {
+                var currentFilterGroup = filterGroups[index];
+                var urlParam = currentFilterGroup.urlName;
+                var routeParam = routeParams[urlParam];
+
+                var currentFilters = currentFilterGroup.filters;
+                if (routeParam == undefined) {
+                    for (var ind = 0; ind < currentFilters.length; ind++) {
+                        var currentFilter = currentFilters[ind];
+                        currentFilter.isChecked = false;
+                    }
+                    continue;
+                }
+
+                var routeParamValues = routeParam.split(",");
+                
+                for (var ind = 0; ind < currentFilters.length; ind++) {
+                    var currentFilter = currentFilters[ind];
+                    if (routeParamValues.includes(currentFilter.value)) {
+                        currentFilter.isChecked = true;
+                    } else {
+                        currentFilter.isChecked = false;
+                    }
+                }
+            }           
         }
 	}
 })();

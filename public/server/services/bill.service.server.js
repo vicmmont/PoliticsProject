@@ -8,6 +8,7 @@ module.exports = function(app) {
 
 	function getBillById(req, res) {
 		var id = req.params.id;
+
 		var requestUrl = "https://congress.api.sunlightfoundation.com/bills?apikey=8686be50f9e64b04952c72f58f409152&bill_id=[bill_id]&fields=bill_id,bill_type,number,chamber,introduced_on,last_action_at,short_title,official_title,summary,summary_short,urls,actions,sponsor,cosponsors";
 		requestUrl = requestUrl.replace("[bill_id]", id);
 

@@ -21,8 +21,7 @@
 				<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
 
 				<div class="row">
-
-					<div class="small-12 columns" ng-show="!model.hasNoResults" style="padding-top:0">
+					<div class="small-12 columns" ng-show="!model.hasNoResults">
 						<span><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
 						<form class="form-inline pull-right">
 							<label>Sort By: </label>
@@ -41,6 +40,10 @@
 						</div>
 					</div>
 
+					<div class="small-12 columns" ng-show="model.loadingInformation">
+						<img class="center-block" src="./client/images/ring-alt.svg">
+					</div>
+
 					<div class="thumbnail small-6 medium-3 columns" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
 						<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
 						<div class="caption">
@@ -49,8 +52,8 @@
 							<p></p>
 						</div>
 					</div>
-				</div>
-			</div>
+				</div> <!-- End of Row -->
+			</div> <!-- End of Column -->
 		
 		</div>
 	</div>

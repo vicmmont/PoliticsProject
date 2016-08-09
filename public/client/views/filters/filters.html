@@ -1,10 +1,10 @@
 <div class="row">
-	<div class="large-12 columns" style="padding-top:0;padding-bottom:0" ng-repeat="filterGroup in model.filterGroups">
+	<div class="large-12 columns" ng-repeat="filterGroup in model.filterGroups">
 		<div class="row">
-			<div class="large-12 columns" style="padding-top:0;padding-bottom:0;">
+			<div class="large-12 columns">
 				<u><h4>{{filterGroup.name}}</h4></u>
 			</div>
-				<div class="large-12 columns" style="padding-top:0;padding-bottom:0;" ng-repeat="checkBox in filterGroup.filters">
+			<div class="large-12 columns" ng-repeat="checkBox in filterGroup.filters">
 				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.filterLegislators()">
 				<span>
 					{{checkBox.displayValue}}

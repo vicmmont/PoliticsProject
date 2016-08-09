@@ -5,13 +5,14 @@
         .module("MyPoliticsApp")
         .controller("VotesController", votesController);
 
-    function votesController(VoteService, FilterService, $location, $routeParams, $route) {
+    function votesController(FilterService, VoteService, $location, $route, $routeParams) {
     	var vm = this;
     	vm.votes = [];
     	vm.pageSize = 48;
         vm.totalVoteCount = 0;
         vm.hasError = false;
         vm.hasNoResults = false;
+        vm.hasLoadError = false;
 
         function init() {
         	var pageNumber = 1;
@@ -35,6 +36,7 @@
         }
 
         vm.getMoreVotes = function(dataCount) {
+            vm.hasLoadError = false;
             var pageNumber = 0;
 
             if (dataCount != vm.pageSize) {
@@ -54,15 +56,10 @@
                 .then(function(response) {
                     vm.votes = vm.votes.concat(response.data.results);
                 }, function(error) {
-                    console.log("error!");
+                    vm.hasLoadError = true;
             });
         }
 
-        vm.refreshPage = function() {
-            $route.reload();
-        }
-
-        /* Dialog Popup */
         vm.showFilterPopup = function(ev) {
             var filterGroups = FilterService.getFilterGroups($location.path(), $routeParams);
 
@@ -71,9 +68,11 @@
                     filterGroups = newFilterGroups;
                     var routeParams = FilterService.extractRouteParameters(filterGroups, $routeParams, $location.path());
                     $location.search(routeParams);
-                }, function() {
-                    console.log("You canceled the dialog");;
                 });
+        }
+
+        vm.refreshPage = function() {
+            $route.reload();
         }
     }
 })();
