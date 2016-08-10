@@ -12,6 +12,9 @@
         function init() {
             for (var index = 0; index < vm.filterGroups.length; index++) {
                 var currentFilterGroup = filterGroups[index];
+
+                currentFilterGroup.expanded = false;
+
                 if (currentFilterGroup.id != undefined) {
                     break;
                 } else {
@@ -43,6 +46,10 @@
             } else {
                 filterGroup.selectedFilterCount -= 1;
             }
+        }
+
+        vm.onFilterGroupClick = function(filterGroup) {
+            filterGroup.expanded = !filterGroup.expanded;
         }
 
         vm.cancel = function() {

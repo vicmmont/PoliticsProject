@@ -18,10 +18,10 @@
 		<md-dialog-content>	
 
 			<div ng-repeat="filterGroup in model.filterGroups">
-				<div class="panel panel-default" data-toggle="collapse" data-target="#{{filterGroup.id}}" aria-expanded="false" aria-controls="">
+				<div class="panel panel-default" data-toggle="collapse" data-target="#{{filterGroup.id}}" aria-expanded="false" aria-controls="" ng-click="model.onFilterGroupClick(filterGroup)">
 					<div class="panel-body">
-						<span class="glyphicon glyphicon-plus"></span> 
-						<span class="glyphicon glyphicon-minus"></span> 
+						<span class="glyphicon glyphicon-plus" ng-show="!filterGroup.expanded"></span> 
+						<span class="glyphicon glyphicon-minus" ng-show="filterGroup.expanded"></span> 
 						{{filterGroup.name}} 
 						<span class="glyphicon glyphicon-ok pull-right" ng-show="filterGroup.selectedFilterCount > 0"></span>
 					</div>

@@ -10,14 +10,14 @@
 	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/legslators">clearing your filters</a>.</div>
 
 	<!-- Content -->
-	<div class="container-fluid" ng-show="!model.hasError">
+	<div ng-show="!model.hasError">
 		<div class="row">
 			
-			<div class="large-3 show-for-large columns">
+			<div class="large-2 show-for-large columns filter-background">
 				<div ng-include="'./client/views/filters/filters.html'" ng-controller="FiltersController as model"></div>
 			</div>
 
-			<div class="small-12 large-9 columns">
+			<div class="small-12 large-10 columns">
 				<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
 
 				<div class="row">
@@ -34,7 +34,7 @@
 
 					<div class="small-12 columns hide-for-large">
 						<div class="row">
-						<button class="btn btn-lg btn-primary small-6 columns hide-for-large" ng-click="model.showFilterPopup($event)">
+						<button class="btn btn-lg small-6 columns hide-for-large filter-background" ng-click="model.showFilterPopup($event)">
 							Filter
 						</button>
 						</div>

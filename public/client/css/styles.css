@@ -7,8 +7,30 @@ html {
 	font-size: 16px;
 }
 
+.filter-text {
+	color: #861316;
+	font-weight: bold;
+}
+
+.filter-background {
+	background-color: #861316;
+	color: #FFFFFF;	
+}
+
+.thumbnail > .caption {
+	color: inherit;
+}
+
 .thumbnail:hover {
-	background-color: #19C7E7;
+	background-color: #FFFFFF;
+	color: #000000;
+	border: 2px solid #7087AA;
+}
+
+.thumbnail {
+	background-color: #7087AA;
+	color: #FFFFFF;
+	border: 2px solid #FFFFFF;
 }
 
 .panel {
@@ -26,4 +48,56 @@ a:not(.md-button) {
 
 a:not(.md-button).btn-primary {
 	color: white;
+}
+
+.btn-default:active,
+.btn-default {
+	background-color: #861316;
+	border-color: #861316;
+	color: #FFFFFF;
+}
+
+span.network-name {
+	color: white;
+}
+
+.btn-default:hover {
+	background-color: white;
+	color: #861316;
+}
+
+.btn-primary:active,
+.btn-primary {
+	background-color: #033A76;
+}
+
+/* Navbar */
+.navbar.navbar-inverse {
+	background-color: #033A76;
+	border-color: #033A76;
+}
+
+.navbar .navbar-brand {
+	color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+	color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:active {
+	color: #033A76;
+	background-color: white;
+}
+
+/* Filter Dialog */
+.md-toolbar-tools {
+	background-color: #861316;
+	color: #FFFFFF;
+}
+
+.list-group-item {
+	background-color: #861316;
+	color: #FFFFFF;
 }
