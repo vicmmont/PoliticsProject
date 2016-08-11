@@ -17,7 +17,7 @@
 						<img class="img-responsive center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
 	
 						<div class="small-12 columns">
-							<a class="btn btn-primary btn-block" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
+							<a class="btn btn-primary btn-block top-margin" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
 						</div>
 					</div>
 					
@@ -34,9 +34,9 @@
 			</div>
 
 			<div class="small-12 medium-8 columns">
-				<h1>{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
-				<h3 ng-show="model.currentLegislator.district">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
-				<h3 ng-show="model.currentLegislator.state_rank">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
+				<h1 class="text-margins">{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
+				<h3 class="text-margins" ng-show="model.currentLegislator.district">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
+				<h3 class="text-margins" ng-show="model.currentLegislator.state_rank">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
 				
 				<!-- Information in table format -->
 				<table class="table">
@@ -93,10 +93,15 @@
 			</div>
 		</div> <!-- End of row-->
 
-		<div class="row">
-			<div class="small-4 columns text-center" ng-click="model.setSubView('votes')">Recent Votes</div>
-			<div class="small-4 columns text-center" ng-click="model.setSubView('sponsoredBills')">Sponsored Bills</div>
-			<div class="small-4 columns text-center" ng-click="model.setSubView('cosponsoredBills')">Cosponsored Bills</div>
+		<div>
+
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active" ng-click="model.setSubView('votes')"><a aria-controls="home" role="tab" data-toggle="tab">Votes</a></li>
+		    <li role="presentation" ng-click="model.setSubView('sponsoredBills')"><a aria-controls="home" role="tab" data-toggle="tab">Sponsored Bills</a></li>
+		    <li role="presentation" ng-click="model.setSubView('cosponsoredBills')"><a aria-controls="home" role="tab" data-toggle="tab">Cosponsored Bills</a></li>
+		  </ul>
+
 		</div>
 
 		<div class="row">
@@ -155,9 +160,14 @@
 				<img class="center-block" src="./client/images/ring-alt.svg">
 			</div>
 
-			<!-- buttons -->
-			<button class="btn-lg btn-block btn-primary hide-for-small-only" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount" ng-click="model.getMoreSubViewData(32)">Load More</button>
-			<button class="btn-lg btn-block btn-primary show-for-small-only" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount" ng-click="model.getMoreSubViewData(16)">Load More</button>
+			<!-- Load More Buttons -->
+			<div class="small-12 columns show-for-small-only bottom-margin" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount">
+				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreSubViewData(16)">Load More</button>
+			</div>
+			<div class="medium-4 medium-offset-4 columns hide-for-small-only bottom-margin" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount">
+				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreSubViewData(32)">Load More</button>
+			</div>
+
 		</div>
 
 	</div>

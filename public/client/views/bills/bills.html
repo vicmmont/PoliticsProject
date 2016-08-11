@@ -55,11 +55,11 @@
 
 		<!-- Load More Buttons -->
 		<div class="row">
-			<div class="small-12 columns show-for-small-only" ng-show="model.bills.length < model.totalBillCount">
+			<div class="small-12 columns show-for-small-only bottom-margin" ng-show="model.bills.length < model.totalBillCount">
 				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
 			</div>
 
-			<div class="medium-4 medium-offset-4 columns hide-for-small-only" ng-show="model.bills.length < model.totalBillCount">
+			<div class="medium-4 medium-offset-4 columns hide-for-small-only bottom-margin" ng-show="model.bills.length < model.totalBillCount">
 				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
 			</div>
 		</div>

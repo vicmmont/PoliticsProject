@@ -16,7 +16,7 @@
             "chart" : {
                 "caption": "Total Votes",
                 "yAxisName": "Vote Count",
-                "paletteColors": "#06C81B",
+                "paletteColors": "#7087AA",
                 "bgColor": "#ffffff",
                 "showBorder": "0",
                 "showCanvasBorder": "0",
@@ -51,7 +51,7 @@
             "chart" : {
                         "caption": "Democrats",
                         "yAxisName": "Vote Count",
-                        "paletteColors": "#0075c2",
+                        "paletteColors": "#033A76",
                         "bgColor": "#ffffff",
                         "showBorder": "0",
                         "showCanvasBorder": "0",
@@ -86,7 +86,7 @@
             "chart": {
                 "caption": "Republicans",
                 "yAxisName": "Vote Count",
-                "paletteColors": "#E12E0E",
+                "paletteColors": "#861316",
                 "bgColor": "#ffffff",
                 "showBorder": "0",
                 "showCanvasBorder": "0",

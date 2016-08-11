@@ -7,6 +7,12 @@ html {
 	font-size: 16px;
 }
 
+.columns.main-content-side-padding,
+.main-content-side-padding {
+	padding-left: 35px;
+	padding-right: 35px;
+}
+
 .filter-text {
 	color: #861316;
 	font-weight: bold;
@@ -22,15 +28,15 @@ html {
 }
 
 .thumbnail:hover {
-	background-color: #FFFFFF;
-	color: #000000;
-	border: 2px solid #7087AA;
+	background-color: #7087AA;
+	color: #FFFFFF;
+	border: 1px solid #FFFFFF;
 }
 
 .thumbnail {
-	background-color: #7087AA;
-	color: #FFFFFF;
-	border: 2px solid #FFFFFF;
+	background-color: #FFFFFF;
+	color: #000000;
+	border: 1px solid #7087AA;
 }
 
 .panel {
@@ -51,6 +57,7 @@ a:not(.md-button).btn-primary {
 }
 
 .btn-default:active,
+.btn-default:focus,
 .btn-default {
 	background-color: #861316;
 	border-color: #861316;
@@ -61,7 +68,9 @@ span.network-name {
 	color: white;
 }
 
-.btn-default:hover {
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.active {
 	background-color: white;
 	color: #861316;
 }
@@ -85,10 +94,13 @@ span.network-name {
 	color: white;
 }
 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus,
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:active {
 	color: #033A76;
-	background-color: white;
+	background-color: #FFFFFF;
 }
 
 /* Filter Dialog */
@@ -100,4 +112,23 @@ span.network-name {
 .list-group-item {
 	background-color: #861316;
 	color: #FFFFFF;
+}
+
+/* Margins */
+.top-margin {
+	margin-top: 20px;
+}
+
+.bottom-margin {
+	margin-bottom: 20px;
+}
+
+.text-margins {
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+/* Graph */
+.graph-border {
+	border: 2px solid #7087AA;
 }

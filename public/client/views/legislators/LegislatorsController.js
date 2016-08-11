@@ -10,6 +10,7 @@
         vm.route = $routeParams;
         vm.sortBy;
         vm.displayedLegislators = [];
+        vm.currentFilters = "";
 
         vm.hasError = false;
         vm.hasNoResults = false;

@@ -1,10 +1,11 @@
-'<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
 	<h1 class="text-center">Current Legislators</h1>
+	<div></div>
 
 	<!-- Error Message -->
 	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/legslators">clearing your filters</a>.</div>
@@ -17,7 +18,7 @@
 				<div ng-include="'./client/views/filters/filters.html'" ng-controller="FiltersController as model"></div>
 			</div>
 
-			<div class="small-12 large-10 columns">
+			<div class="small-12 large-10 main-content-side-padding columns">
 				<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
 
 				<div class="row">

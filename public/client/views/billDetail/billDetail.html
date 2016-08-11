@@ -10,12 +10,12 @@
 	<!-- Content, shown if there is no retrieving data -->
 	<div class="container" ng-show="!model.hasError">
 		<!-- Show Short Title if available, Official Title otherwise --> 
-		<h1 class="text-center" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
-		<h1 class="text-center" ng-show="model.currentBill.short_title">{{model.currentBill.short_title}}</h1>
+		<h1 class="text-center top-margin" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
+		<h1 class="text-center top-margin" ng-show="model.currentBill.short_title">{{model.currentBill.short_title}}</h1>
 
-		<h2 class="text-center">Bill {{model.currentBill.bill_type | uppercase}} {{model.currentBill.number}}</h2>
-		<h2 class="text-center">Introduced on: {{model.currentBill.introduced_on | date : "longDate"}}</h2>
-		<h2 class="text-center">Introduced in the <span ng-show="model.currentBill.chamber === 'house'">House of Representatives</span> <span ng-show="model.currentBill.chamber === 'senate'">Senate</span> </h2>
+		<h2 class="text-center top-margin">Bill {{model.currentBill.bill_type | uppercase}} {{model.currentBill.number}}</h2>
+		<h2 class="text-center top-margin">Introduced on: {{model.currentBill.introduced_on | date : "longDate"}}</h2>
+		<h2 class="text-center top-margin">Introduced in the <span ng-show="model.currentBill.chamber === 'house'">House of Representatives</span> <span ng-show="model.currentBill.chamber === 'senate'">Senate</span> </h2>
 		
 		<!-- Sponsor -->
 		<h3>Sponsor:</h3>
@@ -30,7 +30,7 @@
 		</div>
 
 		<!-- Cosponsors -->
-		<button class="btn-lg btn-primary btn-block" type="button" data-toggle="collapse" data-target="#cosponsors" aria-expanded="false" aria-controls="cosponsors" ng-show="model.currentBill.cosponsors.length > 0">
+		<button class="btn-lg btn-primary btn-block top-margin" type="button" data-toggle="collapse" data-target="#cosponsors" aria-expanded="false" aria-controls="cosponsors" ng-show="model.currentBill.cosponsors.length > 0">
 		  {{model.currentBill.cosponsors.length}} Cosponsors <span class="caret"></span>
 		</button>
 
@@ -47,14 +47,14 @@
 		</div>
 		
 		<!-- Long and Short Summaries for Bills in Collapsable Divs -->
-		<button class="btn-lg btn-primary btn-block" type="button" data-toggle="collapse" data-target="#summary_short" aria-expanded="false" aria-controls="summary_short" ng-show="model.currentBill.summary_short">
+		<button class="btn-lg btn-primary btn-block top-margin" type="button" data-toggle="collapse" data-target="#summary_short" aria-expanded="false" aria-controls="summary_short" ng-show="model.currentBill.summary_short">
 		  Short Summary <span class="caret"></span>
 		</button>
 		<div class="collapse well" id="summary_short" ng-show-"model.currentBill.summary">
 			<p>{{model.currentBill.summary_short}}</p>	
 		</div>
 
-		<button class="btn-lg btn-primary btn-block" type="button" data-toggle="collapse" data-target="#summary" aria-expanded="false" aria-controls="summary" ng-show-"model.currentBill.summary">
+		<button class="btn-lg btn-primary btn-block top-margin" type="button" data-toggle="collapse" data-target="#summary" aria-expanded="false" aria-controls="summary" ng-show-"model.currentBill.summary">
 		  Full Summary <span class="caret"></span>
 		</button>
 		<div class="collapse well" id="summary" ng-show-"model.currentBill.summary">

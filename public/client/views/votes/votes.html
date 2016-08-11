@@ -18,7 +18,7 @@
 			</div>
 
 			<!-- Votes -->
-			<div class="small-12 large-10 columns">
+			<div class="small-12 large-10 columns main-content-side-padding">
 				<div class="row">
 					<div class="small-12 columns" ng-show="!model.hasNoResults">
 						<span><strong>Count: </strong>{{model.totalVoteCount}}</span>
@@ -56,10 +56,10 @@
 
 				<!-- Load More Buttons -->
 				<div class="row">
-					<div class="small-12 columns show-for-small-only" ng-show="model.votes.length < model.totalVoteCount">
+					<div class="small-12 columns show-for-small-only bottom-margin" ng-show="model.votes.length < model.totalVoteCount">
 						<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(24)">More Votes</button>
 					</div>
-					<div class="medium-4 medium-offset-4 columns hide-for-small-only" ng-show="model.votes.length < model.totalVoteCount">
+					<div class="medium-4 medium-offset-4 columns hide-for-small-only bottom-margin" ng-show="model.votes.length < model.totalVoteCount">
 						<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(48)">More Votes</button>
 					</div>
 				</div>
