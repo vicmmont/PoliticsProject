@@ -14,7 +14,7 @@
 		<h1 class="text-center text-margins">{{model.currentVote.question}}</h1>
 		<h2 class="text-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.short_title}}</a></h2>
 		<h2 class="text-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.official_title}}</a></h2>
-		<h2 class="text-center text-margins">Result: {{model.currentVote.result}}</h2>
+		<h3 class="text-center text-margins">Result: <span ng-class="{'failed-text': model.currentVote.result.toLowerCase().includes('failed') || model.currentVote.result.toLowerCase().includes('rejected'), 'passed-text': !model.currentVote.result.toLowerCase().includes('failed') && !model.currentVote.result.toLowerCase().includes('rejected')}">{{model.currentVote.result}}</span></h3>
 		<h2 class="text-center text-margins" ng-show="model.currentVote.nomination != undefined">Nomination: {{model.currentVote.nomination.nominees[0].name}} for {{model.currentVote.nomination.organization}}</h2>
 
 		<!-- Vote Details -->
@@ -87,19 +87,16 @@
 		
 		<!-- Vote By Legislator Table -->
 		<h3>Vote By Legislator</h3>
-		<table class="table table-striped">
-			<tr>
-				<th>State</th>
-				<th>Legislator</th>
-				<th>Vote</th>
-			</tr>
-			<tr ng-repeat="voter in model.voters">
-				<td>{{voter.state_name}}</td>
-				<td><a ng-click="model.onLegislatorClick(voter.bioguide_id)">{{voter.last_name}}, {{voter.first_name}}</a></td>
-				<td>{{voter.vote}}</td>
-			</tr>
-		</table>
-
+		<div class="row">
+			<div class="thumbnail small-6 medium-3 large-2 columns" ng-repeat="legislator in model.voters" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+				<h4 class="text-center">{{legislator.state_name}}</h4>
+				<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
+				<div class="caption">
+					<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>
+					<h4 class="text-center" ng-class="{'passed-text': legislator.vote === 'Yea', 'failed-text': legislator.vote === 'Nay'}">{{legislator.vote}}</h4>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 </body>

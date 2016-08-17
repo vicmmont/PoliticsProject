@@ -10,15 +10,16 @@
 	<!-- Content, shown if there is no retrieving data -->
 	<div class="container" ng-show="!model.hasError">
 		<!-- Show Short Title if available, Official Title otherwise --> 
-		<h1 class="text-center top-margin" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
-		<h1 class="text-center top-margin" ng-show="model.currentBill.short_title">{{model.currentBill.short_title}}</h1>
+		<h1 class="text-center text-margins" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
+		<h1 class="text-center text-margins" ng-show="model.currentBill.short_title">{{model.currentBill.short_title}}</h1>
 
-		<h2 class="text-center top-margin">Bill {{model.currentBill.bill_type | uppercase}} {{model.currentBill.number}}</h2>
-		<h2 class="text-center top-margin">Introduced on: {{model.currentBill.introduced_on | date : "longDate"}}</h2>
-		<h2 class="text-center top-margin">Introduced in the <span ng-show="model.currentBill.chamber === 'house'">House of Representatives</span> <span ng-show="model.currentBill.chamber === 'senate'">Senate</span> </h2>
+		<h2 class="text-center no-margin">Bill {{model.currentBill.bill_type | uppercase}} {{model.currentBill.number}}</h2>
+		<p class="heading-3 text-center text-margins"><strong>Introduced on: </strong>{{model.currentBill.introduced_on | date : "longDate"}}</p>
+		<p class="heading-3 text-center no-margin">Introduced in the <span ng-show="model.currentBill.chamber === 'house'">House of Representatives</span> <span ng-show="model.currentBill.chamber === 'senate'">Senate</span> 
+		</p>
 		
 		<!-- Sponsor -->
-		<h3>Sponsor:</h3>
+		<h3 class="text-margins">Sponsor:</h3>
 		<div class="row thumbnail" ng-click="model.onLegislatorClick(model.currentBill.sponsor.bioguide_id)">
 			<div class="small-4 medium-2 columns">
 				<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentBill.sponsor.bioguide_id}}.jpg">
@@ -50,20 +51,21 @@
 		<button class="btn-lg btn-primary btn-block top-margin" type="button" data-toggle="collapse" data-target="#summary_short" aria-expanded="false" aria-controls="summary_short" ng-show="model.currentBill.summary_short">
 		  Short Summary <span class="caret"></span>
 		</button>
-		<div class="collapse well" id="summary_short" ng-show-"model.currentBill.summary">
+		<div class="collapse well" id="summary_short" ng-show="model.currentBill.summary_short">
 			<p>{{model.currentBill.summary_short}}</p>	
 		</div>
 
 		<button class="btn-lg btn-primary btn-block top-margin" type="button" data-toggle="collapse" data-target="#summary" aria-expanded="false" aria-controls="summary" ng-show-"model.currentBill.summary">
 		  Full Summary <span class="caret"></span>
 		</button>
-		<div class="collapse well" id="summary" ng-show-"model.currentBill.summary">
-			<p>{{model.currentBill.summary}}</p>	
+		<div class="collapse well" id="summary">
+			<p ng-show="model.currentBill.summary">{{model.currentBill.summary}}</p>
+			<div class="text-center alert alert-info" ng-show="!model.currentBill.summary">Full text for this bill is not yet available. Click on one of the available URLs for more information!</div>	
 		</div>
 
 		<!-- Links For More Information On Bills  -->
 		<div ng-show="model.urls.length > 0">
-			<h2>Urls:</h2>
+			<h2>URLs:</h2>
 			<p>
 				<span ng-repeat="property in model.urls"><a ng-href="{{model.currentBill.urls[property]}}" target="_blank">{{property}}</a>&nbsp; &nbsp; &nbsp; &nbsp;</span>			
 			</p>

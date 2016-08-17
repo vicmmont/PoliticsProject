@@ -11,6 +11,7 @@
         vm.sortBy;
         vm.displayedLegislators = [];
         vm.currentFilters = "";
+        vm.selectedFilters = "";
 
         vm.hasError = false;
         vm.hasNoResults = false;
@@ -28,6 +29,9 @@
 
                     vm.loadingInformation = false;
                	    vm.displayedLegislators = response.data.results;
+
+                    var filterGroups = FilterService.getFilterGroups($location.path(), $routeParams);
+                    vm.selectedFilters = FilterService.getSelectedFilters(filterGroups);
                     $window.scrollTo(0,0);
                 }, function(error) {
                	    vm.hasError = true;
@@ -39,6 +43,7 @@
         vm.onLegislatorClick = function(legislatorId) {
             $location.url("/legislator/" + legislatorId);
         }
+
 
         vm.showFilterPopup = function(ev) {
             var filterGroups = FilterService.getFilterGroups($location.path(), $routeParams);

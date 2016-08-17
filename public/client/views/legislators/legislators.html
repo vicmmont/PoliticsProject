@@ -19,9 +19,14 @@
 			</div>
 
 			<div class="small-12 large-10 main-content-side-padding columns">
-				<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
-
 				<div class="row">
+					<div class="small-12 columns" ng-show="model.selectedFilters != ''">
+						<p class="filter-text">{{model.selectedFilters}}</p>
+					</div>
+
+					<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
+
+
 					<div class="small-12 columns" ng-show="!model.hasNoResults">
 						<span><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
 						<form class="form-inline pull-right">
@@ -35,7 +40,7 @@
 
 					<div class="small-12 columns hide-for-large">
 						<div class="row">
-						<button class="btn btn-lg small-6 columns hide-for-large filter-background" ng-click="model.showFilterPopup($event)">
+						<button class="btn btn-lg small-6 columns hide-for-large filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
 							Filter
 						</button>
 						</div>
@@ -45,7 +50,7 @@
 						<img class="center-block" src="./client/images/ring-alt.svg">
 					</div>
 
-					<div class="thumbnail small-6 medium-3 columns" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+					<div class="thumbnail small-6 medium-3 large-2 columns" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
 						<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
 						<div class="caption">
 							<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>

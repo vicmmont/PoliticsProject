@@ -10,19 +10,19 @@
 
             <div class="row">
                 <div class="col-lg-12 center-block">
-                    <div class="intro-message">
-                        <h1>My Politics</h1>
+                    <div class="introductory-message">
+                        <img class="img-responsive logo center-block" src="./client/images/mypolitics_logo.svg">
                         <h3>Political Knowledge At Your Fingertips</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
-                                <button href="#/legislators" class="btn btn-default btn-lg">Legislators</button>
+                                <button class="btn btn-default btn-lg" ng-click="model.onLegislatorsClick()">Legislators</button>
                             </li>
                             <li>
-                                <button href="#/votes" class="btn btn-default btn-lg">Votes</button>
+                                <button class="btn btn-default btn-lg" ng-click="model.onVotesClick()">Votes</button>
                             </li>
                             <li>
-                                <button href="#/bills" class="btn btn-default btn-lg">Bills</button>
+                                <button class="btn btn-default btn-lg" ng-click="model.onBillsClick()">Bills</button>
                             </li>
                         </ul>
                     </div>
@@ -44,13 +44,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Get To Know Your Legislators!</h2>
+                    <h2 class="section-heading no-top-margin">Get To Know Your Legislators!</h2>
                     <ul>
                         <li>Who are the Senators from each State?</li>
                         <li>How many members of each party are in each chamber of Congress?</li>
                         <li>Who are the representatives of each state?</li>
                     </ul>
                     <p>Get to know each member of Congress!</p>
+                    <button class="btn btn-default btn-lg btn-block top-margin bottom-margin" ng-click="model.onLegislatorsClick()">Legislators</button>
                 </div>
                 <div class="col-sm-6">
                     <img class="img-responsive" src="http://ww1.hdnux.com/photos/50/20/67/10554844/3/920x1240.jpg" alt="">
@@ -70,7 +71,7 @@
             <div class="row">
                 <div class="col-sm-push-6  col-sm-6">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Which Votes Are Getting Held and When?</h2>
+                    <h2 class="section-heading no-top-margin">Which Votes Are Getting Held and When?</h2>
                     <ul>
                         <li>Which bills are getting a vote?</li>
                         <li>What is the result of those votes?</li>
@@ -78,6 +79,7 @@
                     </ul>
 
                    	<p>Also get a visual breakdown of votes by party!</p>
+                    <button class="btn btn-default btn-lg btn-block top-margin bottom-margin" ng-click="model.onVotesClick()">Votes</button>
                 </div>
                 <div class="col-sm-pull-6 col-sm-6">
                     <img class="img-responsive" src="./client/images/votes.jpg" alt="">
@@ -97,7 +99,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Explore Congress' Bills</h2>
+                    <h2 class="section-heading no-top-margin">Explore Congress' Bills</h2>
                     <ul>
                         <li>Which bills are being considered relating to guns? transportation? the economy?</li>
                         <li>What actions have been taken on a bill?</li>
@@ -105,6 +107,7 @@
                     </ul>
 
                    	<p>Also get details on who is sponsoring and cosponsoring bills!</p>
+                    <button class="btn btn-default btn-lg btn-block top-margin bottom-margin" ng-click="model.onBillsClick()">Bills</button>
                 </div>
                 <div class="col-sm-6">
                     <img class="img-responsive" src="http://media.npr.org/assets/img/2015/12/10/essa-edit_custom-235c1ae54b2e7709fe35b6c3632e2ae6e1f4f99b-s900-c85.jpg" alt="">

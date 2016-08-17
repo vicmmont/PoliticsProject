@@ -13,7 +13,7 @@
         vm.age = null;
 
         vm.currentSubView = "votes";
-        vm.pageSize = 32;
+        vm.pageSize = 24;
         vm.information = {};
         vm.information.sponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId };
         vm.information.cosponsoredBills = { data: [], totalCount: 0, method: BillService.getBillsByLegislatorId };

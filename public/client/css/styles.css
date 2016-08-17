@@ -1,3 +1,4 @@
+/* Global settings */
 body { 
 	padding-top: 50px;
 	font-size: 1rem;
@@ -5,6 +6,10 @@ body {
 
 html {
 	font-size: 16px;
+}
+
+.heading-3 {
+	font-size: 1.5rem;
 }
 
 .columns.main-content-side-padding,
@@ -18,7 +23,9 @@ html {
 	font-weight: bold;
 }
 
-.filter-background {
+.filter-background,
+.filter-background:hover,
+.filter-background:focus {
 	background-color: #861316;
 	color: #FFFFFF;	
 }
@@ -114,7 +121,12 @@ span.network-name {
 	color: #FFFFFF;
 }
 
-/* Margins */
+/* Spacing */
+body > .no-padding,
+.no-padding {
+	padding: 0;
+}
+
 .top-margin {
 	margin-top: 20px;
 }
@@ -124,11 +136,81 @@ span.network-name {
 }
 
 .text-margins {
-	margin-bottom: 15px;
-	margin-top: 15px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.no-top-margin {
+	margin-top: 0;
 }
 
 /* Graph */
 .graph-border {
 	border: 2px solid #7087AA;
+}
+
+/* Tabs */
+.nav-tabs {
+	border-bottom: 1px solid #861316;
+}
+
+.nav-tabs > li > a, 
+.nav-tabs > li > a:focus,
+.nav-tabs > li > a:active {
+	border: 1px solid #861316;
+	color: #861316;
+}
+
+.nav-tabs > li.active > a, 
+.nav-tabs > li > a:focus, 
+.nav-tabs > li > a:hover,
+.nav-tabs > li.active > a:focus, 
+.nav-tabs > li.active > a:hover {
+	background-color: #861316;
+	color: #FFFFFF;	
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+
+.navbar-brand > img {
+  height: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: auto;
+}
+
+/* Action Colors */
+.passed-text {
+	color: #33A532;
+}
+
+.failed-text {
+	color: #CC0605;
+}
+
+/* Home Page */
+.logo {
+	width: 400px;
+	height: auto;	
+}
+
+.introductory-message {
+	position: relative;
+	padding-top: 3%;
+	padding-bottom: 3%;
+}
+
+/* Tab styling */
+.tab-style {
+	padding-top: 20px;
+	border-left: 1px solid #861316;
+	border-right: 1px solid #861316;
+	padding-left: 10px;
+	padding-right: 10px;
 }

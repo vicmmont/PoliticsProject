@@ -28,7 +28,7 @@
             { isChecked: false,  value: "Florida",               displayValue: "Florida" },
             { isChecked: false,  value: "Georgia",               displayValue: "Georgia" },
             { isChecked: false,  value: "Guam",                  displayValue: "Guam" },
-            { isChecked: false,  value: "hawaii",                displayValue: "Hawaii" },
+            { isChecked: false,  value: "Hawaii",                displayValue: "Hawaii" },
             { isChecked: false,  value: "Idaho",                 displayValue: "Idaho" },
             { isChecked: false,  value: "Illinois",              displayValue: "Illinois" },
             { isChecked: false,  value: "Indiana",               displayValue: "Indiana" },
@@ -105,6 +105,8 @@
             "/votes" : []
         };
 
+
+        /* Service Methods */
         this.getFilterGroups = function(route, routeParams) {
             var results = filterGroups[route];
             updateFilterGroups(results, routeParams);
@@ -112,7 +114,24 @@
             return results;
         }
 
-        /* Service Methods */
+        this.getSelectedFilters = function(filterGroups) {
+            var selectedFilters = [];
+
+            for (var index = 0; index < filterGroups.length; index++) {
+                var currentFilters = filterGroups[index].filters;
+
+                for (var ind = 0; ind < currentFilters.length; ind++) {
+                    var currentFilter = currentFilters[ind];
+                    
+                    if (currentFilter.isChecked) {
+                        selectedFilters.push('"' + currentFilter.displayValue + '"');
+                    }
+                }
+            }
+
+            return selectedFilters.join(", ");
+        }
+
         this.extractRouteParametersUniqueParams = function(filters, routeParams, route) {
         	var newRouteParams = {};
         	var currentFilterGroups = filterGroups[route];
