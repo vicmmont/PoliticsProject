@@ -15,7 +15,7 @@
 	<div class="main-content-side-padding" ng-show="!model.hasError">
 		<div class="row">
 			<!-- Title and Search Bar -->
-			<div class="small-12 columns">
+<!-- 			<div class="small-12 columns">
 				<div class="row">
 					<div class="small-12 medium-6 medium-offset-6 large-4 large-offset-4 columns">
 						<div class="input-group">
@@ -25,17 +25,17 @@
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
-						</div><!-- /input-group -->
+						</div>
 					</div>
-				</div><!-- /.row -->
-			</div>
+				</div>
+			</div> -->
 
-			<h4 class="text-center filter-text">{{model.totalBillCount | number}}{{model.displayMessage}}</h4>
+			<!-- <h4 class="text-center filter-text">{{model.totalBillCount | number}}{{model.displayMessage}}</h4> -->
 
 			<!-- Bills -->
 			<div class="small-12 columns">
 				<div class="row">
-					<div class=" thumbnail small-6 medium-3 large-2 columns" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
+					<div class="thumbnail small-6 medium-3 large-2 columns" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
 						<p class="text-right">
 							{{bill.bill_type | uppercase}} {{bill.number}}
 						</p>
@@ -57,10 +57,10 @@
 			</div>
 
 			<!-- Error Message -->
-			<div class="text-center alert alert-danger" ng-show="model.hasLoadError">Error loading data! <br>Try loading more again.</div>
+			<!-- <div class="text-center alert alert-danger" ng-show="model.hasLoadError">Error loading data! <br>Try loading more again.</div> -->
 
 			<!-- Load More Buttons -->
-			<div class="small-12 columns">
+			<!-- <div class="small-12 columns">
 				<div class="row">
 					<div class="small-12 columns show-for-small-only bottom-margin" ng-show="model.bills.length < model.totalBillCount">
 						<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
@@ -70,7 +70,7 @@
 						<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div> <!-- End of row -->
 
 	</div>	<!-- End of Content Div -->
