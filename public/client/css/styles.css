@@ -42,8 +42,9 @@ html {
 
 .thumbnail {
 	background-color: #FFFFFF;
-	color: #000000;
 	border: 1px solid #7087AA;
+	color: #000000;
+	width: 100%;
 }
 
 .panel {

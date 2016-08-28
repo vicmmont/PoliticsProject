@@ -7,7 +7,10 @@
 	<h1 class="text-center">Congressional Votes</h1>
 
 	<!-- Error Message -->
-	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/votes">clearing</a> your filters.</div>
+	<div class="text-center alert alert-danger" ng-show="model.hasError">
+		Error retrieving data! <br>
+		Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/votes">clearing</a> your filters.
+	</div>
 
 	<!-- Content -->
 	<div ng-show="!model.hasError">
