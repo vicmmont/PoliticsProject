@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- <link href="./client/css/foundation 6/foundation.css" rel="stylesheet"> -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridlex/2.2.0/gridlex.min.css">
-
+	<link href="./client/css/bootstrap-grid.css" rel="stylesheet">
 </head>
 <body>
 	<h1 class="text-center">Bills for Current Legislative Session</h1>
@@ -14,7 +12,7 @@
 	</div>
 
 	<!-- Content -->
-	<div class="grid-equalHeight main-content-side-padding" ng-show="!model.hasError">
+	<div class="container" ng-show="!model.hasError">
 		
 			<!-- Title and Search Bar -->
 <!-- 			<div class="small-12 columns">
@@ -35,26 +33,22 @@
 			<!-- <h4 class="text-center filter-text">{{model.totalBillCount | number}}{{model.displayMessage}}</h4> -->
 
 			<!-- Bills -->
-
-
-					<div class="col_xs-6 col_md-3 col-2" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
-						<div class="thumbnail">
-							<p class="text-right">
-								{{bill.bill_type | uppercase}} {{bill.number}}
-							</p>
-							<p class="text-center" ng-show="bill.short_title">
-								<strong>{{bill.short_title}}</strong>
-							</p>
-							<p class="text-center" ng-show="!bill.short_title">
-								<strong>{{bill.official_title}}</strong>
-							</p>
-							<p class="text-center">
-								{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
-							</p>
-						</div>
-					</div>
-
-
+			<div class="row">
+				<div class="thumbnail col-xs-6 col-md-3 col-lg-2" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
+					<p class="text-right">
+						{{bill.bill_type | uppercase}} {{bill.number}}
+					</p>
+					<p class="text-center" ng-show="bill.short_title">
+						<strong>{{bill.short_title}}</strong>
+					</p>
+					<p class="text-center" ng-show="!bill.short_title">
+						<strong>{{bill.official_title}}</strong>
+					</p>
+					<p class="text-center">
+						{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
+					</p>
+				</div>
+			</div>
 
 			<!-- Error Message -->
 			<!-- <div class="text-center alert alert-danger" ng-show="model.hasLoadError">Error loading data! <br>Try loading more again.</div> -->
