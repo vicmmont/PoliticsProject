@@ -11,7 +11,7 @@
 	</div>
 	
 	<!-- Content, shown if there is no retrieving data -->
-	<div class="container" ng-show="!model.hasError">
+	<div class="container main-content-side-padding" ng-show="!model.hasError">
 
 		<!-- Show Short Title if available, Official Title otherwise --> 
 		<h1 class="text-xs-center text-margins" ng-show="!model.currentBill.short_title">{{model.currentBill.official_title}}</h1>
