@@ -1,24 +1,19 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container-fluid">
-		
-		<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-contents" aria-expanded="false">
-		    <span class="sr-only">Toggle navigation</span>
-		    <span class="icon-bar"></span>
-		    <span class="icon-bar"></span>
-		    <span class="icon-bar"></span>
-		  </button>
-		  <a class="navbar-brand" href="#/home">
-		  	<img src="./client/images/mypolitics_logo.svg">
-		  </a>
-		</div>
-
-		<div class="collapse navbar-collapse" id="navbar-contents">
-		  <ul class="nav navbar-nav">
-		    <li ng-class="{active: model.$location.path() === '/legislators'}"><a href="#/legislators">Legislators</a></li>
-		    <li ng-class="{active: model.$location.path() === '/votes'}"><a href="#/votes">Votes</a></li>
-		    <li ng-class="{active: model.$location.path() === '/bills'}"><a href="#/bills">Bills</a></li>
-		  </ul>
-		</div>
-	</div>
+<nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
+  <a class="navbar-brand" href="#/home">My Politics</a>
+  <button class="navbar-toggler hidden-sm-up pull-right" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+    <ul class="nav navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" ng-class="{active: model.$location.path() === '/legislators'}" href="#/legislators">Legislators</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ng-class="{active: model.$location.path() === '/votes'}" href="#/votes">Votes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ng-class="{active: model.$location.path() === '/bills'}" href="#/bills">Bills</a>
+      </li>
+    </ul>
+  </div>
 </nav>

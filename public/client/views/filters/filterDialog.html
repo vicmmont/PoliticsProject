@@ -7,7 +7,7 @@
 	<md-dialog aria-label="Filter Dialog" ng-cloak>
 	    <md-toolbar>
 	      <div class="md-toolbar-tools">
-	       	<span class="glyphicon glyphicon-remove" ng-click="model.cancel()"></span>
+	       	<span ng-click="model.cancel()"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span>
 	        <span flex></span>
 	        <md-button ng-click="model.filter()">
 	          Filter
@@ -18,22 +18,28 @@
 		<md-dialog-content>	
 
 			<div ng-repeat="filterGroup in model.filterGroups">
-				<div class="panel panel-default" data-toggle="collapse" data-target="#{{filterGroup.id}}" aria-expanded="false" aria-controls="" ng-click="model.onFilterGroupClick(filterGroup)">
+				<div class="list-group-header list-group-item" data-toggle="collapse" data-target="#{{filterGroup.id}}" aria-expanded="false" aria-controls="" ng-click="model.onFilterGroupClick(filterGroup)">
 					<div class="panel-body">
-						<span class="glyphicon glyphicon-plus" ng-show="!filterGroup.expanded"></span> 
-						<span class="glyphicon glyphicon-minus" ng-show="filterGroup.expanded"></span> 
+						<span ng-show="!filterGroup.expanded"><i class="fa fa-plus" aria-hidden="true"></i>
+						</span> 
+						<span ng-show="filterGroup.expanded">
+							<i class="fa fa-minus" aria-hidden="true"></i>
+						</span> 
 						{{filterGroup.name}} 
-						<span class="glyphicon glyphicon-ok pull-right" ng-show="filterGroup.selectedFilterCount > 0"></span>
+						<span class="pull-right" ng-show="filterGroup.selectedFilterCount > 0">
+							<i class="fa fa-check" aria-hidden="true"></i>
+						</span>
 					</div>
 				</div>
 				<div class="collapse" id="{{filterGroup.id}}">
-					<div class="panel panel-default">
-						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="filter in filterGroup.filters" ng-click="model.onSelectFilter(filterGroup, filter)">
-								{{filter.displayValue}} <span class="glyphicon glyphicon-ok pull-right" ng-show="filter.isChecked"></span>
-							</li>
-						</ul>
-					</div>
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="filter in filterGroup.filters" ng-click="model.onSelectFilter(filterGroup, filter)">
+							{{filter.displayValue}} 
+							<span class="pull-right" ng-show="filter.isChecked">
+								<i class="fa fa-check" aria-hidden="true"></i>
+							</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 

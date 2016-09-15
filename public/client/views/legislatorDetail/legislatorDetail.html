@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<!-- Error Message -->
-	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/legislators">Legislators page</a>.</div>
+	<div class="container" ng-show="model.hasError">
+		<!-- Error Message -->
+		<div class="text-center alert alert-danger" ng-show="model.hasError">
+			Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/legislators">Legislators page</a>.
+		</div>
+	</div>
+
 
 	<!-- Content -->
 	<div class="container" ng-show="!model.hasError">
-		<br>
 		<div class="row">
-			<div class="small-12 medium-4 columns">
+			<div class="col-xs-12 col-sm-4">
 				<div class="row">
-					<div class="small-12 columns">
-						<img class="img-responsive center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
+					<div class="col-xs-12 top-margin">
+						<img class="img-fluid center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
 	
-						<div class="small-12 columns">
+						<div class="col-xs-12">
 							<a class="btn btn-primary btn-block top-margin" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
 						</div>
 					</div>
 					
 					<!-- Social Media Icons -->
-					<div class="text-center small-12">
+					<div class="text-xs-center col-xs-12">
 						<a class="btn btn-social-icon btn-facebook" ng-show="model.currentLegislator.facebook_id" href="https://facebook.com/{{model.currentLegislator.facebook_id}}" target="_blank">
 							<span class="fa fa-facebook-square fa-3x"></span>
 						</a>
@@ -33,13 +36,13 @@
 				</div>
 			</div>
 
-			<div class="small-12 medium-8 columns">
+			<div class="col-xs-12 col-sm-8">
 				<h1 class="text-margins">{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
 				<h3 class="text-margins" ng-show="model.currentLegislator.district">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
 				<h3 class="text-margins" ng-show="model.currentLegislator.state_rank">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
 				
 				<!-- Information in table format -->
-				<table class="table">
+				<table class="table table-striped">
 					<tr>
 						<td>
 							<strong>Term:</strong>	
@@ -53,7 +56,7 @@
 							<strong>Birthday: </strong>	
 						</td>
 						<td>
-							{{model.currentLegislator.birthday | date : "longDate"}} (Age: {{model.age}})
+							{{model.currentLegislator.birthday | date : "longDate"}} <strong>(Age: {{model.age}})</strong>
 						</td>
 					</tr>
 					<tr ng-show="model.currentLegislator.phone">
@@ -64,7 +67,6 @@
 							{{model.currentLegislator.phone}}
 						</td>
 					</tr>
-					<tr>
 					<tr ng-show="model.currentLegislator.fax">
 						<td>
 							<strong>Fax:</strong>
@@ -93,20 +95,15 @@
 			</div>
 		</div> <!-- End of row-->
 
-		<div>
-
-		  <!-- Nav tabs -->
-		  <ul class="nav nav-tabs" role="tablist">
-		    <li class="text-center active" role="presentation" ng-click="model.setSubView('votes')"><a aria-controls="home" role="tab" data-toggle="tab">Recent <br>Votes</a></li>
-		    <li class="text-center" role="presentation" ng-click="model.setSubView('sponsoredBills')"><a aria-controls="home" role="tab" data-toggle="tab">Sponsored <br>Bills</a></li>
-		    <li class="text-center" role="presentation" ng-click="model.setSubView('cosponsoredBills')"><a aria-controls="home" role="tab" data-toggle="tab">Cosponsored <br>Bills</a></li>
-		  </ul>
-
+		<div class="btn-group btn-group-lg" role="group">
+		  <button type="button" class="btn btn-secondary" ng-class="{'active': model.currentSubView === 'votes'}" ng-click="model.setSubView('votes')">Recent Votes</button>
+		  <button type="button" class="btn btn-secondary" ng-class="{'active': model.currentSubView === 'sponsoredBills'}" ng-click="model.setSubView('sponsoredBills')">Sponsored Bills</button>
+		  <button type="button" class="btn btn-secondary" ng-class="{'active': model.currentSubView === 'cosponsoredBills'}" ng-click="model.setSubView('cosponsoredBills')">Cosponsored Bills</button>
 		</div>
 
 		<div class="row tab-style">
-			<div class="small-6 medium-3 large-2 columns thumbnail" ng-show="model.currentSubView === 'sponsoredBills'" ng-repeat="sponsoredBill in model.information.sponsoredBills.data" ng-click="model.onBillClick(sponsoredBill.bill_id)">
-				<p class="text-right">
+			<div class="col-xs-6 col-sm-3 col-lg-2 card" ng-show="model.currentSubView === 'sponsoredBills'" ng-repeat="sponsoredBill in model.information.sponsoredBills.data" ng-click="model.onBillClick(sponsoredBill.bill_id)">
+				<p class="text-xs-right">
 					{{sponsoredBill.bill_type | uppercase}} {{sponsoredBill.number}}
 				</p>
 				<p ng-show="sponsoredBill.short_title">
@@ -120,8 +117,8 @@
 				</p>	
 			</div>
 
-			<div class="small-6 medium-3 large-2 columns thumbnail" ng-show="model.currentSubView === 'cosponsoredBills'" ng-repeat="cosponsoredBill in model.information.cosponsoredBills.data" ng-click="model.onBillClick(cosponsoredBill.bill_id)">
-				<p class="text-right">
+			<div class="col-xs-6 col-sm-3 col-lg-2 card" ng-show="model.currentSubView === 'cosponsoredBills'" ng-repeat="cosponsoredBill in model.information.cosponsoredBills.data" ng-click="model.onBillClick(cosponsoredBill.bill_id)">
+				<p class="text-xs-right">
 					{{cosponsoredBill.bill_type | uppercase}} {{cosponsoredBill.number}}
 				</p>
 				<p ng-show="cosponsoredBill.short_title">
@@ -135,14 +132,14 @@
 				</p>	
 			</div>
 
-			<div class="small-6 medium-3 large-2 columns thumbnail" ng-show="model.currentSubView === 'votes'" ng-repeat="currentVote in model.information.votes.data" ng-click="model.onVoteClick(currentVote.roll_id)">
-				<p class="text-center">
+			<div class="col-xs-6 col-sm-3 col-lg-2 card" ng-show="model.currentSubView === 'votes'" ng-repeat="currentVote in model.information.votes.data" ng-click="model.onVoteClick(currentVote.roll_id)">
+				<p class="text-xs-center">
 					<strong>Voted <span ng-class="{'failed-text': currentVote.voters[model.currentLegislatorId].vote.toLowerCase().includes('nay'), 'passed-text': currentVote.voters[model.currentLegislatorId].vote.toLowerCase().includes('yea')}">{{currentVote.voters[model.currentLegislatorId].vote}}</span></strong>
 				</p>
 				<p>
 					<strong>{{currentVote.question}}</strong>
 				</p>
-				<p class="text-center">For</p>
+				<p class="text-xs-center">For</p>
 				<p ng-show="currentVote.bill.short_title">
 					{{currentVote.bill.short_title}}
 				</p>
@@ -152,22 +149,22 @@
 				<p>
 					{{currentVote.voted_at | date : "longDate"}} @{{currentVote.voted_at | date : "shortTime"}}
 				</p>
-				<p class="text-center">
+				<p class="text-xs-center">
 					<strong>Result: <span ng-class="{'failed-text': currentVote.result.toLowerCase().includes('failed') || currentVote.result.toLowerCase().includes('rejected'), 'passed-text': !currentVote.result.toLowerCase().includes('failed') && !currentVote.result.toLowerCase().includes('rejected')}">{{currentVote.result}}</span></strong>
 				</p>
 			</div>
 
-			<div class="small-12 columns" ng-show="model.loadingInformation">
+			<div class="col-xs-12" ng-show="model.loadingInformation">
 				<img class="center-block" src="./client/images/ring-alt.svg">
 			</div>
 		</div>
 
 		<div class="row">
 			<!-- Load More Buttons -->
-			<div class="small-12 columns show-for-small-only bottom-margin" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount">
+			<div class="col-xs-12 hidden-sm-up bottom-margin" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount">
 				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreSubViewData(12)">Load More</button>
 			</div>
-			<div class="medium-4 medium-offset-4 columns hide-for-small-only bottom-margin" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount">
+			<div class="col-sm-4 offset-sm-4 hidden-xs-down bottom-margin" ng-show="model.information[model.currentSubView].data.length < model.information[model.currentSubView].totalCount">
 				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreSubViewData(24)">Load More</button>
 			</div>
 		</div>

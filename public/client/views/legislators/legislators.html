@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<h1 class="text-center">Current Legislators</h1>
-	<div></div>
-
-	<!-- Error Message -->
-	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/legslators">clearing your filters</a>.</div>
+	<div class="container-fluid">
+		<!-- Error Message -->
+		<div class="text-xs-center alert alert-danger" ng-show="model.hasError">
+			Error retrieving data!
+			<br>Try <a href="" ng-click="model.refreshPage()"> refreshing</a> the page or <a href="#/legslators">clearing your filters</a>.
+		</div>
+	</div>
 
 	<!-- Content -->
-	<div ng-show="!model.hasError">
+	<div class="container-fluid" ng-show="!model.hasError">
+		<h1 class="text-xs-center top-margin">Current Legislators</h1>
+		
 		<div class="row">
-			
-			<div class="large-2 show-for-large columns filter-background">
+			<div class="col-lg-2 hidden-md-down filter-background">
 				<div ng-include="'./client/views/filters/filters.html'" ng-controller="FiltersController as model"></div>
 			</div>
 
-			<div class="small-12 large-10 main-content-side-padding columns">
+			<div class="col-xs-12 col-lg-10 main-content-side-padding">
 				<div class="row">
-					<div class="small-12 columns" ng-show="model.selectedFilters != ''">
-						<p class="filter-text">{{model.selectedFilters}}</p>
+					<div class="col-xs-12" ng-show="model.selectedFilters != ''">
+						<p class="text-xs-center filter-text">{{model.selectedFilters}}</p>
 					</div>
 
-					<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
+					<div class="col-xs-12 text-xs-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
 
-
-					<div class="small-12 columns" ng-show="!model.hasNoResults">
+					<div class="col-xs-12" ng-show="!model.hasNoResults">
 						<span><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
 						<form class="form-inline pull-right">
 							<label>Sort By: </label>
@@ -38,31 +39,28 @@
 						</form>
 					</div>
 
-					<div class="small-12 columns hide-for-large">
+					<div class="col-xs-12 hidden-lg-up">
 						<div class="row">
-						<button class="btn btn-lg small-6 columns hide-for-large filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
+						<button class="btn btn-lg col-xs-6 hidden-lg-up filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
 							Filter
 						</button>
 						</div>
 					</div>
 
-					<div class="small-12 columns" ng-show="model.loadingInformation">
+					<div class="col-xs-12" ng-show="model.loadingInformation">
 						<img class="center-block" src="./client/images/ring-alt.svg">
 					</div>
 
-					<div class="thumbnail small-6 medium-3 large-2 columns" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
-						<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
-						<div class="caption">
-							<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>
-							<h4>{{legislator.state_name}}</h4>
-							<p></p>
-						</div>
+					<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+						<img class="img-fluid" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
+						<p>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</p>
+						<p>{{legislator.state_name}}</p>
 					</div>
-				</div> <!-- End of Row -->
-			</div> <!-- End of Column -->
+				</div>
+			</div> 
 		
-		</div>
-	</div>
+		</div> <!-- End of row-->
+	</div> <!-- End of container -->
 
 </body>
 </html>

@@ -1,48 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<h1 class="text-center">Congressional Votes</h1>
+	<div class="container-fluid">
+		<h1 class="text-xs-center top-margin">Congressional Votes</h1>
 
-	<!-- Error Message -->
-	<div class="text-center alert alert-danger" ng-show="model.hasError">
-		Error retrieving data! <br>
-		Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/votes">clearing</a> your filters.
-	</div>
+		<!-- Error Message -->
+		<div class="text-xs-center alert alert-danger" ng-show="model.hasError">
+			Error retrieving data! <br>
+			Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or <a href="#/votes">clearing</a> your filters.
+		</div>
 
-	<!-- Content -->
-	<div ng-show="!model.hasError">
-		
-		<div class="row">
+		<!-- Content -->
+		<div class="row" ng-show="!model.hasError">
 			<!-- Filters -->
-			<div class="large-2 show-for-large columns filter-background">
+			<div class="col-lg-2 hidden-md-down filter-background">
 				<div ng-include="'./client/views/filters/filters.html'" ng-controller="FiltersController as model"></div>
 			</div>
 
 			<!-- Votes -->
-			<div class="small-12 large-10 columns main-content-side-padding">
+			<div class="col-xs-12 col-lg-10">
 				<div class="row">
-					<div class="small-12 columns" ng-show="!model.hasNoResults">
+					<div class="col-xs-12" ng-show="model.selectedFilters != ''">
+						<p class="text-xs-center filter-text">{{model.selectedFilters}}</p>
+					</div>
+
+					<div class="col-xs-12" ng-show="!model.hasNoResults">
 						<span><strong>Count: </strong>{{model.totalVoteCount}}</span>
 					</div>
 
-					<div class="small-12 columns text-center alert alert-info" ng-show="model.hasNoResults">There are no votes that fit the combination of selected filters! Try another combination :)</div>
+					<div class="col-xs-12">
+						<div class="text-xs-center alert alert-info" ng-show="model.hasNoResults">
+							There are no votes that fit the combination of selected filters! Try another combination :)
+						</div>
+					</div>
 
-					<div class="small-12 columns hide-for-large">
+					<div class="col-xs-12 hidden-lg-up">
 						<div class="row">
-							<button class="btn btn-lg small-6 columns hide-for-large filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
-							Filter
-							</button>
+							<div class="col-xs-6 col-xs-offset-6">
+								<button class="btn btn-block btn-lg filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
+								Filter
+								</button>
+							</div>
 						</div>
 					</div>
 					
-					<div class="thumbnail small-6 medium-3 columns" ng-repeat="vote in model.votes" ng-click="model.onVoteClick(vote.roll_id)">
+					<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="vote in model.votes" ng-click="model.onVoteClick(vote.roll_id)">
 						<p>
 							<strong>{{vote.question}}</strong>
 						</p>
-						<p class="text-center">For</p>
+						<p class="text-xs-center">For</p>
 						<p ng-show="vote.bill.short_title">
 							{{vote.bill.short_title}}
 						</p>
@@ -53,23 +61,30 @@
 							{{vote.voted_at | date : "longDate"}} @{{vote.voted_at | date : "shortTime"}}
 						</p>
 					</div>
-				</div>
 
-				<!-- Error Message -->
-				<div class="text-center alert alert-danger" ng-show="model.hasLoadError">Error loading data! <br>Try loading more again.</div>
+					<!-- Error Message -->
+					<div class="col-xs-12">
+						<div class="text-xs-center alert alert-danger" ng-show="model.hasLoadError">
+							Error loading data! <br>Try loading more again.
+						</div>
+					</div>
 
-				<!-- Load More Buttons -->
-				<div class="row">
-					<div class="small-12 columns show-for-small-only bottom-margin" ng-show="model.votes.length < model.totalVoteCount">
-						<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(24)">More Votes</button>
+					<!-- Load More Buttons -->
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="col-xs-12 hidden-sm-up bottom-margin" ng-show="model.votes.length < model.totalVoteCount">
+								<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(24)">More Votes</button>
+							</div>
+							<div class="hidden-xs-down col-sm-4 offset-sm-4 bottom-margin" ng-show="model.votes.length < model.totalVoteCount">
+								<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(48)">More Votes</button>
+							</div>
+						</div>
 					</div>
-					<div class="medium-4 medium-offset-4 columns hide-for-small-only bottom-margin" ng-show="model.votes.length < model.totalVoteCount">
-						<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreVotes(48)">More Votes</button>
-					</div>
+
 				</div>
 			</div>
-		</div>
-	</div>
-
+			
+		</div> <!-- End of row -->
+	</div> <!-- End of container -->
 </body>
 </html>

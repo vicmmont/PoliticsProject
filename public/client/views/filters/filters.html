@@ -1,15 +1,11 @@
-<div class="row bottom-margin">
-	<div class="large-12 columns" ng-repeat="filterGroup in model.filterGroups">
-		<div class="row">
-			<div class="large-12 columns">
-				<u><h4>{{filterGroup.name}}</h4></u>
-			</div>
-			<div class="large-12 columns" ng-repeat="checkBox in filterGroup.filters">
-				<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.filterLegislators()">
-				<span>
-					{{checkBox.displayValue}}
-				</span>
-			</div>			
-		</div>
+<div class="row" ng-repeat="filterGroup in model.filterGroups">
+	<div class="col-xs-12 text-margins">
+		<u><h4>{{filterGroup.name}}</h4></u>
 	</div>
+	<div class="col-xs-12" ng-repeat="checkBox in filterGroup.filters">
+		<input type="checkbox" ng-model="checkBox.isChecked" ng-change="model.filterLegislators()">
+		<span>
+			{{checkBox.displayValue}}
+		</span>
+	</div>			
 </div>

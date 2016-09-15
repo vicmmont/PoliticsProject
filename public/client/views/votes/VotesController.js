@@ -5,7 +5,7 @@
         .module("MyPoliticsApp")
         .controller("VotesController", votesController);
 
-    function votesController(FilterService, VoteService, $location, $route, $routeParams) {
+    function votesController(FilterService, VoteService, $location, $route, $routeParams, $window) {
     	var vm = this;
     	vm.votes = [];
     	vm.pageSize = 48;
@@ -13,6 +13,7 @@
         vm.hasError = false;
         vm.hasNoResults = false;
         vm.hasLoadError = false;
+        vm.selectedFilters = "";
 
         function init() {
         	var pageNumber = 1;
@@ -24,6 +25,10 @@
 
         			vm.votes = response.data.results;
         			vm.totalVoteCount = response.data.count;
+
+                    var filterGroups = FilterService.getFilterGroups($location.path(), $routeParams);
+                    vm.selectedFilters = FilterService.getSelectedFilters(filterGroups);
+                    $window.scrollTo(0,0);
         		}, function(error) {
         			vm.hasError = true;
         		});

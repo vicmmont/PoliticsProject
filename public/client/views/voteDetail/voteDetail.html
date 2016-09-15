@@ -1,103 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="./client/css/foundation 6/foundation.css" rel="stylesheet">
 </head>
 <body>
-	<!-- Error Message -->
-	<div class="text-center alert alert-danger" ng-show="model.hasError">Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/votes">Votes page</a>.</div>
+	<div class="container" ng-show="model.hasError">
+		<!-- Error Message -->
+		<div class="text-xs-center alert alert-danger">
+			Error retrieving data! <br>Try <a href="" ng-click="model.refreshPage()">refreshing</a> the page or navigating back to the <a href="#/votes">Votes page</a>.
+		</div>
+	</div>
 
 	<!-- Content -->
-	<div ng-show="!model.hasError">
+	<div class="container" ng-show="!model.hasError">
 		
 		<!-- Vote Metadata -->
-		<h1 class="text-center text-margins">{{model.currentVote.question}}</h1>
-		<h2 class="text-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.short_title}}</a></h2>
-		<h2 class="text-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.official_title}}</a></h2>
-		<h3 class="text-center text-margins">Result: <span ng-class="{'failed-text': model.currentVote.result.toLowerCase().includes('failed') || model.currentVote.result.toLowerCase().includes('rejected'), 'passed-text': !model.currentVote.result.toLowerCase().includes('failed') && !model.currentVote.result.toLowerCase().includes('rejected')}">{{model.currentVote.result}}</span></h3>
-		<h2 class="text-center text-margins" ng-show="model.currentVote.nomination != undefined">Nomination: {{model.currentVote.nomination.nominees[0].name}} for {{model.currentVote.nomination.organization}}</h2>
+		<h1 class="text-xs-center text-margins">{{model.currentVote.question}}</h1>
+		<h2 class="text-xs-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">
+			Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.short_title}}</a>
+		</h2>
+		<h2 class="text-xs-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">
+			Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.official_title}}</a>
+		</h2>
+		<h3 class="text-xs-center text-margins">
+			Result: <span ng-class="{'failed-text': model.currentVote.result.toLowerCase().includes('failed') || model.currentVote.result.toLowerCase().includes('rejected'), 'passed-text': !model.currentVote.result.toLowerCase().includes('failed') && !model.currentVote.result.toLowerCase().includes('rejected')}">{{model.currentVote.result}}</span>
+		</h3>
+		<h2 class="text-xs-center text-margins" ng-show="model.currentVote.nomination != undefined">
+			Nomination: {{model.currentVote.nomination.nominees[0].name}} for {{model.currentVote.nomination.organization}}
+		</h2>
 
 		<!-- Vote Details -->
-		<table class="table table-striped">
-			<tr>
-				<td><strong>Chamber:</strong></td>
-				<td>{{model.currentVote.chamber.substring(0,1) | uppercase}}{{model.currentVote.chamber.substring(1)}} 
-					<span ng-show="model.currentVote.chamber === 'house'">of Representatives</span>
-				</td>
-			</tr>
-			<tr>
-				<td><strong>Voted on:</strong></td>
-				<td>{{model.currentVote.voted_at | date: "longDate"}}</td>
-			</tr>
-			<tr>
-				<td><strong>Vote Type:</strong></td>
-				<td>{{model.currentVote.vote_type.substring(1,0) | uppercase}}{{model.currentVote.vote_type.substring(1)}}</td>
-			</tr>
-			<tr>
-				<td><strong>Requirement For Passage:</strong></td>
-				<td>{{model.currentVote.required}}</td>
-			</tr>
-		</table>
+		<div class="row">
+			<table class="table table-striped">
+				<tr>
+					<td><strong>Chamber:</strong></td>
+					<td>{{model.currentVote.chamber.substring(0,1) | uppercase}}{{model.currentVote.chamber.substring(1)}} 
+						<span ng-show="model.currentVote.chamber === 'house'">of Representatives</span>
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Voted on:</strong></td>
+					<td>{{model.currentVote.voted_at | date: "longDate"}}</td>
+				</tr>
+				<tr>
+					<td><strong>Vote Type:</strong></td>
+					<td>{{model.currentVote.vote_type.substring(1,0) | uppercase}}{{model.currentVote.vote_type.substring(1)}}</td>
+				</tr>
+				<tr>
+					<td><strong>Requirement For Passage:</strong></td>
+					<td>{{model.currentVote.required}}</td>
+				</tr>
+			</table>
+
+			<!-- Tabular Vote Breakdown -->
+			<h3>Vote Totals</h3>
+			<table class="table table-striped">
+				<tr>
+					<th>Party</th>
+					<th>Yea</th>
+					<th>Nay</th>
+					<th>Not Voting</th>
+					<th>Present</th>
+				</tr>
+				<tr>
+					<td>Democratic</td>
+					<td>{{model.currentVote.breakdown.party.D.Yea}}</td>
+					<td>{{model.currentVote.breakdown.party.D.Nay}}</td>
+					<td>{{model.currentVote.breakdown.party.D["Not Voting"]}}</td>
+					<td>{{model.currentVote.breakdown.party.D.Present}}</td>
+				</tr>
+				<tr>
+					<td>Republican</td>
+					<td>{{model.currentVote.breakdown.party.R.Yea}}</td>
+					<td>{{model.currentVote.breakdown.party.R.Nay}}</td>
+					<td>{{model.currentVote.breakdown.party.R["Not Voting"]}}</td>
+					<td>{{model.currentVote.breakdown.party.R.Present}}</td>
+				</tr>
+				<tr ng-show="model.currentVote.breakdown.party.I">
+					<td>Independent</td>
+					<td>{{model.currentVote.breakdown.party.I.Yea}}</td>
+					<td>{{model.currentVote.breakdown.party.I.Nay}}</td>
+					<td>{{model.currentVote.breakdown.party.I["Not Voting"]}}</td>
+					<td>{{model.currentVote.breakdown.party.I.Present}}</td>
+				</tr>
+			</table>
+		</div>
 
 		<!-- Vote Charts -->
 		<div class="row">
-			<div class="small-12 medium-6 columns graph-border bottom-margin">
+			<div class="col-xs-12 col-sm-6 graph-border bottom-margin">
 				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.democratDataSource}}"></fusioncharts>
 			</div>
-			<div class="small-12 medium-6 columns graph-border bottom-margin">
+			<div class="col-xs-12 col-sm-6 graph-border bottom-margin">
 				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.republicanDataSource}}"></fusioncharts>
 			</div>
-			<div class="small-12 columns graph-border">
+			<div class="col-xs-12 graph-border">
 				<fusioncharts width="100%" height="300" type="bar2d" dataSource="{{model.totalDataSource}}"></fusioncharts>
 			</div>
 		</div>
-
-		<!-- Tabular Vote Breakdown -->
-		<h3>Vote Totals</h3>
-		<table class="table table-striped">
-			<tr>
-				<th>Party</th>
-				<th>Yea</th>
-				<th>Nay</th>
-				<th>Not Voting</th>
-				<th>Present</th>
-			</tr>
-			<tr>
-				<td>Democratic</td>
-				<td>{{model.currentVote.breakdown.party.D.Yea}}</td>
-				<td>{{model.currentVote.breakdown.party.D.Nay}}</td>
-				<td>{{model.currentVote.breakdown.party.D["Not Voting"]}}</td>
-				<td>{{model.currentVote.breakdown.party.D.Present}}</td>
-			</tr>
-			<tr>
-				<td>Republican</td>
-				<td>{{model.currentVote.breakdown.party.R.Yea}}</td>
-				<td>{{model.currentVote.breakdown.party.R.Nay}}</td>
-				<td>{{model.currentVote.breakdown.party.R["Not Voting"]}}</td>
-				<td>{{model.currentVote.breakdown.party.R.Present}}</td>
-			</tr>
-			<tr ng-show="model.currentVote.breakdown.party.I">
-				<td>Independent</td>
-				<td>{{model.currentVote.breakdown.party.I.Yea}}</td>
-				<td>{{model.currentVote.breakdown.party.I.Nay}}</td>
-				<td>{{model.currentVote.breakdown.party.I["Not Voting"]}}</td>
-				<td>{{model.currentVote.breakdown.party.I.Present}}</td>
-			</tr>
-		</table>
 		
 		<!-- Vote By Legislator Table -->
-		<h3>Vote By Legislator</h3>
+		<h3 class="top-padding top-margin bottom-margin">Vote By Legislator</h3>
+
 		<div class="row">
-			<div class="thumbnail small-6 medium-3 large-2 columns" ng-repeat="legislator in model.voters" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
-				<h4 class="text-center">{{legislator.state_name}}</h4>
-				<img class="img-responsive" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
-				<div class="caption">
-					<h4>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</h4>
-					<h4 class="text-center" ng-class="{'passed-text': legislator.vote === 'Yea', 'failed-text': legislator.vote === 'Nay'}">{{legislator.vote}}</h4>
-				</div>
+			<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="legislator in model.voters" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+				<h4 class="text-xs-center">{{legislator.state_name}}</h4>
+				<img class="img-fluid" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
+				<p>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</p>
+				<p class="text-xs-center" ng-class="{'passed-text': legislator.vote === 'Yea', 'failed-text': legislator.vote === 'Nay'}"><strong>{{legislator.vote}}</strong></p>
 			</div>
 		</div>
-	</div>
+
+	</div> <!-- End of Container -->
 	
 </body>
 </html>
