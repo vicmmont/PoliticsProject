@@ -6,13 +6,16 @@
   <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
     <ul class="nav navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" ng-class="{active: model.$location.path() === '/legislators'}" href="#/legislators">Legislators</span></a>
+        Placeholder <br>
       </li>
       <li class="nav-item">
-        <a class="nav-link" ng-class="{active: model.$location.path() === '/votes'}" href="#/votes">Votes</a>
+        <a class="nav-link" ng-class="{active: model.$location.path() === '/legislators'}" href="#/legislators" data-toggle="collapse" data-target="#exCollapsingNavbar2">Legislators</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" ng-class="{active: model.$location.path() === '/bills'}" href="#/bills">Bills</a>
+        <a class="nav-link" ng-class="{active: model.$location.path() === '/votes'}" href="#/votes" data-toggle="collapse" data-target="#exCollapsingNavbar2">Votes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" ng-class="{active: model.$location.path() === '/bills'}" href="#/bills" data-toggle="collapse" data-target="#exCollapsingNavbar2">Bills</a>
       </li>
     </ul>
   </div>
