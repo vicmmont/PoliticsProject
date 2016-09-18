@@ -11,10 +11,10 @@
 	</div>
 
 	<div class="container" ng-show="!model.hasError">
-		<h1 class="text-xs-center top-margin">Bills for Current Legislative Session</h1>
+		<h1 class="text-xs-center larger-margins">Bills for Current Legislative Session</h1>
 		
 		<!-- Title and Search Bar -->
-		<div class="row">
+		<div class="row larger-margins">
 			<div class="col-xs-12 col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Search for..." ng-model="model.searchTerm" ng-keypress="model.onKeyPress($event)">
@@ -27,39 +27,43 @@
 			</div>
 		</div>
 
-		<h4 class="text-xs-center filter-text text-margins">{{model.totalBillCount | number}}{{model.displayMessage}}</h4>
+		<h4 class="text-xs-center filter-text larger-margins">{{model.totalBillCount | number}}{{model.displayMessage}}</h4>
 
-			<!-- Bills -->
-			<div class="row left-padding right-padding">
-				<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
-					<p class="text-xs-right">
-						{{bill.bill_type | uppercase}} {{bill.number}}
-					</p>
-					<p class="text-xs-center" ng-show="bill.short_title">
-						<strong>{{bill.short_title}}</strong>
-					</p>
-					<p class="text-xs-center" ng-show="!bill.short_title">
-						<strong>{{bill.official_title}}</strong>
-					</p>
-					<p class="text-xs-center">
-						{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
-					</p>
-				</div>
+		<div class="col-xs-12" ng-show="model.loadingInformation">
+			<img class="center-block" src="./client/images/ring-alt.svg">
+		</div>
+
+		<!-- Bills -->
+		<div class="row left-padding right-padding">
+			<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="bill in model.bills" ng-click="model.onBillClick(bill.bill_id)">
+				<p class="text-xs-right text-margins">
+					{{bill.bill_type | uppercase}} {{bill.number}}
+				</p>
+				<p class="text-xs-center" ng-show="bill.short_title">
+					<strong>{{bill.short_title}}</strong>
+				</p>
+				<p class="text-xs-center" ng-show="!bill.short_title">
+					<strong>{{bill.official_title}}</strong>
+				</p>
+				<p class="text-xs-center">
+					{{bill.last_action_at | date : "longDate"}} @{{bill.last_action_at | date : "shortTime"}}
+				</p>
+			</div>
+		</div>
+
+		<!-- Error Message -->
+		<div class="text-xs-center alert alert-danger" ng-show="model.hasLoadError">Error loading data! <br>Try loading more again.</div>
+
+		<!-- Load More Buttons -->
+		<div class="row">
+			<div class="col-xs-12 hidden-sm-up top-margin bottom-margin" ng-show="model.bills.length < model.totalBillCount">
+				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
 			</div>
 
-			<!-- Error Message -->
-			<div class="text-xs-center alert alert-danger" ng-show="model.hasLoadError">Error loading data! <br>Try loading more again.</div>
-
-			<!-- Load More Buttons -->
-			<div class="row">
-				<div class="col-xs-12 hidden-sm-up top-margin bottom-margin" ng-show="model.bills.length < model.totalBillCount">
-					<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(24)">More Bills</button>
-				</div>
-
-				<div class="col-sm-4 offset-sm-4 hidden-xs-down top-margin bottom-margin" ng-show="model.bills.length < model.totalBillCount">
-					<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
-				</div>
+			<div class="col-sm-4 offset-sm-4 hidden-xs-down top-margin bottom-margin" ng-show="model.bills.length < model.totalBillCount">
+				<button class="btn-primary btn-block btn-lg" ng-click="model.getMoreBills(48)">More Bills</button>
 			</div>
+		</div>
 		<!-- End of row -->
 
 	</div>	<!-- End of Content Div -->

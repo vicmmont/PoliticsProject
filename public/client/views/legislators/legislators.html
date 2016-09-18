@@ -16,22 +16,22 @@
 		<h1 class="text-xs-center top-margin">Current Legislators</h1>
 		
 		<div class="row">
-			<div class="col-lg-2 hidden-md-down filter-background">
+			<div class="col-lg-2 sidebar-top-right-corner hidden-md-down filter-background">
 				<div ng-include="'./client/views/filters/filters.html'" ng-controller="FiltersController as model"></div>
 			</div>
 
 			<div class="col-xs-12 col-lg-10 main-content-side-padding">
 				<div class="row">
 					<div class="col-xs-12" ng-show="model.selectedFilters != ''">
-						<p class="text-xs-center filter-text">{{model.selectedFilters}}</p>
+						<p class="text-xs-left no-margin filter-text">{{model.selectedFilters}}</p>
 					</div>
 
-					<div class="col-xs-12 text-xs-center alert alert-info" ng-show="model.hasNoResults">There are no legislators that fit the combination of selected filters! Try another combination :)</div>
+					<div class="col-xs-12 text-xs-center top-margin alert alert-info" ng-show="model.hasNoResults">No results! Try other filters!</div>
 
 					<div class="col-xs-12" ng-show="!model.hasNoResults">
 						<span><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
 						<form class="form-inline pull-right">
-							<label>Sort By: </label>
+							<label class="right-padding-small"><strong>Sort By:</strong></label>
 							<select class="pull-right" ng-model="model.sortBy" ng-change="model.sortLegislators()">
 		      					<option value="last_name__asc" select="selected">Last Name (ascending)</option>
 		      					<option value="last_name__desc">Last Name (descending)</option>
@@ -51,7 +51,7 @@
 						<img class="center-block" src="./client/images/ring-alt.svg">
 					</div>
 
-					<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+					<div class="card col-xs-6 col-sm-3 col-lg-2 top-padding" ng-repeat="legislator in model.displayedLegislators" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
 						<img class="img-fluid" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
 						<p>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</p>
 						<p>{{legislator.state_name}}</p>

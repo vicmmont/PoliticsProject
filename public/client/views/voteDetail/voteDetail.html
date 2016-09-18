@@ -14,23 +14,23 @@
 	<div class="container main-content-side-padding" ng-show="!model.hasError">
 		
 		<!-- Vote Metadata -->
-		<h1 class="text-xs-center text-margins">{{model.currentVote.question}}</h1>
-		<h2 class="text-xs-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">
+		<h1 class="text-xs-center larger-margins">{{model.currentVote.question}}</h1>
+		<h2 class="text-xs-center larger-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title != undefined">
 			Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.short_title}}</a>
 		</h2>
-		<h2 class="text-xs-center text-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">
+		<h2 class="text-xs-center larger-margins" ng-show="model.currentVote.bill != undefined && model.currentVote.bill.short_title === undefined">
 			Bill: <a ng-href="#/bill/{{model.currentVote.bill_id}}">{{model.currentVote.bill.official_title}}</a>
 		</h2>
-		<h3 class="text-xs-center text-margins">
+		<h3 class="text-xs-center larger-margins">
 			Result: <span ng-class="{'failed-text': model.currentVote.result.toLowerCase().includes('failed') || model.currentVote.result.toLowerCase().includes('rejected'), 'passed-text': !model.currentVote.result.toLowerCase().includes('failed') && !model.currentVote.result.toLowerCase().includes('rejected')}">{{model.currentVote.result}}</span>
 		</h3>
-		<h2 class="text-xs-center text-margins" ng-show="model.currentVote.nomination != undefined">
+		<h2 class="text-xs-center larger-margins" ng-show="model.currentVote.nomination != undefined">
 			Nomination: {{model.currentVote.nomination.nominees[0].name}} for {{model.currentVote.nomination.organization}}
 		</h2>
 
 		<!-- Vote Details -->
 		<div class="row">
-			<table class="table table-striped">
+			<table class="table table-striped table-bordered">
 				<tr>
 					<td><strong>Chamber:</strong></td>
 					<td>{{model.currentVote.chamber.substring(0,1) | uppercase}}{{model.currentVote.chamber.substring(1)}} 
@@ -52,8 +52,8 @@
 			</table>
 
 			<!-- Tabular Vote Breakdown -->
-			<h3>Vote Totals</h3>
-			<table class="table table-striped">
+			<h3 class="underline">Vote Totals</h3>
+			<table class="table table-striped tabled-bordered table-sm">
 				<tr>
 					<th>Party</th>
 					<th>Yea</th>
@@ -99,10 +99,10 @@
 		</div>
 		
 		<!-- Vote By Legislator Table -->
-		<h3 class="top-padding top-margin bottom-margin">Vote By Legislator</h3>
+		<h3 class="top-padding top-margin bottom-margin underline">Vote By Legislator</h3>
 
 		<div class="row">
-			<div class="card col-xs-6 col-sm-3 col-lg-2" ng-repeat="legislator in model.voters" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
+			<div class="card col-xs-6 col-sm-3 col-lg-2 top-padding" ng-repeat="legislator in model.voters" ng-click="model.onLegislatorClick(legislator.bioguide_id)">
 				<h4 class="text-xs-center">{{legislator.state_name}}</h4>
 				<img class="img-fluid" ng-src="https://theunitedstates.io/images/congress/225x275/{{legislator.bioguide_id}}.jpg"  alt="Legislator Image">
 				<p>{{legislator.title}}. {{legislator.first_name}} {{legislator.last_name}} ({{legislator.party}})</p>

@@ -11,6 +11,9 @@
         vm.currentBill = null;
         vm.urls = [];
         vm.hasError = false;
+        vm.cosponsorsShown = false;
+        vm.summaryShortShown = false;
+        vm.summaryShown = false;
 
         function init() {
             BillService
@@ -47,6 +50,18 @@
 
         vm.refreshPage = function() {
             $route.reload();
+        }
+
+        vm.clickCosponsorsButton = function() {
+            vm.cosponsorsShown = !vm.cosponsorsShown;
+        }
+
+        vm.clickSummaryShortButton = function() {
+            vm.summaryShortShown = !vm.summaryShortShown;
+        }
+
+        vm.clickSummaryButton = function() {
+            vm.summaryShown = !vm.summaryShown;
         }
     }
 })();

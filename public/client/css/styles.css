@@ -54,6 +54,10 @@ html {
 	margin: 0;
 }
 
+.underline {
+	text-decoration: underline;
+}
+
 .md-dialog-container {
 	height: 100%;
 	z-index: 1031;
@@ -61,6 +65,10 @@ html {
 
 a:not(.md-button) {
 	color: #337ab7;
+}
+
+a:not(.md-button):hover {
+	color: #1B51B2;
 }
 
 a:not(.md-button).btn-primary {
@@ -86,20 +94,35 @@ span.network-name {
 	color: #861316;
 }
 
+.match-portrait-width {
+	max-width: 225px;
+}
+
 .btn-primary:active,
 .btn-primary {
 	background-color: #033A76;
 }
 
 /* Navbar */
-.navbar.navbar-inverse {
+.hamburger {
+	color: #FFFFFF;
+}
+
+.navbar.bg-inverse {
 	background-color: #033A76;
 	border-color: #033A76;
 }
 
-.navbar .navbar-brand {
-	color: white;
+.navbar-dark .navbar-nav .nav-link {
+	color: #FFFFFF;
 }
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+
 
 .navbar-inverse .navbar-nav > li > a {
 	color: white;
@@ -120,6 +143,14 @@ span.network-name {
 	color: #FFFFFF;
 }
 
+md-dialog-content > .filter-dialog-header:nth-last-child(1) {
+	border-bottom: 2px solid black;
+}
+
+.filter-dialog-header {
+	border: 1px solid black;
+}
+
 .list-group-item {
 	background-color: #861316;
 	color: #FFFFFF;
@@ -127,12 +158,15 @@ span.network-name {
 
 .list-group-header {
 	background-color: #FFFFFF;
-	border: 1px solid black;
 	color: #861316;
 }
 
 .well {
 	background-color: #E8E6E6;
+}
+
+.sidebar-top-right-corner {
+	border-top-right-radius: 8px;
 }
 
 /* Spacing */
@@ -149,6 +183,14 @@ body > .no-padding,
 
 .top-padding {
 	padding-top: 10px;
+}
+
+.bottom-padding {
+	padding-bottom: 10px;
+}
+
+.right-padding-small {
+	padding-right: 5px;
 }
 
 .left-padding {
@@ -170,6 +212,11 @@ body > .no-padding,
 .text-margins {
 	margin-bottom: 10px;
 	margin-top: 10px;
+}
+
+.larger-margins {
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .no-margin {
@@ -232,6 +279,12 @@ body > .no-padding,
 	height: auto;	
 }
 
+.navbar-brand > img.navbar-logo {
+	height: 40px;
+	width: auto;
+	margin: 0px;
+}
+
 .introductory-message {
 	position: relative;
 	padding-top: 3%;
@@ -241,9 +294,6 @@ body > .no-padding,
 /* Tab styling */
 .tab-style {
 	padding-top: 20px;
-	border-left: 1px solid #861316;
-	border-right: 1px solid #861316;
-	border-top: 1px solid #861316;
 	padding-left: 10px;
 	padding-right: 10px;
 }

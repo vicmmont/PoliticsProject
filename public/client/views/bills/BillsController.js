@@ -15,13 +15,16 @@
         vm.searchParameter = null;
         vm.hasError = false;
         vm.hasLoadError = false;
+        vm.loadingInformation = false;
 
         function init() {
             vm.searchParameter = $routeParams["q"];
             var pageNumber = 1;
 
+            vm.loadingInformation = true;
             BillService.getBillsForCurrentSession(vm.pageSize, pageNumber, vm.searchParameter)
                 .then(function(response) {
+                    vm.loadingInformation = false;
                     vm.bills = response.data.results;
 
                     if (vm.searchParameter != null && vm.searchParameter.trim() != "") {

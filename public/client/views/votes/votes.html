@@ -15,7 +15,7 @@
 		<!-- Content -->
 		<div class="row" ng-show="!model.hasError">
 			<!-- Filters -->
-			<div class="col-lg-2 hidden-md-down filter-background">
+			<div class="col-lg-2 sidebar-top-right-corner hidden-md-down filter-background">
 				<div ng-include="'./client/views/filters/filters.html'" ng-controller="FiltersController as model"></div>
 			</div>
 
@@ -32,7 +32,7 @@
 
 					<div class="col-xs-12">
 						<div class="text-xs-center alert alert-info" ng-show="model.hasNoResults">
-							There are no votes that fit the combination of selected filters! Try another combination :)
+							No results! Try other filters!
 						</div>
 					</div>
 

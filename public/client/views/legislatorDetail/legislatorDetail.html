@@ -20,7 +20,7 @@
 						<img class="img-fluid center-block" ng-src="https://theunitedstates.io/images/congress/225x275/{{model.currentLegislatorId}}.jpg" >
 	
 						<div class="col-xs-12">
-							<a class="btn btn-primary btn-block top-margin" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
+							<a class="btn btn-primary btn-block top-margin match-portrait-width center-block" ng-href="{{model.currentLegislator.contact_form}}" ng-show="model.currentLegislator.contact_form" target="_blank">Contact</a>
 						</div>
 					</div>
 					
@@ -37,12 +37,14 @@
 			</div>
 
 			<div class="col-xs-12 col-sm-8">
-				<h1 class="text-margins">{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})</h1>
-				<h3 class="text-margins" ng-show="model.currentLegislator.district">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
-				<h3 class="text-margins" ng-show="model.currentLegislator.state_rank">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
+				<h2 class="larger-margins">
+					{{model.currentLegislator.first_name}} {{model.currentLegislator.middle_name}} {{model.currentLegislator.last_name}} {{model.currentLegislator.name_suffix}} ({{model.currentLegislator.party}})
+				</h2>
+				<h3 class="larger-margins" ng-show="model.currentLegislator.district">{{model.currentLegislator.district}}<sup>{{model.repDistrictOrdinalSuffix}}</sup> District of {{model.currentLegislator.state_name}}</h3>
+				<h3 class="larger-margins" ng-show="model.currentLegislator.state_rank">{{model.currentLegislator.state_rank.substring(0,1) | uppercase}}{{model.currentLegislator.state_rank.substring(1)}} Senator from {{model.currentLegislator.state_name}}</h3>
 				
 				<!-- Information in table format -->
-				<table class="table table-striped">
+				<table class="table table-striped table-bordered">
 					<tr>
 						<td>
 							<strong>Term:</strong>	
@@ -56,7 +58,7 @@
 							<strong>Birthday: </strong>	
 						</td>
 						<td>
-							{{model.currentLegislator.birthday | date : "longDate"}} <strong>(Age: {{model.age}})</strong>
+							{{model.currentLegislator.birthday | date : "longDate"}} (Age: {{model.age}})
 						</td>
 					</tr>
 					<tr ng-show="model.currentLegislator.phone">
@@ -95,10 +97,16 @@
 			</div>
 		</div> <!-- End of row-->
 
-		<div class="btn-group btn-group-lg" role="group">
-		  <button type="button" class="btn btn-secondary" ng-class="{'active': model.currentSubView === 'votes'}" ng-click="model.setSubView('votes')">Recent Votes</button>
-		  <button type="button" class="btn btn-secondary" ng-class="{'active': model.currentSubView === 'sponsoredBills'}" ng-click="model.setSubView('sponsoredBills')">Sponsored Bills</button>
-		  <button type="button" class="btn btn-secondary" ng-class="{'active': model.currentSubView === 'cosponsoredBills'}" ng-click="model.setSubView('cosponsoredBills')">Cosponsored Bills</button>
+		<div class="row">
+			<div class="col-xs-4 no-padding">
+				<button type="button" class="btn btn-secondary btn-large btn-block" ng-class="{'active': model.currentSubView === 'votes'}" ng-click="model.setSubView('votes')">Recent<br class="hidden-sm-up"> Votes</button>
+			</div>
+			<div class="col-xs-4 no-padding">
+				<button type="button" class="btn btn-secondary btn-large btn-block" ng-class="{'active': model.currentSubView === 'sponsoredBills'}" ng-click="model.setSubView('sponsoredBills')">Sponsored<br class="hidden-sm-up"> Bills</button>
+			</div>
+			<div class="col-xs-4 no-padding">
+				<button type="button" class="btn btn-secondary btn-large btn-block" ng-class="{'active': model.currentSubView === 'cosponsoredBills'}" ng-click="model.setSubView('cosponsoredBills')">Cosponsored <br class="hidden-sm-up">Bills</button>
+			</div>
 		</div>
 
 		<div class="row tab-style">
