@@ -28,17 +28,6 @@
 
 					<div class="col-xs-12 text-xs-center top-margin alert alert-info" ng-show="model.hasNoResults">No results! Try other filters!</div>
 
-<!-- 					<div class="col-xs-12" ng-show="!model.hasNoResults">
-						<span><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
-						<form class="form-inline pull-right">
-							<label class="right-padding-small"><strong>Sort By:</strong></label>
-							<select class="pull-right" ng-model="model.sortBy" ng-change="model.sortLegislators()">
-		      					<option value="last_name__asc" select="selected">Last Name (ascending)</option>
-		      					<option value="last_name__desc">Last Name (descending)</option>
-		    				</select>
-						</form>
-					</div> -->
-
 					<div class="col-xs-12 bottom-margin hidden-md-down">
 						<form class="form-inline">
 							<span class="pull-left" style="padding-top:8px"><strong>Count:</strong> {{model.displayedLegislators.length}}</span>
@@ -52,19 +41,15 @@
 						</form>
 					</div>
 
-					<div class="col-xs-6 hidden-lg-up top-margin">
+					<div class="col-xs-12 hidden-lg-up top-margin">
 						<div class="row">
-						<button class="btn btn-lg col-xs-10 offset-xs-1 hidden-lg-up filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
-							Filter
-						</button>
-						</div>
-					</div>
-
-					<div class="col-xs-6 hidden-lg-up top-margin">
-						<div class="row">
-						<button class="btn btn-lg col-xs-10 offset-xs-1 hidden-lg-up filter-background bottom-margin" ng-click="model.showSortPopup($event)">
-							Sort
-						</button>
+							<button class="btn btn-lg col-xs-5 offset-xs-1 hidden-lg-up filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
+								Filter
+							</button>
+							<button class="btn btn-lg col-xs-5 offset-xs-1 hidden-lg-up filter-background bottom-margin"
+							ng-click="model.showSortPopup($event)">
+								Sort
+							</button>
 						</div>
 					</div>
 
