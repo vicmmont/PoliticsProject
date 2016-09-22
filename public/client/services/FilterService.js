@@ -72,9 +72,9 @@
             { isChecked: false,  value: "Wyoming",               displayValue: "Wyoming" }
         ];
         var legislatorFilterGroups = [
-            { name : "Party",   urlName : "parties",    filters : partyFilters   },
-            { name : "Chamber", urlName : "chambers",   filters : chamberFilters },
-            { name : "State",   urlName : "states",     filters : stateFilters   }
+            { name: "Party",   urlName: "parties",    filters: partyFilters   },
+            { name: "Chamber", urlName: "chambers",   filters: chamberFilters },
+            { name: "State",   urlName: "states",     filters: stateFilters   }
         ];
         
         var voteTypeFilters = [
@@ -91,20 +91,28 @@
         ];
 
         var voteFilterGroups = [
-            { name : "Chamber",   urlName : "chambers",    filters : chamberFilters },
-            { name : "Vote Type",   urlName : "vote_types", filters : voteTypeFilters }
+            { name: "Chamber",   urlName: "chambers",    filters: chamberFilters },
+            { name: "Vote Type",   urlName: "vote_types", filters: voteTypeFilters }
+        ];
+
+        var legislatorsSorters = [
+            { isChecked: false, value: "last_name__asc", displayValue: "Last Name (ascending)"},
+            { isChecked: false, value: "last_name__desc", displayValue: "Last Name (descending)"}
         ];
 
         var filterGroups = {
-            "/legislators" : legislatorFilterGroups,
-            "/votes" : voteFilterGroups
+            "/legislators": legislatorFilterGroups,
+            "/votes": voteFilterGroups
+        };
+
+        var sorters = {
+            "/legislators": legislatorsSorters
         };
 
         var uniqueParams = {
-            "/legislators" : ["order"],
-            "/votes" : []
+            "/legislators": ["order"],
+            "/votes": []
         };
-
 
         /* Service Methods */
         this.getFilterGroups = function(route, routeParams) {
@@ -113,6 +121,27 @@
 
             return results;
         }
+
+        this.getSorters = function(route, routeParams) {
+            var results = sorters[route];
+
+            if (routeParams["order"] != undefined) {
+                var orderParamValue = routeParams["order"];
+
+                for (var index = 0; index < results.length; index++) {
+                    var currentSorter = results[index];
+
+                    if (currentSorter.value === orderParamValue) {
+                        currentSorter.isChecked = true;
+                        break;
+                    }
+                }
+            } else {
+                results[0].isChecked = true;
+            }
+
+            return results;
+        } 
 
         this.getSelectedFilters = function(filterGroups) {
             var selectedFilters = [];
@@ -194,6 +223,21 @@
                         parent: angular.element(document.body),
                         locals: {
                             "filterGroups": filterGroups
+                        },
+                        targetEvent: ev,
+                        clickOutsideToClose: false,
+                        fullscreen: true
+                    });
+        }
+
+        this.showSortPopup = function(ev, sortCriteria) {
+            return $mdDialog.show({
+                        controller: "SortDialogController",
+                        templateUrl: './client/views/sorters/sortDialog.html',
+                        controllerAs: "model",
+                        parent: angular.element(document.body),
+                        locals: {
+                            "sortCriteria": sortCriteria
                         },
                         targetEvent: ev,
                         clickOutsideToClose: false,

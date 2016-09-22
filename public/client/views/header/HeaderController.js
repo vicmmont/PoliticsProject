@@ -6,5 +6,6 @@
 	function headerController($location) {
 		var vm = this;
 		vm.$location = $location;
+		
 	}
 })();

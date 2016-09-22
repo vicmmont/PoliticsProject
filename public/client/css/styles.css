@@ -147,7 +147,8 @@ md-dialog-content > .filter-dialog-header:nth-last-child(1) {
 	border-bottom: 2px solid black;
 }
 
-.filter-dialog-header {
+.filter-dialog-header,
+.sort-dialog-header {
 	border: 1px solid black;
 }
 

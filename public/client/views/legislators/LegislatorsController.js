@@ -56,12 +56,24 @@
                 });
         }
 
+        vm.showSortPopup = function(ev) {
+            var sorters = FilterService.getSorters($location.path(), $routeParams);
+
+            FilterService.showSortPopup(ev, sorters)
+                .then(function(selectedSorter) {
+                    sorters = [];
+                    sorters.push({urlName: "order", value: selectedSorter.value});
+                    var routeParams = FilterService.extractRouteParametersUniqueParams(sorters, $routeParams, $location.path());
+                    $location.search(routeParams);
+                });
+        }
+
         vm.sortLegislators = function() {
-            var filters = [];
+            var sorters = [];
             if (vm.sortBy != 'last_name__asc') {
-                filters.push({urlName : "order", value : vm.sortBy});
+                sorters.push({urlName: "order", value: vm.sortBy});
             }
-            var routeParams = FilterService.extractRouteParametersUniqueParams(filters, $routeParams, $location.path());
+            var routeParams = FilterService.extractRouteParametersUniqueParams(sorters, $routeParams, $location.path());
 
             $location.search(routeParams);
         }

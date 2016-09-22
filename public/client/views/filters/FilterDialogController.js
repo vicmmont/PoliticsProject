@@ -2,8 +2,8 @@
 
 (function() {
     angular
-    .module('MyPoliticsApp')
-    .controller('FilterDialogController', filterDialogController);
+        .module('MyPoliticsApp')
+        .controller('FilterDialogController', filterDialogController);
 
     function filterDialogController($mdDialog, filterGroups) {
         var vm = this;

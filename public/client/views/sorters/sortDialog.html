@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<md-dialog aria-label="Sort Dialog" ng-cloak>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	       	<span ng-click="model.cancel()"><i class="fa fa-lg fa-times" aria-hidden="true"></i></span>
+	        <span flex></span>
+	        <md-button ng-click="model.sort()">
+	          Sort
+	        </md-button>
+	      </div>
+	    </md-toolbar>
+
+		<md-dialog-content>	
+
+			<div class="sort-dialog-header" ng-repeat="sortCriterion in model.sortCriteria">
+				<div class="list-group-header list-group-item" ng-click="model.onSortCriterionClick(sortCriterion)">
+					<div class="panel-body"> 
+						{{sortCriterion.displayValue}} 
+						<span class="pull-right" ng-show="sortCriterion.isChecked">
+							<i class="fa fa-check" aria-hidden="true"></i>
+						</span>
+					</div>
+				</div>
+			</div>
+
+		</md-dialog-content>
+	</md-dialog>
+
+</body>
+</html>
