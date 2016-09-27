@@ -26,7 +26,9 @@
 						<p class="text-xs-left no-margin filter-text">{{model.selectedFilters}}</p>
 					</div>
 
-					<div class="col-xs-12 text-xs-center top-margin alert alert-info" ng-show="model.hasNoResults">No results! Try other filters!</div>
+					<div class="col-xs-12 text-xs-center top-margin alert alert-info" ng-show="model.hasNoResults">
+						No results! Try other filters!
+					</div>
 
 					<div class="col-xs-12 bottom-margin hidden-md-down">
 						<form class="form-inline">
@@ -41,16 +43,15 @@
 						</form>
 					</div>
 
-					<div class="col-xs-12 hidden-lg-up top-margin">
-						<div class="row">
-							<button class="btn btn-lg col-xs-5 offset-xs-1 hidden-lg-up filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
-								Filter
-							</button>
-							<button class="btn btn-lg col-xs-5 offset-xs-1 hidden-lg-up filter-background bottom-margin"
-							ng-click="model.showSortPopup($event)">
-								Sort
-							</button>
-						</div>
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-block hidden-lg-up filter-background bottom-margin" ng-click="model.showFilterPopup($event)">
+						Filter
+						</button>
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-lg btn-block hidden-lg-up filter-background bottom-margin" ng-click="model.showSortPopup($event)">
+						Sort
+						</button>
 					</div>
 
 					<div class="col-xs-12" ng-show="model.loadingInformation">
